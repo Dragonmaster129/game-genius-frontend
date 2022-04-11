@@ -15,6 +15,10 @@ module.exports = {
           presets: ["react", "env"],
         },
       },
+      {
+        test: /\.scss$/,
+        use: ["css-loader", "postcss-loader", "sass-loader"],
+      },
     ],
   },
   resolve: {
