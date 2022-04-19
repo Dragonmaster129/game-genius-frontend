@@ -1,3 +1,7 @@
-# Skeleton React starter Project
+# Game-Genius-Frontend
 
-> Provided for the students of the [Bottega Code School](https://bottega.tech/)
+To be used in conjunction with game-genius-backend.
+
+This is for all the people to connect and have the visuals appear.
+
+more info as project is created
