@@ -1,12 +1,9 @@
 import React, { useState } from "react";
-import Businesses from "./business";
-import Dividends from "./dividends";
 
-import Interest from "./interest";
-import RealEstate from "./realEstate";
+import Category from "./category";
 
 const Income = (props) => {
-  const [incomeValues, setincomeValues] = useState(props);
+  const [incomeValues, setincomeValues] = useState(props.props);
   const [interestIsOpen, setinterestIsOpen] = useState(false);
   const [dividendsIsOpen, setdividendsIsOpen] = useState(false);
   const [realIsOpen, setrealIsOpen] = useState(false);
@@ -24,37 +21,43 @@ const Income = (props) => {
     <div className="hz">
       <div className="v">
         <h2>Income</h2>
-        <h3>Salary: {incomeValues.props.salary}</h3>
-        <Interest
+        <h3>Salary: {incomeValues.salary}</h3>
+        <Category
           showData={showData}
-          interest={incomeValues.props.interest}
+          items={incomeValues.interest}
           isOpen={interestIsOpen}
           click={() => setinterestIsOpen(!interestIsOpen)}
+          className="interest"
+          title="Interest"
         />
-        <Dividends
+        <Category
           showData={showData}
-          dividends={incomeValues.props.dividends}
+          items={incomeValues.dividends}
           isOpen={dividendsIsOpen}
           click={() => setdividendsIsOpen(!dividendsIsOpen)}
+          className="dividends"
+          title="Dividends"
         />
-        <RealEstate
+        <Category
           showData={showData}
-          realEstate={incomeValues.props.realEstate}
+          items={incomeValues.realEstate}
           isOpen={realIsOpen}
           click={() => setrealIsOpen(!realIsOpen)}
+          className="real-estate"
+          title="Real Estate"
         />
-        <Businesses
+        <Category
           showData={showData}
-          businesses={incomeValues.props.businesses}
+          items={incomeValues.businesses}
           isOpen={businessIsOpen}
           click={() => setbusinessIsOpen(!businessIsOpen)}
+          classname="businesses"
+          title="Businesses"
         />
       </div>
       <div className="v">
-        <h3>Passive Income: {incomeValues.props.passive}</h3>
-        <h3>
-          Total Income: {incomeValues.props.salary + incomeValues.props.passive}
-        </h3>
+        <h3>Passive Income: {props.passive}</h3>
+        <h3>Total Income: {props.totalIncome}</h3>
       </div>
     </div>
   );
