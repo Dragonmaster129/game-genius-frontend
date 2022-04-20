@@ -14,8 +14,14 @@ const App = (props) => {
         if (Array.isArray(element)) {
           for (let index = 0; index < element.length; index++) {
             const item = element[index];
-            total = total + item.value;
+            if (item.value) {
+              total = total + item.value;
+            }
           }
+        } else if (
+          Object.prototype.toString.call(element) === "[object Object]"
+        ) {
+          total = total + element.count * element.costPer;
         } else {
           total = total + element;
         }
@@ -28,7 +34,7 @@ const App = (props) => {
     player: 3,
     profession: "Doctor",
     auditor: "player to the right",
-    income: {
+    assets: {
       salary: 13200,
       interest: [
         { name: "2Big", value: 30, key: 1 },
@@ -39,9 +45,18 @@ const App = (props) => {
         { name: "notherone", value: 50, key: 6 },
       ],
       dividends: [],
-      realEstate: [],
+      realEstate: [
+        {
+          type: "3/2",
+          name: "3/2 House",
+          cost: 55000,
+          downpay: 5000,
+          value: 200,
+        },
+      ],
       businesses: [],
       passive: 0,
+      stock: [{ name: "OK4U", amount: 1000, costPerShare: 1 }],
     },
     expenses: {
       taxes: 3420,
@@ -59,10 +74,12 @@ const App = (props) => {
     },
   });
 
-  const [totalIncome, settotalIncome] = useState(totalUp(data.income));
+  const [totalIncome, settotalIncome] = useState(totalUp(data.assets));
   const [passive, setpassive] = useState(
-    totalUp(data.income) - data.income.salary
+    totalUp(data.assets) - data.assets.salary
   );
+  const [totalExpenses, settotalExpenses] = useState(totalUp(data.expenses));
+  const [cashflow, setcashflow] = useState(totalIncome - totalExpenses);
   return (
     <div className="app">
       <h1>Player card</h1>
@@ -70,10 +87,14 @@ const App = (props) => {
       <h2>Player: {data.player}</h2>
       <h2>Auditor: {data.auditor}</h2>
       <h2>Income Statement</h2>
-      <Income props={data.income} totalIncome={totalIncome} passive={passive} />
-      <Expenses props={data.expenses} />
+      <Income props={data.assets} totalIncome={totalIncome} passive={passive} />
+      <Expenses
+        props={data.expenses}
+        totalExpenses={totalExpenses}
+        cashflow={cashflow}
+      />
       <div className="hz">
-        <Assets />
+        <Assets props={data.assets} />
         <Liabilities />
       </div>
     </div>
