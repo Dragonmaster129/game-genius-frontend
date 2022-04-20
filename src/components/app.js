@@ -6,6 +6,9 @@ import Assets from "./assets";
 import Liabilities from "./liabilities";
 
 const App = (props) => {
+  const payday = () => {
+    setcash(cash + cashflow);
+  };
   const totalUp = (objToTotal) => {
     let total = 0;
     for (const key in objToTotal) {
@@ -41,6 +44,7 @@ const App = (props) => {
     profession: "Doctor",
     auditor: "player to the right",
     assets: {
+      savings: 400,
       salary: 13200,
       interest: [
         { name: "2Big", value: 30, key: 1 },
@@ -87,22 +91,38 @@ const App = (props) => {
   );
   const [totalExpenses, settotalExpenses] = useState(totalUp(data.expenses));
   const [cashflow, setcashflow] = useState(totalIncome - totalExpenses);
+  const [cash, setcash] = useState(cashflow + data.assets.savings);
   return (
     <div className="app">
-      <h1>Player card</h1>
-      <h2>Profession: {data.profession}</h2>
-      <h2>Player: {data.player}</h2>
-      <h2>Auditor: {data.auditor}</h2>
-      <h2>Income Statement</h2>
-      <Income props={data.assets} totalIncome={totalIncome} passive={passive} />
-      <Expenses
-        props={data.expenses}
-        totalExpenses={totalExpenses}
-        cashflow={cashflow}
-      />
-      <div className="hz">
-        <Assets props={data.assets} />
-        <Liabilities props={data.expenses} re={data.assets.realEstate} />
+      <div className="v">
+        <h1>Player card</h1>
+        <h2>Profession: {data.profession}</h2>
+        <h2>Player: {data.player}</h2>
+        <h2>Auditor: {data.auditor}</h2>
+        <h2>Income Statement</h2>
+        <Income
+          props={data.assets}
+          totalIncome={totalIncome}
+          passive={passive}
+        />
+        <Expenses
+          props={data.expenses}
+          totalExpenses={totalExpenses}
+          cashflow={cashflow}
+        />
+        <h3 className="cash">Cash: {cash}</h3>
+        <div className="hz">
+          <Assets props={data.assets} />
+          <Liabilities props={data.expenses} re={data.assets.realEstate} />
+        </div>
+      </div>
+      <div className="actions hz">
+        <div className="payday">
+          <button onClick={payday}>Payday</button>
+        </div>
+        <div className="buy">
+          <button onClick={payday}>Buy</button>
+        </div>
       </div>
     </div>
   );
