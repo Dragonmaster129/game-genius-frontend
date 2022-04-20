@@ -10,7 +10,7 @@ const App = (props) => {
     let total = 0;
     for (const key in objToTotal) {
       let element = objToTotal[key];
-      if (key != "passive") {
+      if (key != "passive" && key != "loan") {
         if (Array.isArray(element)) {
           for (let index = 0; index < element.length; index++) {
             const item = element[index];
@@ -21,10 +21,16 @@ const App = (props) => {
         } else if (
           Object.prototype.toString.call(element) === "[object Object]"
         ) {
-          total = total + element.count * element.costPer;
+          if (element.monthly) {
+            total = total + element.monthly;
+          } else {
+            total = total + element.count * element.costPer;
+          }
         } else {
           total = total + element;
         }
+      } else if (key == "loan") {
+        total = total + element / 10;
       }
     }
 
@@ -52,19 +58,20 @@ const App = (props) => {
           cost: 55000,
           downpay: 5000,
           value: 200,
+          key: 1,
         },
       ],
       businesses: [],
       passive: 0,
-      stock: [{ name: "OK4U", amount: 1000, costPerShare: 1 }],
+      stock: [{ name: "OK4U", amount: 1000, costPerShare: 1, key: 1 }],
     },
     expenses: {
       taxes: 3420,
-      mortgage: 1900,
-      school: 750,
-      car: 380,
-      creditCard: 270,
-      retail: 50,
+      mortgage: { monthly: 1900, totalCost: 202000 },
+      school: { monthly: 750, totalCost: 150000 },
+      car: { monthly: 380, totalCost: 19000 },
+      creditCard: { monthly: 270, totalCost: 9000 },
+      retail: { monthly: 50, totalCost: 1000 },
       other: 2880,
       child: {
         count: 0,
@@ -95,7 +102,7 @@ const App = (props) => {
       />
       <div className="hz">
         <Assets props={data.assets} />
-        <Liabilities />
+        <Liabilities props={data.expenses} re={data.assets.realEstate} />
       </div>
     </div>
   );
