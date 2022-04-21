@@ -1,0 +1,23 @@
+html {
+  font-size: 62.5%;
+  margin: 0px;
+}
+
+*,
+*::after,
+*::before {
+  margin: 0px;
+  padding: 0px;
+}
+
+.v {
+  display: flex;
+  flex-direction: column;
+}
+
+.hz {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}

@@ -4,10 +4,10 @@ const Assets = (props) => {
   const showData = (arr) => {
     return arr.map((item) => {
       return (
-        <div className="hz">
+        <div className="hz asset-item">
           <div>{item.name}</div>
-          <div>{item.downpay}</div>
-          <div>{item.cost}</div>
+          <div>{item.amount ? item.amount : item.downpay}</div>
+          <div>{item.costPerShare ? item.costPerShare : item.cost}</div>
         </div>
       );
     });
@@ -16,10 +16,13 @@ const Assets = (props) => {
     <div className="v">
       <h2>Assets</h2>
       <h3>Savings</h3>
-      <div className="hz">
-        <h3>Stocks/Mutual's/CDs</h3>
-        <h3>Number of Shares</h3>
-        <h3>Cost/Share</h3>
+      <div className="stock">
+        <div className="hz">
+          <h3>Stocks/Mutual's/CDs</h3>
+          <h3>Number of Shares</h3>
+          <h3>Cost/Share</h3>
+        </div>
+        {showData(props.props.stock)}
       </div>
       <div className="re">
         <div className="hz heading">
@@ -29,10 +32,13 @@ const Assets = (props) => {
         </div>
         {showData(props.props.realEstate)}
       </div>
-      <div className="hz">
-        <h3>Business</h3>
-        <h3>Down Pay</h3>
-        <h3>Cost</h3>
+      <div className="business">
+        <div className="hz">
+          <h3>Business</h3>
+          <h3>Down Pay</h3>
+          <h3>Cost</h3>
+        </div>
+        {showData(props.props.businesses)}
       </div>
     </div>
   );

@@ -11,53 +11,61 @@ const Income = (props) => {
   const showData = (dataArr) => {
     return dataArr.map((item) => {
       return (
-        <div className="item" key={item.key}>
-          {item.name}: {item.value}
+        <div className="item hz" key={item.key}>
+          <div>{item.name}:</div>
+          <div>{item.value}</div>
         </div>
       );
     });
   };
   return (
-    <div className="hz">
-      <div className="v">
-        <h2>Income</h2>
-        <h3>Salary: {incomeValues.salary}</h3>
-        <Category
-          showData={showData}
-          items={incomeValues.interest}
-          isOpen={interestIsOpen}
-          click={() => setinterestIsOpen(!interestIsOpen)}
-          className="interest"
-          title="Interest"
-        />
-        <Category
-          showData={showData}
-          items={incomeValues.dividends}
-          isOpen={dividendsIsOpen}
-          click={() => setdividendsIsOpen(!dividendsIsOpen)}
-          className="dividends"
-          title="Dividends"
-        />
-        <Category
-          showData={showData}
-          items={incomeValues.realEstate}
-          isOpen={realIsOpen}
-          click={() => setrealIsOpen(!realIsOpen)}
-          className="real-estate"
-          title="Real Estate"
-        />
-        <Category
-          showData={showData}
-          items={incomeValues.businesses}
-          isOpen={businessIsOpen}
-          click={() => setbusinessIsOpen(!businessIsOpen)}
-          classname="businesses"
-          title="Businesses"
-        />
-      </div>
-      <div className="v">
-        <h3>Passive Income: {props.passive}</h3>
-        <h3>Total Income: {props.totalIncome}</h3>
+    <div className="income-wrapper">
+      <h2 className="title">Income</h2>
+
+      <div className="hz">
+        <div className="v income-categories">
+          <h3>Salary: {incomeValues.salary}</h3>
+          <Category
+            showData={showData}
+            items={incomeValues.interest}
+            isOpen={interestIsOpen}
+            click={() => setinterestIsOpen(!interestIsOpen)}
+            className="interest"
+            title="Interest"
+            totalValue={props.totalUp(incomeValues.interest)}
+          />
+          <Category
+            showData={showData}
+            items={incomeValues.dividends}
+            isOpen={dividendsIsOpen}
+            click={() => setdividendsIsOpen(!dividendsIsOpen)}
+            className="dividends"
+            title="Dividends"
+            totalValue={props.totalUp(incomeValues.dividends)}
+          />
+          <Category
+            showData={showData}
+            items={incomeValues.realEstate}
+            isOpen={realIsOpen}
+            click={() => setrealIsOpen(!realIsOpen)}
+            className="real-estate"
+            title="Real Estate"
+            totalValue={props.totalUp(incomeValues.realEstate)}
+          />
+          <Category
+            showData={showData}
+            items={incomeValues.businesses}
+            isOpen={businessIsOpen}
+            click={() => setbusinessIsOpen(!businessIsOpen)}
+            className="businesses"
+            title="Businesses"
+            totalValue={props.totalUp(incomeValues.businesses)}
+          />
+        </div>
+        <div className="v income-main">
+          <h3>Passive Income: {props.passive}</h3>
+          <h3>Total Income: {props.totalIncome}</h3>
+        </div>
       </div>
     </div>
   );

@@ -4,13 +4,13 @@ import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 
 const Category = (props) => {
   return (
-    <div className={props.className}>
+    <div className={props.className + " category"}>
       <h3 onClick={props.click}>
-        {props.title + ":"}
+        {props.title + ":" + props.totalValue}
         <FontAwesomeIcon icon={faAngleDown} />
       </h3>
 
-      <div className={props.isOpen ? "" : "hidden"}>
+      <div className={props.isOpen ? "item-wrapper" : "item-wrapper hidden"}>
         {props.showData(props.items)}
       </div>
     </div>
