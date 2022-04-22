@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 import Category from "./category";
 
+import totalUp from "../../functions/totalUp";
+
 const Income = (props) => {
   const [incomeValues, setincomeValues] = useState(props.props);
   const [interestIsOpen, setinterestIsOpen] = useState(false);
@@ -32,7 +34,7 @@ const Income = (props) => {
             click={() => setinterestIsOpen(!interestIsOpen)}
             className="interest"
             title="Interest"
-            totalValue={props.totalUp(incomeValues.interest)}
+            totalValue={totalUp(incomeValues.interest)}
           />
           <Category
             showData={showData}
@@ -41,7 +43,7 @@ const Income = (props) => {
             click={() => setdividendsIsOpen(!dividendsIsOpen)}
             className="dividends"
             title="Dividends"
-            totalValue={props.totalUp(incomeValues.dividends)}
+            totalValue={totalUp(incomeValues.dividends)}
           />
           <Category
             showData={showData}
@@ -50,7 +52,7 @@ const Income = (props) => {
             click={() => setrealIsOpen(!realIsOpen)}
             className="real-estate"
             title="Real Estate"
-            totalValue={props.totalUp(incomeValues.realEstate)}
+            totalValue={totalUp(incomeValues.realEstate)}
           />
           <Category
             showData={showData}
@@ -59,7 +61,7 @@ const Income = (props) => {
             click={() => setbusinessIsOpen(!businessIsOpen)}
             className="businesses"
             title="Businesses"
-            totalValue={props.totalUp(incomeValues.businesses)}
+            totalValue={totalUp(incomeValues.businesses)}
           />
         </div>
         <div className="v income-main">

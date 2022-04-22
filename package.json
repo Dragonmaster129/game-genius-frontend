@@ -6,7 +6,8 @@
   "repository": "git@github.com:bottega-code-school/js-builder.git",
   "scripts": {
     "preinstall": "npm set audit false",
-    "start": "webpack-dev-server --config webpack.config.js --watch"
+    "start": "webpack-dev-server --config webpack.config.js --watch",
+    "test": "jest"
   },
   "keywords": [
     "sass",
@@ -42,11 +43,14 @@
     "webpack-merge": "4.2.2"
   },
   "devDependencies": {
+    "babel-jest": "^27.5.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.26.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "jest": "^27.5.1",
+    "react-test-renderer": "^16.13.0",
     "uglifyjs-webpack-plugin": "^1.2.7"
   }
 }

@@ -1,6 +1,6 @@
 html {
   font-size: 62.5%;
-  margin: 0px;
+  margin: 10px;
 }
 
 *,
@@ -20,4 +20,8 @@ html {
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
+}
+
+.actions {
+  width: 40%;
 }
