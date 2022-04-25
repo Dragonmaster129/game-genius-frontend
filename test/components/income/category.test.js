@@ -55,7 +55,7 @@ const assets = {
   stock: [{ name: "OK4U", amount: 1000, costPerShare: 1, key: 1 }],
 };
 
-const [interestIsOpen, setinterestIsOpen] = useState(false);
+let interestIsOpen = false;
 
 const showData = (dataArr) => {
   return dataArr.map((item) => {
@@ -68,30 +68,18 @@ const showData = (dataArr) => {
   });
 };
 
-test("Link changes the class when hovered", () => {
+test("Component returns a value", () => {
   const component = renderer.create(
     <Category
       showData={showData}
       items={assets.interest}
       isOpen={interestIsOpen}
-      click={() => setinterestIsOpen(!interestIsOpen)}
+      click={() => (interestIsOpen = !interestIsOpen)}
       className="interest"
       title="Interest"
       totalValue={totalUp(assets.interest)}
     />
   );
   let tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
-
-  // manually trigger the callback
-  tree.props.onMouseEnter();
-  // re-rendering
-  tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
-
-  // manually trigger the callback
-  tree.props.onMouseLeave();
-  // re-rendering
-  tree = component.toJSON();
   expect(tree).toMatchSnapshot();
 });

@@ -4,7 +4,7 @@ const Assets = (props) => {
   const showData = (arr) => {
     return arr.map((item) => {
       return (
-        <div className="hz asset-item">
+        <div className="hz asset-item" key={item.key}>
           <div>{item.name}</div>
           <div>{item.amount ? item.amount : item.downpay}</div>
           <div>{item.costPerShare ? item.costPerShare : item.cost}</div>

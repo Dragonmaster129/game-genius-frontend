@@ -14,10 +14,10 @@ const totalUp = (objToTotal) => {
         } else if (
           Object.prototype.toString.call(element) === "[object Object]"
         ) {
-          if (element.monthly) {
-            total = total + element.monthly;
+          if (element[monthly]) {
+            total = total + element[monthly];
           } else {
-            total = total + element.count * element.costPer;
+            total = total + element[count] * element[costPer];
           }
         } else {
           total = total + element;

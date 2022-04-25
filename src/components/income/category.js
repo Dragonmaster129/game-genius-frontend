@@ -5,7 +5,7 @@ import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 const Category = (props) => {
   return (
     <div className={props.className + " category"}>
-      <h3 onClick={props.click}>
+      <h3 className="category-click" onClick={props.click}>
         {props.title + ":" + props.totalValue}
         <FontAwesomeIcon icon={faAngleDown} />
       </h3>
