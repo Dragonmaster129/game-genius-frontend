@@ -105,11 +105,8 @@ const App = (props) => {
               totalIncome={totalIncome}
               passive={passive}
             />
-            <Expenses
-              props={data.expenses}
-              totalExpenses={totalExpenses}
-              cashflow={cashflow}
-            />
+            <Expenses props={data.expenses} totalExpenses={totalExpenses} />
+            <h3>Monthly Cash Flow: {cashflow}</h3>
             <h3 className="cash">Cash: {cash}</h3>
             <div className="hz">
               <Assets props={data.assets} />
@@ -125,6 +122,9 @@ const App = (props) => {
             </div>
             <div className="sell">
               <button onClick={payday}>Sell</button>
+            </div>
+            <div className="pay-loan">
+              <button onClick={payday}>Pay Loan</button>
             </div>
           </div>
         </div>

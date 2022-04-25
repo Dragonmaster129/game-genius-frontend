@@ -3,6 +3,14 @@ html {
   margin: 10px;
 }
 
+button {
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: #aa00dd;
+  width: 100px;
+  height: 30px;
+}
+
 *,
 *::after,
 *::before {
@@ -23,5 +31,5 @@ html {
 }
 
 .actions {
-  width: 40%;
+  width: 100%;
 }

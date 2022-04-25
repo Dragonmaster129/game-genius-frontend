@@ -23,7 +23,6 @@ const Expenses = (props) => {
         <h3>Number of Children: {expenses.child.count}</h3>
         <h3>Per Child Expense: {expenses.child.costPer}</h3>
         <h3>Total Expenses: {props.totalExpenses}</h3>
-        <h3>Monthly Cash Flow: {props.cashflow}</h3>
       </div>
     </div>
   );
