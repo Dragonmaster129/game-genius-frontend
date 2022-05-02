@@ -1,0 +1,597 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`app is the same as it was a bit ago 1`] = `
+<div
+  className="app hz"
+>
+  <div
+    className="player"
+  >
+    <div
+      className="v playerCard"
+    >
+      <h1>
+        Player card
+      </h1>
+      <h2>
+        Profession: 
+        Doctor
+      </h2>
+      <h2>
+        Player: 
+        3
+      </h2>
+      <h2>
+        Auditor: 
+        player to the right
+      </h2>
+      <h2>
+        Income Statement
+      </h2>
+      <div
+        className="income-wrapper"
+      >
+        <h2
+          className="title"
+        >
+          Income
+        </h2>
+        <div
+          className="hz"
+        >
+          <div
+            className="v income-categories"
+          >
+            <h3>
+              Salary: 
+              13200
+            </h3>
+            <div
+              className="interest category"
+            >
+              <h3
+                className="category-click"
+                onClick={[Function]}
+              >
+                Interest:240
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-angle-down "
+                  data-icon="angle-down"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 384 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M192 384c-8.188 0-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L192 306.8l137.4-137.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-160 160C208.4 380.9 200.2 384 192 384z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </h3>
+              <div
+                className="item-wrapper hidden"
+              >
+                <div
+                  className="item hz"
+                >
+                  <div>
+                    thingy
+                    :
+                  </div>
+                  <div>
+                    40
+                  </div>
+                </div>
+                <div
+                  className="item hz"
+                >
+                  <div>
+                    notherone
+                    :
+                  </div>
+                  <div>
+                    50
+                  </div>
+                </div>
+                <div
+                  className="item hz"
+                >
+                  <div>
+                    notherone
+                    :
+                  </div>
+                  <div>
+                    50
+                  </div>
+                </div>
+                <div
+                  className="item hz"
+                >
+                  <div>
+                    notherone
+                    :
+                  </div>
+                  <div>
+                    50
+                  </div>
+                </div>
+                <div
+                  className="item hz"
+                >
+                  <div>
+                    notherone
+                    :
+                  </div>
+                  <div>
+                    50
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="dividends category"
+            >
+              <h3
+                className="category-click"
+                onClick={[Function]}
+              >
+                Dividends:30
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-angle-down "
+                  data-icon="angle-down"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 384 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M192 384c-8.188 0-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L192 306.8l137.4-137.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-160 160C208.4 380.9 200.2 384 192 384z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </h3>
+              <div
+                className="item-wrapper hidden"
+              >
+                <div
+                  className="item hz"
+                >
+                  <div>
+                    2Big
+                    :
+                  </div>
+                  <div>
+                    30
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="real-estate category"
+            >
+              <h3
+                className="category-click"
+                onClick={[Function]}
+              >
+                Real Estate:600
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-angle-down "
+                  data-icon="angle-down"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 384 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M192 384c-8.188 0-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L192 306.8l137.4-137.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-160 160C208.4 380.9 200.2 384 192 384z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </h3>
+              <div
+                className="item-wrapper hidden"
+              >
+                <div
+                  className="item hz"
+                >
+                  <div>
+                    3/2 House
+                    :
+                  </div>
+                  <div>
+                    200
+                  </div>
+                </div>
+                <div
+                  className="item hz"
+                >
+                  <div>
+                    3/2 House
+                    :
+                  </div>
+                  <div>
+                    400
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="businesses category"
+            >
+              <h3
+                className="category-click"
+                onClick={[Function]}
+              >
+                Businesses:3200
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-angle-down "
+                  data-icon="angle-down"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 384 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M192 384c-8.188 0-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L192 306.8l137.4-137.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-160 160C208.4 380.9 200.2 384 192 384z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </h3>
+              <div
+                className="item-wrapper hidden"
+              >
+                <div
+                  className="item hz"
+                >
+                  <div>
+                    Auto Parts
+                    :
+                  </div>
+                  <div>
+                    1500
+                  </div>
+                </div>
+                <div
+                  className="item hz"
+                >
+                  <div>
+                    Auto Parts
+                    :
+                  </div>
+                  <div>
+                    1700
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="v income-main"
+          >
+            <h3>
+              Passive Income: 
+              4470
+            </h3>
+            <h3>
+              Total Income: 
+              17670
+            </h3>
+          </div>
+        </div>
+      </div>
+      <div
+        className="expenses hz"
+      >
+        <div
+          className="v"
+        >
+          <h2>
+            Expenses
+          </h2>
+          <h3>
+            Taxes: 
+            3420
+          </h3>
+          <h3>
+            Home Mortgage: 
+            1900
+          </h3>
+          <h3>
+            School Loan Payment: 
+            750
+          </h3>
+          <h3>
+            Car Payment: 
+            380
+          </h3>
+          <h3>
+            Credit Card Payment: 
+            270
+          </h3>
+          <h3>
+            Retail Payment: 
+            50
+          </h3>
+          <h3>
+            Other Expenses: 
+            2880
+          </h3>
+          <h3>
+            Child Expenses: 
+            0
+          </h3>
+          <h3>
+            Bank Loan Payment: 
+            0
+          </h3>
+        </div>
+        <div
+          className="v"
+        >
+          <h3>
+            Number of Children: 
+            0
+          </h3>
+          <h3>
+            Per Child Expense: 
+            640
+          </h3>
+          <h3>
+            Total Expenses: 
+            9650
+          </h3>
+        </div>
+      </div>
+      <h3>
+        Monthly Cash Flow: 
+        8020
+      </h3>
+      <h3
+        className="cash"
+      >
+        Cash: 
+        8420
+      </h3>
+      <div
+        className="hz"
+      >
+        <div
+          className="v"
+        >
+          <h2>
+            Assets
+          </h2>
+          <h3>
+            Savings
+          </h3>
+          <div
+            className="stock"
+          >
+            <div
+              className="hz"
+            >
+              <h3>
+                Stocks/Mutual's/CDs
+              </h3>
+              <h3>
+                Number of Shares
+              </h3>
+              <h3>
+                Cost/Share
+              </h3>
+            </div>
+            <div
+              className="hz asset-item"
+            >
+              <div>
+                OK4U
+              </div>
+              <div>
+                1000
+              </div>
+              <div>
+                1
+              </div>
+            </div>
+          </div>
+          <div
+            className="re"
+          >
+            <div
+              className="hz heading"
+            >
+              <h3>
+                Real Estate
+              </h3>
+              <h3>
+                Down Pay
+              </h3>
+              <h3>
+                Cost
+              </h3>
+            </div>
+            <div
+              className="hz asset-item"
+            >
+              <div>
+                3/2 House
+              </div>
+              <div>
+                5000
+              </div>
+              <div>
+                55000
+              </div>
+            </div>
+            <div
+              className="hz asset-item"
+            >
+              <div>
+                3/2 House
+              </div>
+              <div>
+                7000
+              </div>
+              <div>
+                55000
+              </div>
+            </div>
+          </div>
+          <div
+            className="business"
+          >
+            <div
+              className="hz"
+            >
+              <h3>
+                Business
+              </h3>
+              <h3>
+                Down Pay
+              </h3>
+              <h3>
+                Cost
+              </h3>
+            </div>
+            <div
+              className="hz asset-item"
+            >
+              <div>
+                Auto Parts
+              </div>
+              <div>
+                100000
+              </div>
+              <div>
+                100000
+              </div>
+            </div>
+            <div
+              className="hz asset-item"
+            >
+              <div>
+                Auto Parts
+              </div>
+              <div>
+                120000
+              </div>
+              <div>
+                120000
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="v"
+        >
+          <h2>
+            Liabilities
+          </h2>
+          <h3>
+            Home Mortgage: 
+            202000
+          </h3>
+          <h3>
+            School Loans: 
+            150000
+          </h3>
+          <h3>
+            Car Loans: 
+            19000
+          </h3>
+          <h3>
+            Credit Cards: 
+            9000
+          </h3>
+          <h3>
+            Retail Debt: 
+            1000
+          </h3>
+          <h3>
+            RE Mortgage: 
+            <div
+              className="re-liability"
+            >
+              3/2 House
+              : 
+              50000
+            </div>
+            <div
+              className="re-liability"
+            >
+              3/2 House
+              : 
+              48000
+            </div>
+          </h3>
+          <h3>
+            Bank Loan: 
+            0
+          </h3>
+        </div>
+      </div>
+    </div>
+    <div
+      className="actions hz"
+    >
+      <div
+        className="payday"
+      >
+        <button
+          onClick={[Function]}
+        >
+          Payday
+        </button>
+      </div>
+      <div
+        className="buy"
+      >
+        <button
+          onClick={[Function]}
+        >
+          Buy
+        </button>
+      </div>
+      <div
+        className="sell"
+      >
+        <button
+          onClick={[Function]}
+        >
+          Sell
+        </button>
+      </div>
+      <div
+        className="pay-loan"
+      >
+        <button
+          onClick={[Function]}
+        >
+          Pay Loan
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    className="card"
+  >
+    card
+  </div>
+</div>
+`;
