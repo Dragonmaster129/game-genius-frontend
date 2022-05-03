@@ -12,6 +12,10 @@ const App = (props) => {
     setcash(cash + cashflow);
   };
 
+  const buy = () => {
+    setcurrentAction("BUY");
+  };
+
   const [data, setdata] = useState({
     player: 3,
     profession: "Doctor",
@@ -90,6 +94,7 @@ const App = (props) => {
   const [cashflow, setcashflow] = useState(totalIncome - totalExpenses);
   const [cash, setcash] = useState(cashflow + data.assets.savings);
   const choiceToStay = true;
+  const [currentAction, setcurrentAction] = useState("NONE");
   if (passive < totalExpenses * 2 || choiceToStay) {
     return (
       <div className="app hz">
@@ -99,26 +104,34 @@ const App = (props) => {
             <h2>Profession: {data.profession}</h2>
             <h2>Player: {data.player}</h2>
             <h2>Auditor: {data.auditor}</h2>
+            <hr />
             <h2>Income Statement</h2>
             <Income
               props={data.assets}
               totalIncome={totalIncome}
               passive={passive}
             />
+            <hr />
             <Expenses props={data.expenses} totalExpenses={totalExpenses} />
-            <h3>Monthly Cash Flow: {cashflow}</h3>
-            <h3 className="cash">Cash: {cash}</h3>
+            <hr />
+            <div className="v right">
+              <h3 className="cash-flow">Monthly Cash Flow: {cashflow}</h3>
+              <h3 className="cash">Cash: {cash}</h3>
+            </div>
+            <hr />
             <div className="hz">
               <Assets props={data.assets} />
+              <hr />
               <Liabilities props={data.expenses} re={data.assets.realEstate} />
             </div>
           </div>
+          <hr />
           <div className="actions hz">
             <div className="payday">
               <button onClick={payday}>Payday</button>
             </div>
             <div className="buy">
-              <button onClick={payday}>Buy</button>
+              <button onClick={buy}>Buy</button>
             </div>
             <div className="sell">
               <button onClick={payday}>Sell</button>
@@ -128,7 +141,28 @@ const App = (props) => {
             </div>
           </div>
         </div>
-        <div className="card">card</div>
+        <div className="card">
+          {currentAction == "BUY" ? (
+            <div className="buy">
+              <form>
+                <select className="buy-choice">
+                  <option>Stock</option>
+                  <option>2/1 Starter Home</option>
+                  <option>3/2 House</option>
+                  <option>Duplex</option>
+                  <option>4-plex</option>
+                  <option>8-plex</option>
+                  <option>Apartment Complex</option>
+                  <option>D2Y</option>
+                  <option>Land</option>
+                </select>
+              </form>
+            </div>
+          ) : (
+            ""
+          )}
+          <h3>Current Action</h3>
+        </div>
       </div>
     );
   } else {

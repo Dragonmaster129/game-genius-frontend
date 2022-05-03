@@ -6,7 +6,7 @@ const Category = (props) => {
   return (
     <div className={props.className + " category"}>
       <h3 className="category-click" onClick={props.click}>
-        {props.title + ":" + props.totalValue}
+        {props.title + ": " + props.totalValue}
         <FontAwesomeIcon icon={faAngleDown} />
       </h3>
 
