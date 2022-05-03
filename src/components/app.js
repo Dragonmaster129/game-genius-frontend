@@ -6,6 +6,7 @@ import Assets from "./assets";
 import Liabilities from "./liabilities";
 
 import totalUp from "../functions/totalUp";
+import Buy from "./actionsResults/buy";
 
 const App = (props) => {
   const payday = () => {
@@ -141,28 +142,7 @@ const App = (props) => {
             </div>
           </div>
         </div>
-        <div className="card">
-          {currentAction == "BUY" ? (
-            <div className="buy">
-              <form>
-                <select className="buy-choice">
-                  <option>Stock</option>
-                  <option>2/1 Starter Home</option>
-                  <option>3/2 House</option>
-                  <option>Duplex</option>
-                  <option>4-plex</option>
-                  <option>8-plex</option>
-                  <option>Apartment Complex</option>
-                  <option>D2Y</option>
-                  <option>Land</option>
-                </select>
-              </form>
-            </div>
-          ) : (
-            ""
-          )}
-          <h3>Current Action</h3>
-        </div>
+        <div className="card">{currentAction == "BUY" ? <Buy /> : ""}</div>
       </div>
     );
   } else {
