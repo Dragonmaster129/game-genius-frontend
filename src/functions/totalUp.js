@@ -9,6 +9,8 @@ const totalUp = (objToTotal) => {
             const item = element[index];
             if (item.value) {
               total = total + item.value;
+            } else if (Number.isFinite(item)) {
+              total = total + item;
             }
           }
         } else if (
@@ -16,8 +18,13 @@ const totalUp = (objToTotal) => {
         ) {
           if (element.monthly) {
             total = total + element.monthly;
-          } else {
+          } else if (element.costPer) {
             total = total + element.count * element.costPer;
+          } else {
+            for (const keyValue in element) {
+              const value = element[keyValue];
+              total = total + value;
+            }
           }
         } else {
           total = total + element;

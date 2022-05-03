@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`app is the same as it was a bit ago 1`] = `
+exports[`app is the same as it was last time 1`] = `
 <div
   className="app hz"
 >
