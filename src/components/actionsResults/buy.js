@@ -29,8 +29,20 @@ const choiceTypes = {
   // "4-PLEX": "",
   // "8-PLEX": "",
   // APARTMENTCOMPLEX: "",
-  D2Y: "",
-  LAND: "",
+  D2Y: {
+    Type: {
+      "Card One": { cost: 200 },
+      "Card Two": { cashflow: "" },
+      "Card Three": { cashflow: "" },
+    },
+  },
+  LAND: {
+    Amount: ["20 Acres", "40 Acres"],
+    Cost: "",
+    Mortgage: "",
+    Downpay: "",
+    CashFlow: "",
+  },
   BUSINESS: "",
 };
 
@@ -41,6 +53,10 @@ const Buy = (props) => {
     if (choiceOfItem != value) {
       setchoiceOfItem(value);
     }
+  };
+  // Creates the form which you fill in to get the assets
+  const createForm = () => {
+    let form = choiceTypes[choiceOfItem];
   };
   const createOptions = (values) => {
     let valuesKey = Object.keys(values);
@@ -59,10 +75,6 @@ const Buy = (props) => {
       </select>
       <div>
         <h1>{choiceOfItem}</h1>
-        <form>
-          <h3></h3>
-          <input type="text"></input>
-        </form>
       </div>
     </div>
   );
