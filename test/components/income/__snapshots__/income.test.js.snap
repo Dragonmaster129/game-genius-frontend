@@ -26,7 +26,7 @@ exports[`income returns the same as what it was 1`] = `
           className="category-click"
           onClick={[Function]}
         >
-          Interest:240
+          Interest: 240
           <svg
             aria-hidden="true"
             className="svg-inline--fa fa-angle-down "
@@ -112,7 +112,7 @@ exports[`income returns the same as what it was 1`] = `
           className="category-click"
           onClick={[Function]}
         >
-          Dividends:30
+          Dividends: 30
           <svg
             aria-hidden="true"
             className="svg-inline--fa fa-angle-down "
@@ -154,7 +154,7 @@ exports[`income returns the same as what it was 1`] = `
           className="category-click"
           onClick={[Function]}
         >
-          Real Estate:600
+          Real Estate: 600
           <svg
             aria-hidden="true"
             className="svg-inline--fa fa-angle-down "
@@ -207,7 +207,7 @@ exports[`income returns the same as what it was 1`] = `
           className="category-click"
           onClick={[Function]}
         >
-          Businesses:3200
+          Businesses: 3200
           <svg
             aria-hidden="true"
             className="svg-inline--fa fa-angle-down "

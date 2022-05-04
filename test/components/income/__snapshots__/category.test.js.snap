@@ -8,7 +8,7 @@ exports[`Component returns a value 1`] = `
     className="category-click"
     onClick={[Function]}
   >
-    Interest:240
+    Interest: 240
     <svg
       aria-hidden="true"
       className="svg-inline--fa fa-angle-down "

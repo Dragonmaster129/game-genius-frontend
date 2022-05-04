@@ -25,6 +25,7 @@ exports[`app is the same as it was last time 1`] = `
         Auditor: 
         player to the right
       </h2>
+      <hr />
       <h2>
         Income Statement
       </h2>
@@ -53,7 +54,7 @@ exports[`app is the same as it was last time 1`] = `
                 className="category-click"
                 onClick={[Function]}
               >
-                Interest:240
+                Interest: 240
                 <svg
                   aria-hidden="true"
                   className="svg-inline--fa fa-angle-down "
@@ -139,7 +140,7 @@ exports[`app is the same as it was last time 1`] = `
                 className="category-click"
                 onClick={[Function]}
               >
-                Dividends:30
+                Dividends: 30
                 <svg
                   aria-hidden="true"
                   className="svg-inline--fa fa-angle-down "
@@ -181,7 +182,7 @@ exports[`app is the same as it was last time 1`] = `
                 className="category-click"
                 onClick={[Function]}
               >
-                Real Estate:600
+                Real Estate: 600
                 <svg
                   aria-hidden="true"
                   className="svg-inline--fa fa-angle-down "
@@ -234,7 +235,7 @@ exports[`app is the same as it was last time 1`] = `
                 className="category-click"
                 onClick={[Function]}
               >
-                Businesses:3200
+                Businesses: 3200
                 <svg
                   aria-hidden="true"
                   className="svg-inline--fa fa-angle-down "
@@ -295,6 +296,7 @@ exports[`app is the same as it was last time 1`] = `
           </div>
         </div>
       </div>
+      <hr />
       <div
         className="expenses hz"
       >
@@ -358,16 +360,24 @@ exports[`app is the same as it was last time 1`] = `
           </h3>
         </div>
       </div>
-      <h3>
-        Monthly Cash Flow: 
-        8020
-      </h3>
-      <h3
-        className="cash"
+      <hr />
+      <div
+        className="v right"
       >
-        Cash: 
-        8420
-      </h3>
+        <h3
+          className="cash-flow"
+        >
+          Monthly Cash Flow: 
+          8020
+        </h3>
+        <h3
+          className="cash"
+        >
+          Cash: 
+          8420
+        </h3>
+      </div>
+      <hr />
       <div
         className="hz"
       >
@@ -497,6 +507,7 @@ exports[`app is the same as it was last time 1`] = `
             </div>
           </div>
         </div>
+        <hr />
         <div
           className="v"
         >
@@ -547,6 +558,7 @@ exports[`app is the same as it was last time 1`] = `
         </div>
       </div>
     </div>
+    <hr />
     <div
       className="actions hz"
     >
@@ -591,7 +603,7 @@ exports[`app is the same as it was last time 1`] = `
   <div
     className="card"
   >
-    card
+    
   </div>
 </div>
 `;
