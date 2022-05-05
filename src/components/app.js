@@ -37,6 +37,7 @@ const App = (props) => {
           type: "3/2",
           name: "3/2 House",
           cost: 55000,
+          mortgage: 50000,
           downpay: 5000,
           value: 200,
           key: 1,
@@ -45,6 +46,7 @@ const App = (props) => {
           type: "3/2",
           name: "3/2 House",
           cost: 55000,
+          mortgage: 48000,
           downpay: 7000,
           value: 400,
           key: 2,
@@ -69,7 +71,9 @@ const App = (props) => {
         },
       ],
       passive: 0,
-      stock: [{ name: "OK4U", amount: 1000, costPerShare: 1, key: 1 }],
+      stock: [
+        { name: "OK4U", option: "PUT", amount: 1000, costPerShare: 1, key: 1 },
+      ],
     },
     expenses: {
       taxes: 3420,
@@ -145,7 +149,9 @@ const App = (props) => {
             </div>
           </div>
         </div>
-        <div className="card">{currentAction == "BUY" ? <Buy /> : ""}</div>
+        <div className="card">
+          {currentAction == "BUY" ? <Buy data={data} setdata={setdata} /> : ""}
+        </div>
       </div>
     );
   } else {
