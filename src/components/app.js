@@ -134,6 +134,9 @@ const App = (props) => {
             <div className="buy">
               <button onClick={buy}>Buy</button>
             </div>
+            <div className="doodad">
+              <button onClick={payday}>Doodad</button>
+            </div>
             <div className="sell">
               <button onClick={payday}>Sell</button>
             </div>
