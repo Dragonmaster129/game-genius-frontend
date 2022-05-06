@@ -7,6 +7,7 @@ import Liabilities from "./liabilities";
 
 import totalUp from "../functions/totalUp";
 import Buy from "./actionsResults/buy";
+import externalData from "../data";
 
 const App = (props) => {
   const payday = () => {
@@ -17,79 +18,7 @@ const App = (props) => {
     setcurrentAction("BUY");
   };
 
-  const [data, setdata] = useState({
-    player: 3,
-    profession: "Doctor",
-    auditor: "player to the right",
-    assets: {
-      savings: 400,
-      salary: 13200,
-      interest: [
-        { name: "thingy", value: 40, key: 1 },
-        { name: "notherone", value: 50, key: 2 },
-        { name: "notherone", value: 50, key: 3 },
-        { name: "notherone", value: 50, key: 4 },
-        { name: "notherone", value: 50, key: 5 },
-      ],
-      dividends: [{ name: "2Big", value: 30, key: 1 }],
-      realEstate: [
-        {
-          type: "3/2",
-          name: "3/2 House",
-          cost: 55000,
-          mortgage: 50000,
-          downpay: 5000,
-          value: 200,
-          key: 1,
-        },
-        {
-          type: "3/2",
-          name: "3/2 House",
-          cost: 55000,
-          mortgage: 48000,
-          downpay: 7000,
-          value: 400,
-          key: 2,
-        },
-      ],
-      businesses: [
-        {
-          type: "autoParts",
-          name: "Auto Parts",
-          cost: 100000,
-          downpay: 100000,
-          value: 1500,
-          key: 1,
-        },
-        {
-          type: "autoParts",
-          name: "Auto Parts",
-          cost: 120000,
-          downpay: 120000,
-          value: 1700,
-          key: 2,
-        },
-      ],
-      passive: 0,
-      stock: [
-        { name: "OK4U", option: "PUT", amount: 1000, costPerShare: 1, key: 1 },
-      ],
-    },
-    expenses: {
-      taxes: 3420,
-      mortgage: { monthly: 1900, totalCost: 202000 },
-      school: { monthly: 750, totalCost: 150000 },
-      car: { monthly: 380, totalCost: 19000 },
-      creditCard: { monthly: 270, totalCost: 9000 },
-      retail: { monthly: 50, totalCost: 1000 },
-      other: 2880,
-      child: {
-        count: 0,
-        costPer: 640,
-      },
-      loan: 0,
-    },
-  });
+  const [data, setdata] = useState(externalData);
 
   const [totalIncome, settotalIncome] = useState(totalUp(data.assets));
   const [passive, setpassive] = useState(
