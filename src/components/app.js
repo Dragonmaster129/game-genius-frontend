@@ -56,7 +56,7 @@ const App = (props) => {
             <div className="hz">
               <Assets props={data.assets} />
               <hr />
-              <Liabilities props={data.expenses} re={data.assets.realEstate} />
+              <Liabilities props={data.expenses} re={data.assets.realestate} />
             </div>
           </div>
           <hr />

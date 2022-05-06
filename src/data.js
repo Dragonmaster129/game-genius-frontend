@@ -13,7 +13,7 @@ const data = {
       { name: "notherone", value: 50, key: 5 },
     ],
     dividends: [{ name: "2Big", value: 30, key: 1 }],
-    realEstate: [
+    realestate: [
       {
         type: "3/2",
         name: "3/2 House",

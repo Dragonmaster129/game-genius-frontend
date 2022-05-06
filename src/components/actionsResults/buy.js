@@ -65,6 +65,7 @@ const Buy = (props) => {
   const onSubmit = (event) => {
     event.preventDefault();
     console.log(addedData);
+    let data = props.data;
   };
   // Creates the form which you fill in to get the assets
   const createForm = () => {

@@ -30,7 +30,7 @@ const Assets = (props) => {
           <h3>Down Pay</h3>
           <h3>Cost</h3>
         </div>
-        {showData(props.props.realEstate)}
+        {showData(props.props.realestate)}
       </div>
       <div className="business">
         <div className="hz">

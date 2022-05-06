@@ -47,12 +47,12 @@ const Income = (props) => {
           />
           <Category
             showData={showData}
-            items={incomeValues.realEstate}
+            items={incomeValues.realestate}
             isOpen={realIsOpen}
             click={() => setrealIsOpen(!realIsOpen)}
             className="real-estate"
             title="Real Estate"
-            totalValue={totalUp(incomeValues.realEstate)}
+            totalValue={totalUp(incomeValues.realestate)}
           />
           <Category
             showData={showData}
