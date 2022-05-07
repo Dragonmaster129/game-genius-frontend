@@ -18,6 +18,14 @@ const App = (props) => {
     setcurrentAction("BUY");
   };
 
+  const onChange = (setvalue) => {
+    setcurrentAction("NONE");
+    setpassive(totalUp(data.assets) - data.assets.salary);
+    settotalIncome(totalUp(data.assets));
+    settotalExpenses(totalUp(data.expenses));
+    setcashflow(totalIncome - totalExpenses);
+  };
+
   const [data, setdata] = useState(externalData);
 
   const [totalIncome, settotalIncome] = useState(totalUp(data.assets));
@@ -79,7 +87,17 @@ const App = (props) => {
           </div>
         </div>
         <div className="card">
-          {currentAction == "BUY" ? <Buy data={data} setdata={setdata} /> : ""}
+          {currentAction == "BUY" ? (
+            <Buy
+              data={data}
+              setdata={setdata}
+              submitted={onChange}
+              cash={cash}
+              setcash={setcash}
+            />
+          ) : (
+            ""
+          )}
         </div>
       </div>
     );

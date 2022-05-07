@@ -4,7 +4,7 @@ const choiceTypes = {
   NONE: {},
   STOCK: {
     name: ["NONE", "OK4U", "MYT4U"],
-    Option: ["NONE", "PUT", "CALL", "SHORT", "REGULAR"],
+    option: ["NONE", "PUT", "CALL", "SHORT", "REGULAR"],
     costPerShare: "",
     amount: "",
     spent: "AUTOFILLED",
@@ -55,17 +55,34 @@ const Buy = (props) => {
   const onChange = (event) => {
     let klass = event.target.className;
     let value = event.target.value;
-    if (typeof value == "number") {
-      value = parseInt(value);
-    }
     let newData = addedData;
-    newData[klass] = value;
+    if (klass != "type" && klass != "name") {
+      if (klass == "cashFlow") {
+        newData["value"] = parseInt(value);
+      } else {
+        newData[klass] = parseInt(value);
+      }
+    } else {
+      newData[klass] = value;
+      newData["name"] = value;
+    }
     setaddedData(newData);
   };
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log(addedData);
-    let data = props.data;
+    let cData = props.data;
+    let len = cData.assets[choiceOfItem.toLowerCase()].length;
+    let addData = addedData;
+    let cash = props.cash;
+    if (addData.downpay) {
+      cash = cash - addData.downpay;
+    }
+    props.setcash(cash);
+    addData.key = cData.assets[choiceOfItem.toLowerCase()].length + 1;
+    setaddedData(addData);
+    cData.assets[choiceOfItem.toLowerCase()].push(addedData);
+    props.setdata(cData);
+    props.submitted("NONE");
   };
   // Creates the form which you fill in to get the assets
   const createForm = () => {
