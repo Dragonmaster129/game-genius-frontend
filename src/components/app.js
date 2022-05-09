@@ -36,8 +36,8 @@ const App = (props) => {
   );
   const [totalExpenses, settotalExpenses] = useState(totalUp(data.expenses));
   const [cashflow, setcashflow] = useState(totalIncome - totalExpenses);
-  const [cash, setcash] = useState(cashflow + data.assets.savings);
-  const choiceToStay = true;
+  const [cash, setcash] = useState(cashflow + data.savings);
+  const [choiceToStay, setchoiceToStay] = useState(true);
   const [currentAction, setcurrentAction] = useState("NONE");
   if (passive < totalExpenses * 2 || choiceToStay) {
     return (
