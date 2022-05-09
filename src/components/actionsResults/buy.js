@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import buyItem from "../../functions/buyItem";
 
 const choiceTypes = {
   NONE: {},
@@ -70,22 +71,7 @@ const Buy = (props) => {
   };
   const onSubmit = (event) => {
     event.preventDefault();
-    let cData = props.data;
-    let len = cData.assets[choiceOfItem.toLowerCase()].length;
-    let addData = addedData;
-    let cash = props.cash;
-    if (addData.downpay) {
-      if (cash < addData.downpay) {
-        // Loan
-      }
-      cash = cash - addData.downpay;
-    }
-    props.setcash(cash);
-    addData.key = cData.assets[choiceOfItem.toLowerCase()].length + 1;
-    setaddedData(addData);
-    cData.assets[choiceOfItem.toLowerCase()].push(addedData);
-    props.setdata(cData);
-    props.submitted("NONE");
+    buyItem(props, choiceOfItem, addedData, setaddedData);
   };
   // Creates the form which you fill in to get the assets
   const createForm = () => {
