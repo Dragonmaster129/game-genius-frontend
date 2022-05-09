@@ -1,7 +1,7 @@
 const data = {
   player: 3,
   profession: "Doctor",
-  auditor: "player to the right",
+  auditor: "Sam",
   assets: {
     savings: 400,
     salary: 13200,

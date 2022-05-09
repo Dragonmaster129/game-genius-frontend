@@ -8,9 +8,11 @@ import Liabilities from "./liabilities";
 import totalUp from "../functions/totalUp";
 import Buy from "./actionsResults/buy";
 import externalData from "../data";
+import Heading from "./heading";
 
 const App = (props) => {
   const payday = () => {
+    onChange("NONE");
     setcash(cash + cashflow);
   };
 
@@ -19,10 +21,10 @@ const App = (props) => {
   };
 
   const onChange = (setvalue) => {
-    setcurrentAction("NONE");
-    setpassive(totalUp(data.assets) - data.assets.salary);
+    setcurrentAction(setvalue);
     settotalIncome(totalUp(data.assets));
     settotalExpenses(totalUp(data.expenses));
+    setpassive(totalUp(data.assets) - data.assets.salary);
     setcashflow(totalIncome - totalExpenses);
   };
 
@@ -42,10 +44,7 @@ const App = (props) => {
       <div className="app hz">
         <div className="player">
           <div className="v playerCard">
-            <h1>Player card</h1>
-            <h2>Profession: {data.profession}</h2>
-            <h2>Player: {data.player}</h2>
-            <h2>Auditor: {data.auditor}</h2>
+            <Heading data={data} />
             <hr />
             <h2>Income Statement</h2>
             <Income
@@ -98,6 +97,7 @@ const App = (props) => {
           ) : (
             ""
           )}
+          <div className="loan"></div>
         </div>
       </div>
     );

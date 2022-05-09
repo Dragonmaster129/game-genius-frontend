@@ -75,6 +75,9 @@ const Buy = (props) => {
     let addData = addedData;
     let cash = props.cash;
     if (addData.downpay) {
+      if (cash < addData.downpay) {
+        // Loan
+      }
       cash = cash - addData.downpay;
     }
     props.setcash(cash);
