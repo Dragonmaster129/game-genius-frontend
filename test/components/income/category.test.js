@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import Category from "../../../src/components/income/category";
-import data from "../../../src/data";
+import data from "../../sampledata";
 
 import totalUp from "../../../src/functions/totalUp";
 

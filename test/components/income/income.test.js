@@ -2,7 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import Income from "../../../src/components/income/income";
 
-import data from "../../../src/data";
+import data from "../../sampledata";
 
 test("income returns the same as what it was", () => {
   const income = renderer.create(

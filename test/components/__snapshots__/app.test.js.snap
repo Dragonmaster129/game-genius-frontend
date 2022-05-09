@@ -10,21 +10,29 @@ exports[`app is the same as it was last time 1`] = `
     <div
       className="v playerCard"
     >
-      <h1>
-        Player card
-      </h1>
-      <h2>
-        Profession: 
-        Doctor
-      </h2>
-      <h2>
-        Player: 
-        3
-      </h2>
-      <h2>
-        Auditor: 
-        player to the right
-      </h2>
+      <div
+        className="heading"
+      >
+        <h1>
+          Player card
+        </h1>
+        <div
+          className="hz"
+        >
+          <h2>
+            Profession: 
+            Doctor
+          </h2>
+          <h2>
+            Player: 
+            3
+          </h2>
+          <h2>
+            Auditor: 
+            Sam
+          </h2>
+        </div>
+      </div>
       <hr />
       <h2>
         Income Statement
@@ -54,7 +62,7 @@ exports[`app is the same as it was last time 1`] = `
                 className="category-click"
                 onClick={[Function]}
               >
-                Interest: 240
+                Interest: 0
                 <svg
                   aria-hidden="true"
                   className="svg-inline--fa fa-angle-down "
@@ -75,63 +83,7 @@ exports[`app is the same as it was last time 1`] = `
               </h3>
               <div
                 className="item-wrapper hidden"
-              >
-                <div
-                  className="item hz"
-                >
-                  <div>
-                    thingy
-                    :
-                  </div>
-                  <div>
-                    40
-                  </div>
-                </div>
-                <div
-                  className="item hz"
-                >
-                  <div>
-                    notherone
-                    :
-                  </div>
-                  <div>
-                    50
-                  </div>
-                </div>
-                <div
-                  className="item hz"
-                >
-                  <div>
-                    notherone
-                    :
-                  </div>
-                  <div>
-                    50
-                  </div>
-                </div>
-                <div
-                  className="item hz"
-                >
-                  <div>
-                    notherone
-                    :
-                  </div>
-                  <div>
-                    50
-                  </div>
-                </div>
-                <div
-                  className="item hz"
-                >
-                  <div>
-                    notherone
-                    :
-                  </div>
-                  <div>
-                    50
-                  </div>
-                </div>
-              </div>
+              />
             </div>
             <div
               className="dividends category"
@@ -140,7 +92,7 @@ exports[`app is the same as it was last time 1`] = `
                 className="category-click"
                 onClick={[Function]}
               >
-                Dividends: 30
+                Dividends: 0
                 <svg
                   aria-hidden="true"
                   className="svg-inline--fa fa-angle-down "
@@ -161,19 +113,7 @@ exports[`app is the same as it was last time 1`] = `
               </h3>
               <div
                 className="item-wrapper hidden"
-              >
-                <div
-                  className="item hz"
-                >
-                  <div>
-                    2Big
-                    :
-                  </div>
-                  <div>
-                    30
-                  </div>
-                </div>
-              </div>
+              />
             </div>
             <div
               className="real-estate category"
@@ -182,7 +122,7 @@ exports[`app is the same as it was last time 1`] = `
                 className="category-click"
                 onClick={[Function]}
               >
-                Real Estate: 600
+                Real Estate: 0
                 <svg
                   aria-hidden="true"
                   className="svg-inline--fa fa-angle-down "
@@ -203,30 +143,7 @@ exports[`app is the same as it was last time 1`] = `
               </h3>
               <div
                 className="item-wrapper hidden"
-              >
-                <div
-                  className="item hz"
-                >
-                  <div>
-                    3/2 House
-                    :
-                  </div>
-                  <div>
-                    200
-                  </div>
-                </div>
-                <div
-                  className="item hz"
-                >
-                  <div>
-                    3/2 House
-                    :
-                  </div>
-                  <div>
-                    400
-                  </div>
-                </div>
-              </div>
+              />
             </div>
             <div
               className="businesses category"
@@ -235,7 +152,7 @@ exports[`app is the same as it was last time 1`] = `
                 className="category-click"
                 onClick={[Function]}
               >
-                Businesses: 3200
+                Businesses: 0
                 <svg
                   aria-hidden="true"
                   className="svg-inline--fa fa-angle-down "
@@ -256,30 +173,7 @@ exports[`app is the same as it was last time 1`] = `
               </h3>
               <div
                 className="item-wrapper hidden"
-              >
-                <div
-                  className="item hz"
-                >
-                  <div>
-                    Auto Parts
-                    :
-                  </div>
-                  <div>
-                    1500
-                  </div>
-                </div>
-                <div
-                  className="item hz"
-                >
-                  <div>
-                    Auto Parts
-                    :
-                  </div>
-                  <div>
-                    1700
-                  </div>
-                </div>
-              </div>
+              />
             </div>
           </div>
           <div
@@ -287,11 +181,11 @@ exports[`app is the same as it was last time 1`] = `
           >
             <h3>
               Passive Income: 
-              4470
+              0
             </h3>
             <h3>
               Total Income: 
-              17670
+              13200
             </h3>
           </div>
         </div>
@@ -368,13 +262,13 @@ exports[`app is the same as it was last time 1`] = `
           className="cash-flow"
         >
           Monthly Cash Flow: 
-          8020
+          3550
         </h3>
         <h3
           className="cash"
         >
           Cash: 
-          8420
+          3950
         </h3>
       </div>
       <hr />
@@ -406,19 +300,6 @@ exports[`app is the same as it was last time 1`] = `
                 Cost/Share
               </h3>
             </div>
-            <div
-              className="hz asset-item"
-            >
-              <div>
-                OK4U
-              </div>
-              <div>
-                1000
-              </div>
-              <div>
-                1
-              </div>
-            </div>
           </div>
           <div
             className="re"
@@ -436,32 +317,6 @@ exports[`app is the same as it was last time 1`] = `
                 Cost
               </h3>
             </div>
-            <div
-              className="hz asset-item"
-            >
-              <div>
-                3/2 House
-              </div>
-              <div>
-                5000
-              </div>
-              <div>
-                55000
-              </div>
-            </div>
-            <div
-              className="hz asset-item"
-            >
-              <div>
-                3/2 House
-              </div>
-              <div>
-                7000
-              </div>
-              <div>
-                55000
-              </div>
-            </div>
           </div>
           <div
             className="business"
@@ -478,32 +333,6 @@ exports[`app is the same as it was last time 1`] = `
               <h3>
                 Cost
               </h3>
-            </div>
-            <div
-              className="hz asset-item"
-            >
-              <div>
-                Auto Parts
-              </div>
-              <div>
-                100000
-              </div>
-              <div>
-                100000
-              </div>
-            </div>
-            <div
-              className="hz asset-item"
-            >
-              <div>
-                Auto Parts
-              </div>
-              <div>
-                120000
-              </div>
-              <div>
-                120000
-              </div>
             </div>
           </div>
         </div>
@@ -536,20 +365,6 @@ exports[`app is the same as it was last time 1`] = `
           </h3>
           <h3>
             RE Mortgage: 
-            <div
-              className="re-liability"
-            >
-              3/2 House
-              : 
-              50000
-            </div>
-            <div
-              className="re-liability"
-            >
-              3/2 House
-              : 
-              48000
-            </div>
           </h3>
           <h3>
             Bank Loan: 
@@ -581,6 +396,15 @@ exports[`app is the same as it was last time 1`] = `
         </button>
       </div>
       <div
+        className="doodad"
+      >
+        <button
+          onClick={[Function]}
+        >
+          Doodad
+        </button>
+      </div>
+      <div
         className="sell"
       >
         <button
@@ -604,6 +428,9 @@ exports[`app is the same as it was last time 1`] = `
     className="card"
   >
     
+    <div
+      className="loan"
+    />
   </div>
 </div>
 `;
