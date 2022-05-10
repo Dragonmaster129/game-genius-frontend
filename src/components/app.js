@@ -9,6 +9,7 @@ import totalUp from "../functions/totalUp";
 import Buy from "./actionsResults/buy";
 import externalData from "../data";
 import Heading from "./heading";
+import Doodad from "./actionsResults/doodad";
 
 const App = (props) => {
   const payday = () => {
@@ -18,6 +19,10 @@ const App = (props) => {
 
   const buy = () => {
     setcurrentAction("BUY");
+  };
+
+  const doodad = () => {
+    setcurrentAction("DOODAD");
   };
 
   const onChange = (setvalue) => {
@@ -75,7 +80,7 @@ const App = (props) => {
               <button onClick={buy}>Buy</button>
             </div>
             <div className="doodad">
-              <button onClick={payday}>Doodad</button>
+              <button onClick={doodad}>Doodad</button>
             </div>
             <div className="sell">
               <button onClick={payday}>Sell</button>
@@ -97,8 +102,10 @@ const App = (props) => {
           ) : (
             ""
           )}
+          {currentAction == "DOODAD" ? <Doodad /> : ""}
           <div className="loan"></div>
         </div>
+        <div className="spacer"></div>
       </div>
     );
   } else {
