@@ -51,7 +51,6 @@ const data = {
       //   key: 2,
       // },
     ],
-    passive: 0,
     stock: [
       // { name: "OK4U", amount: 1000, costPerShare: 1, key: 1 }
     ],

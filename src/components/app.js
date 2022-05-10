@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Income from "./income/income";
 import Expenses from "./expenses";
@@ -12,6 +12,18 @@ import Heading from "./heading";
 import Doodad from "./actionsResults/doodad";
 
 const App = (props) => {
+  const [data, setdata] = useState(externalData);
+
+  const [totalIncome, settotalIncome] = useState(totalUp(data.assets));
+  const [passive, setpassive] = useState(
+    totalUp(data.assets) - data.assets.salary
+  );
+  const [totalExpenses, settotalExpenses] = useState(totalUp(data.expenses));
+  const [cashflow, setcashflow] = useState(totalIncome - totalExpenses);
+  const [cash, setcash] = useState(cashflow + data.savings);
+  const [choiceToStay, setchoiceToStay] = useState(true);
+  const [currentAction, setcurrentAction] = useState("NONE");
+
   const payday = () => {
     onChange("NONE");
     setcash(cash + cashflow);
@@ -27,23 +39,26 @@ const App = (props) => {
 
   const onChange = (setvalue) => {
     setcurrentAction(setvalue);
-    settotalIncome(totalUp(data.assets));
-    settotalExpenses(totalUp(data.expenses));
-    setpassive(totalUp(data.assets) - data.assets.salary);
-    setcashflow(totalIncome - totalExpenses);
   };
 
-  const [data, setdata] = useState(externalData);
+  useEffect(() => {
+    settotalExpenses(totalUp(data.expenses));
+  }, [data.expenses]);
 
-  const [totalIncome, settotalIncome] = useState(totalUp(data.assets));
-  const [passive, setpassive] = useState(
-    totalUp(data.assets) - data.assets.salary
-  );
-  const [totalExpenses, settotalExpenses] = useState(totalUp(data.expenses));
-  const [cashflow, setcashflow] = useState(totalIncome - totalExpenses);
-  const [cash, setcash] = useState(cashflow + data.savings);
-  const [choiceToStay, setchoiceToStay] = useState(true);
-  const [currentAction, setcurrentAction] = useState("NONE");
+  useEffect(() => {
+    console.log("totaling");
+    settotalIncome(totalUp(data.assets));
+    setpassive(totalUp(data.assets) - data.assets.salary);
+  }, [
+    data.assets.interest,
+    data.assets.dividends,
+    data.assets.realestate,
+    data.assets.businesses,
+  ]);
+
+  useEffect(() => {
+    setcashflow(totalIncome - totalExpenses);
+  }, [totalIncome, totalExpenses]);
   if (passive < totalExpenses * 2 || choiceToStay) {
     return (
       <div className="app hz">

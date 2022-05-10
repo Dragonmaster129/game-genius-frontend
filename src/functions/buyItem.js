@@ -8,11 +8,14 @@ let buyItem = (props, choiceOfItem, addedData, setaddedData) => {
     }
     cash = cash - addData.downpay;
   }
+  console.log(props);
   props.setcash(cash);
   addData.key = cData.assets[choiceOfItem.toLowerCase()].length + 1;
   setaddedData(addData);
-  cData.assets[choiceOfItem.toLowerCase()].push(addedData);
-  props.setdata(cData);
+  cData.assets[choiceOfItem.toLowerCase()] = [
+    ...cData.assets[choiceOfItem.toLowerCase()],
+    addedData,
+  ];
   props.submitted("NONE");
 };
 
