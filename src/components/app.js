@@ -10,6 +10,7 @@ import Buy from "./actionsResults/buy";
 import externalData from "../data";
 import Heading from "./heading";
 import Doodad from "./actionsResults/doodad";
+import payday from "../functions/payday";
 
 const App = (props) => {
   const [data, setdata] = useState(externalData);
@@ -23,11 +24,6 @@ const App = (props) => {
   const [cash, setcash] = useState(cashflow + data.savings);
   const [choiceToStay, setchoiceToStay] = useState(true);
   const [currentAction, setcurrentAction] = useState("NONE");
-
-  const payday = () => {
-    onChange("NONE");
-    setcash(cash + cashflow);
-  };
 
   const buy = () => {
     setcurrentAction("BUY");
@@ -89,7 +85,7 @@ const App = (props) => {
           <hr />
           <div className="actions hz">
             <div className="payday">
-              <button onClick={payday}>Payday</button>
+              <button onClick={payday(cash, cashflow, onchange)}>Payday</button>
             </div>
             <div className="buy">
               <button onClick={buy}>Buy</button>
@@ -98,10 +94,10 @@ const App = (props) => {
               <button onClick={doodad}>Doodad</button>
             </div>
             <div className="sell">
-              <button onClick={payday}>Sell</button>
+              <button onClick={payday()}>Sell</button>
             </div>
             <div className="pay-loan">
-              <button onClick={payday}>Pay Loan</button>
+              <button onClick={payday()}>Pay Loan</button>
             </div>
           </div>
         </div>
