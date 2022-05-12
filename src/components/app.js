@@ -42,7 +42,6 @@ const App = (props) => {
   }, [data.expenses]);
 
   useEffect(() => {
-    console.log("totaling");
     settotalIncome(totalUp(data.assets));
     setpassive(totalUp(data.assets) - data.assets.salary);
   }, [

@@ -4,11 +4,10 @@ let buyItem = (props, choiceOfItem, addedData, setaddedData) => {
   let cash = props.cash;
   if (addData.downpay) {
     if (cash < addData.downpay) {
-      // Loan
+      // TODO
     }
     cash = cash - addData.downpay;
   }
-  console.log(props);
   props.setcash(cash);
   addData.key = cData.assets[choiceOfItem.toLowerCase()].length + 1;
   setaddedData(addData);
