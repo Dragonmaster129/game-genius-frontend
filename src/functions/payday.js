@@ -1,4 +1,4 @@
-const payday = (cash, cashflow, onChange) => {
+const payday = (setcash, cash, cashflow, onChange) => {
   onChange("NONE");
   setcash(cash + cashflow);
 };

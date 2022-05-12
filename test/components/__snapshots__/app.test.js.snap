@@ -408,7 +408,7 @@ exports[`app is the same as it was last time 1`] = `
         className="sell"
       >
         <button
-          onClick={[Function]}
+          onClick=""
         >
           Sell
         </button>
@@ -417,7 +417,7 @@ exports[`app is the same as it was last time 1`] = `
         className="pay-loan"
       >
         <button
-          onClick={[Function]}
+          onClick=""
         >
           Pay Loan
         </button>
