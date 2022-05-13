@@ -5,7 +5,7 @@ const Liabilities = (props) => {
     return re.map((item) => {
       return (
         <div className="re-liability" key={item.key}>
-          {item.name}: {item.cost - item.downpay}
+          {item.name}: {item.mortgage}
         </div>
       );
     });

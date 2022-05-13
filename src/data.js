@@ -16,22 +16,24 @@ const data = {
       // { name: "2Big", value: 30, key: 1 }
     ],
     realestate: [
-      // {
-      //   type: "3/2",
-      //   name: "3/2 House",
-      //   cost: 55000,
-      //   downpay: 5000,
-      //   value: 200,
-      //   key: 1,
-      // },
-      // {
-      //   type: "3/2",
-      //   name: "3/2 House",
-      //   cost: 55000,
-      //   downpay: 7000,
-      //   value: 400,
-      //   key: 2,
-      // },
+      {
+        type: "3/2",
+        name: "3/2 House",
+        cost: 55000,
+        mortgage: 50000,
+        downpay: 5000,
+        value: 200,
+        key: 1,
+      },
+      {
+        type: "3/2",
+        name: "3/2 House",
+        cost: 55000,
+        mortgage: 48000,
+        downpay: 7000,
+        value: 400,
+        key: 2,
+      },
     ],
     businesses: [
       // {
