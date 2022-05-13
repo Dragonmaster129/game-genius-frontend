@@ -95,10 +95,10 @@ const App = (props) => {
               <button onClick={doodad}>Doodad</button>
             </div>
             <div className="sell">
-              <button onClick={""}>Sell</button>
+              <button onClick={() => {}}>Sell</button>
             </div>
             <div className="pay-loan">
-              <button onClick={""}>Pay Loan</button>
+              <button onClick={() => {}}>Pay Loan</button>
             </div>
           </div>
         </div>
