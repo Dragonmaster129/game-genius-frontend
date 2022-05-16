@@ -7,6 +7,7 @@ import Liabilities from "./liabilities";
 
 import totalUp from "../functions/totalUp";
 import Buy from "./actionsResults/buy";
+import Sell from "./actionsResults/sell";
 import externalData from "../data";
 import Heading from "./heading";
 import Doodad from "./actionsResults/doodad";
@@ -24,14 +25,6 @@ const App = (props) => {
   const [cash, setcash] = useState(cashflow + data.savings);
   const [choiceToStay, setchoiceToStay] = useState(true);
   const [currentAction, setcurrentAction] = useState("NONE");
-
-  const buy = () => {
-    setcurrentAction("BUY");
-  };
-
-  const doodad = () => {
-    setcurrentAction("DOODAD");
-  };
 
   const onChange = (setvalue) => {
     setcurrentAction(setvalue);
@@ -89,16 +82,40 @@ const App = (props) => {
               </button>
             </div>
             <div className="buy">
-              <button onClick={buy}>Buy</button>
+              <button
+                onClick={() => {
+                  setcurrentAction("BUY");
+                }}
+              >
+                Buy
+              </button>
             </div>
             <div className="doodad">
-              <button onClick={doodad}>Doodad</button>
+              <button
+                onClick={() => {
+                  setcurrentAction("DOODAD");
+                }}
+              >
+                Doodad
+              </button>
             </div>
             <div className="sell">
-              <button onClick={() => {}}>Sell</button>
+              <button
+                onClick={() => {
+                  setcurrentAction("SELL");
+                }}
+              >
+                Sell
+              </button>
             </div>
             <div className="pay-loan">
-              <button onClick={() => {}}>Pay Loan</button>
+              <button
+                onClick={() => {
+                  setcurrentAction("PAYLOAN");
+                }}
+              >
+                Pay Loan
+              </button>
             </div>
           </div>
         </div>
@@ -115,6 +132,11 @@ const App = (props) => {
             ""
           )}
           {currentAction == "DOODAD" ? <Doodad /> : ""}
+          {currentAction == "SELL" ? (
+            <Sell data={data} setdata={setdata} cash={cash} setcash={setcash} />
+          ) : (
+            ""
+          )}
           <div className="loan"></div>
         </div>
         <div className="spacer"></div>

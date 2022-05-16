@@ -21,9 +21,7 @@ let setcash = (num) => {
   props.cash = num;
 };
 
-let submitted = (value) => {
-  console.log(value);
-};
+let submitted = (value) => {};
 
 let props = {
   data: data,
