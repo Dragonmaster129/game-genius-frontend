@@ -83,7 +83,6 @@ const App = (props) => {
             </div>
             <div className="buy">
               <button
-                className="buy-button"
                 onClick={() => {
                   onChange("BUY");
                 }}
