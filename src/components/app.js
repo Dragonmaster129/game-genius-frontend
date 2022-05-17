@@ -83,8 +83,9 @@ const App = (props) => {
             </div>
             <div className="buy">
               <button
+                className="buy-button"
                 onClick={() => {
-                  setcurrentAction("BUY");
+                  onChange("BUY");
                 }}
               >
                 Buy
@@ -93,7 +94,7 @@ const App = (props) => {
             <div className="doodad">
               <button
                 onClick={() => {
-                  setcurrentAction("DOODAD");
+                  onChange("DOODAD");
                 }}
               >
                 Doodad
@@ -102,7 +103,7 @@ const App = (props) => {
             <div className="sell">
               <button
                 onClick={() => {
-                  setcurrentAction("SELL");
+                  onChange("SELL");
                 }}
               >
                 Sell
@@ -111,7 +112,7 @@ const App = (props) => {
             <div className="pay-loan">
               <button
                 onClick={() => {
-                  setcurrentAction("PAYLOAN");
+                  onChange("PAYLOAN");
                 }}
               >
                 Pay Loan
