@@ -11,7 +11,7 @@ const Category = (props) => {
       </h3>
 
       <div className={props.isOpen ? "item-wrapper" : "item-wrapper hidden"}>
-        {props.showData(props.items)}
+        {props.showData(props.items, props.isOpen)}
       </div>
     </div>
   );
