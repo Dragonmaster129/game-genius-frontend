@@ -46,6 +46,7 @@ const choiceTypes = {
 const Buy = (props) => {
   const [choiceOfItem, setchoiceOfItem] = useState("NONE");
   const [addedData, setaddedData] = useState({});
+  const [needLoan, setneedLoan] = useState(false);
   const changeChoice = (selection) => {
     const value = selection.target.value.toUpperCase();
     if (choiceOfItem != value) {
@@ -57,6 +58,11 @@ const Buy = (props) => {
     let klass = event.target.className;
     let value = event.target.value;
     let newData = addedData;
+    if (klass == "downpay" && value > props.cash) {
+      setneedLoan(true);
+    } else if (klass == "downpay" && value < props.cash) {
+      setneedLoan(false);
+    }
     if (klass != "type" && klass != "name") {
       if (klass == "cashFlow") {
         newData["value"] = parseInt(value);
@@ -71,7 +77,9 @@ const Buy = (props) => {
   };
   const onSubmit = (event) => {
     event.preventDefault();
-    buyItem(props, choiceOfItem, addedData, setaddedData);
+    if (!needLoan) {
+      buyItem(props, choiceOfItem, addedData, setaddedData);
+    }
   };
   // Creates the form which you fill in to get the assets
   const createForm = () => {
@@ -84,7 +92,7 @@ const Buy = (props) => {
         return (
           <div key={key}>
             <h3>{key}</h3>
-            <select onChange={onChange} className={key}>
+            <select onChange={onChange} className={key} required>
               {objkeys.map((objkey) => {
                 return <option key={objkey}>{objkey}</option>;
               })}
@@ -96,7 +104,7 @@ const Buy = (props) => {
         return (
           <div key={key}>
             <h3>{key}</h3>
-            <select onChange={onChange} className={key}>
+            <select onChange={onChange} className={key} required>
               {arr.map((item) => {
                 return <option key={item}>{item}</option>;
               })}
@@ -107,7 +115,12 @@ const Buy = (props) => {
         return (
           <div key={key}>
             <h3>{key}</h3>
-            <input type="text" onChange={onChange} className={key}></input>
+            <input
+              type="text"
+              onChange={onChange}
+              className={key}
+              required
+            ></input>
           </div>
         );
       } else if (form[key] == "AUTOFILLED") {
@@ -139,6 +152,7 @@ const Buy = (props) => {
         <h1>{choiceOfItem}</h1>
         <form className="v">
           {createForm()}
+          {needLoan ? <h4>NEED TO TAKE A LOAN OUT</h4> : ""}
           <button onClick={onSubmit}>BUY</button>
         </form>
       </div>

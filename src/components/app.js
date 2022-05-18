@@ -12,6 +12,7 @@ import externalData from "../data";
 import Heading from "./heading";
 import Doodad from "./actionsResults/doodad";
 import payday from "../functions/payday";
+import BorrowLoan from "./actionsResults/loan";
 
 const App = (props) => {
   const [data, setdata] = useState(externalData);
@@ -25,6 +26,7 @@ const App = (props) => {
   const [cash, setcash] = useState(cashflow + data.savings);
   const [choiceToStay, setchoiceToStay] = useState(true);
   const [currentAction, setcurrentAction] = useState("NONE");
+  const [borrowLoan, setborrowLoan] = useState(false);
 
   const onChange = (setvalue) => {
     setcurrentAction(setvalue);
@@ -32,12 +34,13 @@ const App = (props) => {
 
   useEffect(() => {
     settotalExpenses(totalUp(data.expenses));
-  }, [data.expenses]);
+  }, [data, data.expenses]);
 
   useEffect(() => {
     settotalIncome(totalUp(data.assets));
     setpassive(totalUp(data.assets) - data.assets.salary);
   }, [
+    data,
     data.assets.interest,
     data.assets.dividends,
     data.assets.realestate,
@@ -117,6 +120,15 @@ const App = (props) => {
                 Pay Loan
               </button>
             </div>
+            <div className="borrow-loan">
+              <button
+                onClick={() => {
+                  setborrowLoan(true);
+                }}
+              >
+                Borrow Loan
+              </button>
+            </div>
           </div>
         </div>
         <div className="card">
@@ -137,7 +149,19 @@ const App = (props) => {
           ) : (
             ""
           )}
-          <div className="loan"></div>
+          <div className="loan">
+            {borrowLoan ? (
+              <BorrowLoan
+                cash={cash}
+                setcash={setcash}
+                data={data}
+                setdata={setdata}
+                setborrowLoan={setborrowLoan}
+              />
+            ) : (
+              ""
+            )}
+          </div>
         </div>
         <div className="spacer"></div>
       </div>

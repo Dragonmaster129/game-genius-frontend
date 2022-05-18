@@ -3,9 +3,6 @@ let buyItem = (props, choiceOfItem, addedData, setaddedData) => {
   let addData = addedData;
   let cash = props.cash;
   if (addData.downpay) {
-    if (cash < addData.downpay) {
-      // TODO
-    }
     cash = cash - addData.downpay;
   }
   props.setcash(cash);
