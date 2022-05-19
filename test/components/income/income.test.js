@@ -7,14 +7,6 @@ import totalUp from "../../../src/functions/totalUp";
 
 import data from "../../sampledata";
 
-// test("income returns the same as what it was", () => {
-//   const income = renderer.create(
-//     <Income props={data.assets} totalIncome={12000} passive={4000} />
-//   );
-//   let tree = income.toJSON();
-//   expect(tree).toMatchSnapshot();
-// });
-
 test("income is rendered", () => {
   render(<Income props={data.assets} totalIncome={12000} passive={4000} />);
   let heading = screen.getByRole("heading", { name: "Income" });
@@ -27,12 +19,19 @@ test("clicking the categories will open them", () => {
     name: `Interest: ${totalUp(data.assets.interest)}`,
   });
   fireEvent.click(interestCategory);
-  let interestItems = screen.queryByText("item-wrapper");
-  expect(interestItems).toBeVisible();
+  let interestItems = screen.getByText(data.assets.interest[0].name + ":");
+  expect(interestItems).toBeDefined();
 });
 
 test("not clicking the categories will display nothing", () => {
   render(<Income props={data.assets} totalIncome={12000} passive={4000} />);
-  let earlyInterestItems = screen.getByText("item-wrapper");
-  expect(earlyInterestItems).toBeVisible();
+  let earlyInterestItems = undefined;
+  try {
+    dearlyInterestItems = screen.getByDisplayValue(
+      data.assets.interest[0].name + ":"
+    );
+  } catch (error) {
+    console.log("Task failed successfully");
+  }
+  expect(earlyInterestItems).toBeUndefined();
 });

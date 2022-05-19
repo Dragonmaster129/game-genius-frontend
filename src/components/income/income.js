@@ -11,18 +11,16 @@ const Income = (props) => {
   const [realIsOpen, setrealIsOpen] = useState(false);
   const [businessIsOpen, setbusinessIsOpen] = useState(false);
   const showData = (dataArr, isOpen) => {
-    return dataArr.map((item) => {
-      return (
-        <div
-          className={isOpen ? "item hz" : "item hz hidden"}
-          aria-hidden={!isOpen}
-          key={item.key}
-        >
-          <div>{item.name}:</div>
-          <div>{item.value}</div>
-        </div>
-      );
-    });
+    if (isOpen) {
+      return dataArr.map((item) => {
+        return (
+          <div className="item hz" key={item.key}>
+            <div>{item.name}:</div>
+            <div>{item.value}</div>
+          </div>
+        );
+      });
+    }
   };
   return (
     <div className="income-wrapper">

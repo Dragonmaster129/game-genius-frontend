@@ -52,6 +52,7 @@ exports[`buy component is the same 1`] = `
     <form
       className="v"
     >
+      
       <button
         onClick={[Function]}
       >
