@@ -30,7 +30,7 @@ const BorrowLoan = (props) => {
           }}
         ></input>
         <label>Will reduce income by: {loanAmount / 10}</label>
-        <button onClick={onSubmit}></button>
+        <button onClick={onSubmit}>DO IT!</button>
       </form>
     </div>
   );

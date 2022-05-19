@@ -60,7 +60,7 @@ exports[`assets component is the same as what it was 1`] = `
       className="hz asset-item"
     >
       <div>
-        3/2 House
+        3/2 HOUSE
       </div>
       <div>
         5000
@@ -73,7 +73,7 @@ exports[`assets component is the same as what it was 1`] = `
       className="hz asset-item"
     >
       <div>
-        3/2 House
+        3/2 HOUSE
       </div>
       <div>
         7000

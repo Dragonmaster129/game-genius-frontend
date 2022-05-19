@@ -1,4 +1,4 @@
-const sampledata = {
+const data = {
   player: 3,
   profession: "Doctor",
   auditor: "Sam",
@@ -14,15 +14,6 @@ const sampledata = {
     ],
     dividends: [{ name: "2Big", value: 30, key: 1 }],
     realestate: [
-      {
-        type: "3/2",
-        name: "3/2 HOUSE",
-        cost: 55000,
-        mortgage: 50000,
-        downpay: 5000,
-        value: 200,
-        key: 1,
-      },
       {
         type: "3/2",
         name: "3/2 HOUSE",
@@ -70,4 +61,4 @@ const sampledata = {
   },
 };
 
-export default sampledata;
+export default data;

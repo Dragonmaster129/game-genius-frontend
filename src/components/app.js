@@ -145,7 +145,13 @@ const App = (props) => {
           )}
           {currentAction == "DOODAD" ? <Doodad /> : ""}
           {currentAction == "SELL" ? (
-            <Sell data={data} setdata={setdata} cash={cash} setcash={setcash} />
+            <Sell
+              data={data}
+              setdata={setdata}
+              cash={cash}
+              setcash={setcash}
+              submitted={onChange}
+            />
           ) : (
             ""
           )}

@@ -47,6 +47,7 @@ const Buy = (props) => {
   const [choiceOfItem, setchoiceOfItem] = useState("NONE");
   const [addedData, setaddedData] = useState({});
   const [needLoan, setneedLoan] = useState(false);
+  const [spending, setspending] = useState(0);
   const changeChoice = (selection) => {
     const value = selection.target.value.toUpperCase();
     if (choiceOfItem != value) {
@@ -59,15 +60,17 @@ const Buy = (props) => {
     let value = event.target.value;
     let newData = addedData;
     if (klass == "downpay" && value > props.cash) {
+      setspending(value);
       setneedLoan(true);
     } else if (klass == "downpay" && value < props.cash) {
+      setspending(value);
       setneedLoan(false);
     }
     if (klass != "type" && klass != "name") {
       if (klass == "cashFlow") {
-        newData["value"] = parseInt(value);
+        newData["value"] = value;
       } else {
-        newData[klass] = parseInt(value);
+        newData[klass] = value;
       }
     } else {
       newData[klass] = value;
@@ -116,7 +119,7 @@ const Buy = (props) => {
           <div key={key}>
             <h3>{key}</h3>
             <input
-              type="text"
+              type="number"
               onChange={onChange}
               className={key}
               required
@@ -152,6 +155,8 @@ const Buy = (props) => {
         <h1>{choiceOfItem}</h1>
         <form className="v">
           {createForm()}
+          <label>Spending:</label>
+          {spending}
           {needLoan ? <h4>NEED TO TAKE A LOAN OUT</h4> : ""}
           <button onClick={onSubmit}>BUY</button>
         </form>

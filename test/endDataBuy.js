@@ -16,7 +16,7 @@ const data = {
     realestate: [
       {
         type: "3/2",
-        name: "3/2 House",
+        name: "3/2 HOUSE",
         cost: 55000,
         mortgage: 50000,
         downpay: 5000,
@@ -25,7 +25,7 @@ const data = {
       },
       {
         type: "3/2",
-        name: "3/2 House",
+        name: "3/2 HOUSE",
         cost: 55000,
         mortgage: 48000,
         downpay: 7000,

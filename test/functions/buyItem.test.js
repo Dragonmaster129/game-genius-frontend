@@ -1,6 +1,6 @@
 import buyItem from "../../src/functions/buyItem";
 import data from "../sampledata";
-import endData from "../endData";
+import endData from "../endDataBuy";
 
 let addedData = {
   type: "STARTERHOUSE",
