@@ -16,7 +16,7 @@ const BorrowLoan = (props) => {
     newData.expenses.loan = newData.expenses.loan + loanAmount;
     props.setdata(newData);
     props.setcash(props.cash + loanAmount);
-    props.setborrowLoan(false);
+    props.setborrowLoan("NONE");
   };
   return (
     <div className="loan">

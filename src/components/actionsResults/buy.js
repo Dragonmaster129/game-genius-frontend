@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import buyItem from "../../functions/buyItem";
 
 const choiceTypes = {
@@ -48,6 +48,15 @@ const Buy = (props) => {
   const [addedData, setaddedData] = useState({});
   const [needLoan, setneedLoan] = useState(false);
   const [spending, setspending] = useState(0);
+
+  useEffect(() => {
+    if (addedData.downpay > props.cash) {
+      setneedLoan(true);
+    } else if (addedData.downpay < props.cash) {
+      setneedLoan(false);
+    }
+  }, [props.cash]);
+
   const changeChoice = (selection) => {
     const value = selection.target.value.toUpperCase();
     if (choiceOfItem != value) {
@@ -68,9 +77,9 @@ const Buy = (props) => {
     }
     if (klass != "type" && klass != "name") {
       if (klass == "cashFlow") {
-        newData["value"] = value;
+        newData["value"] = parseInt(value);
       } else {
-        newData[klass] = value;
+        newData[klass] = parseInt(value);
       }
     } else {
       newData[klass] = value;
