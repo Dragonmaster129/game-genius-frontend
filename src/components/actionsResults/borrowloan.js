@@ -20,7 +20,7 @@ const BorrowLoan = (props) => {
   };
   return (
     <div className="loan">
-      <form>
+      <form className="v">
         <label>Taking out loan for: </label>
         <input
           type="number"
@@ -30,7 +30,9 @@ const BorrowLoan = (props) => {
           }}
         ></input>
         <label>Will reduce income by: {loanAmount / 10}</label>
-        <button onClick={onSubmit}>DO IT!</button>
+        <button onClick={onSubmit} className="borrow-loan">
+          DO IT!
+        </button>
       </form>
     </div>
   );

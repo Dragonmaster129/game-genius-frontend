@@ -27,7 +27,7 @@ const App = (props) => {
   const [cash, setcash] = useState(cashflow + data.savings);
   const [choiceToStay, setchoiceToStay] = useState(true);
   const [currentAction, setcurrentAction] = useState("NONE");
-  const [borrowLoan, setborrowLoan] = useState("BORROW");
+  const [borrowLoan, setborrowLoan] = useState("NONE");
 
   const onChange = (setvalue) => {
     setcurrentAction(setvalue);
@@ -139,10 +139,10 @@ const App = (props) => {
                 Pay Loan
               </button>
             </div>
-            <div className="borrow-loan">
+            <div className="borrowloan">
               <button
                 onClick={() => {
-                  setborrowLoan(true);
+                  setborrowLoan("BORROW");
                 }}
               >
                 Borrow Loan
