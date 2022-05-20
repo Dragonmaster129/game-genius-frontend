@@ -7,7 +7,9 @@ button {
   border: 1px solid black;
   border-radius: 5px;
   background-color: #aa00dd;
-  width: 100px;
+  color: #ffd900;
+  font-weight: 600;
+  width: 150px;
   height: 30px;
 }
 
@@ -31,7 +33,16 @@ button {
 }
 
 .actions {
-  width: 100%;
+  width: 40vw;
+  flex-direction: column;
+  height: 63px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  button {
+    border-radius: 1px;
+    background-image: linear-gradient(to right, #6a00ab, #640c8d, #96478f);
+  }
 }
 
 .right {

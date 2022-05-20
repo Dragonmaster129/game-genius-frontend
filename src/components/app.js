@@ -85,15 +85,6 @@ const App = (props) => {
                 Payday
               </button>
             </div>
-            <div className="buy">
-              <button
-                onClick={() => {
-                  onChange("BUY");
-                }}
-              >
-                Buy
-              </button>
-            </div>
             <div className="doodad">
               <button
                 onClick={() => {
@@ -101,6 +92,33 @@ const App = (props) => {
                 }}
               >
                 Doodad
+              </button>
+            </div>
+            <div className="collect-money">
+              <button
+                onClick={() => {
+                  onChange("COLLECT");
+                }}
+              >
+                Collect
+              </button>
+            </div>
+            <div className="pay-money">
+              <button
+                onClick={() => {
+                  onChange("PAY");
+                }}
+              >
+                PAY
+              </button>
+            </div>
+            <div className="buy">
+              <button
+                onClick={() => {
+                  onChange("BUY");
+                }}
+              >
+                Buy
               </button>
             </div>
             <div className="sell">
@@ -115,7 +133,7 @@ const App = (props) => {
             <div className="pay-loan">
               <button
                 onClick={() => {
-                  onChange("PAYLOAN");
+                  setborrowLoan("PAYLOAN");
                 }}
               >
                 Pay Loan
@@ -165,7 +183,7 @@ const App = (props) => {
                 setdata={setdata}
                 setborrowLoan={setborrowLoan}
               />
-            ) : borrowLoan == "PAY" ? (
+            ) : borrowLoan == "PAYLOAN" ? (
               <PayLoan
                 cash={cash}
                 setcash={setcash}
