@@ -12,7 +12,8 @@ import externalData from "../data";
 import Heading from "./heading";
 import Doodad from "./actionsResults/doodad";
 import payday from "../functions/payday";
-import BorrowLoan from "./actionsResults/loan";
+import BorrowLoan from "./actionsResults/borrowloan";
+import PayLoan from "./actionsResults/payloan";
 
 const App = (props) => {
   const [data, setdata] = useState(externalData);
@@ -26,7 +27,7 @@ const App = (props) => {
   const [cash, setcash] = useState(cashflow + data.savings);
   const [choiceToStay, setchoiceToStay] = useState(true);
   const [currentAction, setcurrentAction] = useState("NONE");
-  const [borrowLoan, setborrowLoan] = useState(false);
+  const [borrowLoan, setborrowLoan] = useState("BORROW");
 
   const onChange = (setvalue) => {
     setcurrentAction(setvalue);
@@ -156,8 +157,16 @@ const App = (props) => {
             ""
           )}
           <div className="loan">
-            {borrowLoan ? (
+            {borrowLoan == "BORROW" ? (
               <BorrowLoan
+                cash={cash}
+                setcash={setcash}
+                data={data}
+                setdata={setdata}
+                setborrowLoan={setborrowLoan}
+              />
+            ) : borrowLoan == "PAY" ? (
+              <PayLoan
                 cash={cash}
                 setcash={setcash}
                 data={data}
