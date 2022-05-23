@@ -96,6 +96,15 @@ const App = (props) => {
                 Doodad
               </button>
             </div>
+            <div className="downsized">
+              <button
+                onClick={() => {
+                  onChange("DOWNSIZED");
+                }}
+              >
+                Downsized
+              </button>
+            </div>
             <div className="collect-money">
               <button
                 onClick={() => {
@@ -111,7 +120,16 @@ const App = (props) => {
                   onChange("PAY");
                 }}
               >
-                PAY
+                Pay
+              </button>
+            </div>
+            <div className="charity">
+              <button
+                onClick={() => {
+                  onChange("CHARITY");
+                }}
+              >
+                Charity
               </button>
             </div>
             <div className="buy">
@@ -130,6 +148,15 @@ const App = (props) => {
                 }}
               >
                 Sell
+              </button>
+            </div>
+            <div className="baby">
+              <button
+                onClick={() => {
+                  onChange("BABY");
+                }}
+              >
+                Baby
               </button>
             </div>
             <div className="pay-loan">

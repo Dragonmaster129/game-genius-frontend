@@ -53,6 +53,15 @@ const data = {
       //   key: 2,
       // },
     ],
+    land: [
+      // {
+      //  amount: "20 Acres",
+      //  cost: 30000,
+      //  mortgage: 15000,
+      //  downpay: 15000,
+      //  cashFlow: -150,
+      //}
+    ],
     stock: [
       // { name: "OK4U", amount: 1000, costPerShare: 1, key: 1 }
     ],
@@ -70,6 +79,7 @@ const data = {
       costPer: 640,
     },
     loan: 0,
+    insurance: 0,
   },
 };
 

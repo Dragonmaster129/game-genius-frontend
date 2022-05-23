@@ -4,7 +4,7 @@ const decreaseKeyValue = (arrToDecrease) => {
   arrToDecrease.forEach((element) => {
     iteration++;
     console.log(element);
-    element.value = iteration;
+    element.key = iteration;
     newArr.push(element);
   });
   return newArr;
