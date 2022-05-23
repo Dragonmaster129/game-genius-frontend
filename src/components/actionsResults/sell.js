@@ -11,7 +11,7 @@ const Sell = (props) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    props.setcash(props.cash + cashback);
+    props.setcash(props.cash + parseInt(cashback));
     let cData = props.data;
     cData.assets[choiceOfItem].splice(
       cData.assets[choiceOfItem][currentItem],
@@ -23,12 +23,22 @@ const Sell = (props) => {
 
   const showCurrentItem = () => {
     const item = currentItem;
-    return (
-      <div className="item hz" key={item.key}>
-        <div>{item.name}:</div>
-        <div>{item.value}</div>
-      </div>
-    );
+    if (item != "STOCK") {
+      return (
+        <div className="item hz" key={item.key}>
+          <div>{item.name}:</div>
+          <div>{item.value}</div>
+        </div>
+      );
+    } else if (item == "STOCK") {
+      return (
+        <div className="item hz" key={item.key}>
+          <div>{item.name}:</div>
+          <div>{item.amount}</div>
+          <div>{item.costPerShare}</div>
+        </div>
+      );
+    }
   };
 
   const changeTopChoice = (selection) => {
@@ -40,7 +50,11 @@ const Sell = (props) => {
 
   const changeChoice = (selection) => {
     const value = selection.target.value;
-    setcashback(sellPrice - itemsToSell[choiceOfItem][value - 1].mortgage);
+    if (itemsToSell[choiceOfItem][value - 1].mortgage) {
+      setcashback(sellPrice - itemsToSell[choiceOfItem][value - 1].mortgage);
+    } else {
+      setcashback(sellPrice);
+    }
     setcurrentItem(itemsToSell[choiceOfItem][value - 1]);
   };
 
@@ -67,7 +81,11 @@ const Sell = (props) => {
   };
 
   useEffect(() => {
-    setcashback(sellPrice - currentItem.mortgage);
+    if (currentItem.mortgage) {
+      setcashback(sellPrice - currentItem.mortgage);
+    } else {
+      setcashback(sellPrice);
+    }
   }, [sellPrice]);
 
   return (

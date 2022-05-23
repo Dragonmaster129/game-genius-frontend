@@ -8,7 +8,6 @@ const choiceTypes = {
     option: ["NONE", "PUT", "CALL", "SHORT", "REGULAR"],
     costPerShare: "",
     amount: "",
-    spent: "AUTOFILLED",
   },
   REALESTATE: {
     type: {
@@ -48,6 +47,13 @@ const Buy = (props) => {
   const [addedData, setaddedData] = useState({});
   const [needLoan, setneedLoan] = useState(false);
   const [spending, setspending] = useState(0);
+
+  useEffect(() => {
+    if (addedData.costPerShare && addedData.value) {
+      console.log(addedData.costPerShare * addedData.value);
+      setspending(addedData.costPerShare * addedData.value);
+    }
+  }, [addedData.costPerShare, addedData.value, addedData]);
 
   useEffect(() => {
     if (addedData.downpay > props.cash) {
@@ -133,13 +139,6 @@ const Buy = (props) => {
               className={key}
               required
             ></input>
-          </div>
-        );
-      } else if (form[key] == "AUTOFILLED") {
-        return (
-          <div key={key}>
-            <h3>{key}</h3>
-            <h3>{(addedData.costPerShare * addedData.amount).toString()}</h3>
           </div>
         );
       }

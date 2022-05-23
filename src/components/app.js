@@ -14,6 +14,8 @@ import Doodad from "./actionsResults/doodad";
 import payday from "../functions/payday";
 import BorrowLoan from "./actionsResults/borrowloan";
 import PayLoan from "./actionsResults/payloan";
+import Collect from "./actionsResults/collect";
+import Pay from "./actionsResults/pay";
 
 const App = (props) => {
   const [data, setdata] = useState(externalData);
@@ -162,7 +164,17 @@ const App = (props) => {
           ) : (
             ""
           )}
-          {currentAction == "DOODAD" ? <Doodad /> : ""}
+          {currentAction == "DOODAD" ? (
+            <Doodad
+              data={data}
+              setdata={setdata}
+              cash={cash}
+              setcash={setcash}
+              submitted={onChange}
+            />
+          ) : (
+            ""
+          )}
           {currentAction == "SELL" ? (
             <Sell
               data={data}
@@ -171,6 +183,16 @@ const App = (props) => {
               setcash={setcash}
               submitted={onChange}
             />
+          ) : (
+            ""
+          )}
+          {currentAction == "COLLECT" ? (
+            <Collect cash={cash} setcash={setcash} submitted={onChange} />
+          ) : (
+            ""
+          )}
+          {currentAction == "PAY" ? (
+            <Pay cash={cash} setcash={setcash} submitted={onChange} />
           ) : (
             ""
           )}
