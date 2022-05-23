@@ -13,7 +13,11 @@ const Sell = (props) => {
   const onSubmit = (event) => {
     event.preventDefault();
     props.setcash(props.cash + parseInt(cashback));
-    let cData = props.data;
+    let cData = {};
+    for (const key in props.data) {
+      const element = props.data[key];
+      cData[key] = element;
+    }
     cData.assets[choiceOfItem].splice(
       cData.assets[choiceOfItem].indexOf(currentItem),
       1

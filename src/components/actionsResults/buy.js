@@ -17,7 +17,11 @@ const choiceTypes = {
       DUPLEX: 2,
       "4PLEX": 4,
       "8PLEX": 8,
-      APARTMENTCOMPLEX: "",
+      "12APARTMENTCOMPLEX": 12,
+      "16APARTMENTCOMPLEX": 16,
+      "24APARTMENTCOMPLEX": 24,
+      "30APARTMENTCOMPLEX": 30,
+      "50APARTMENTCOMPLEX": 50,
     },
     cost: "",
     mortgage: "",
@@ -50,7 +54,6 @@ const Buy = (props) => {
 
   useEffect(() => {
     if (addedData.costPerShare && addedData.value) {
-      console.log(addedData.costPerShare * addedData.value);
       setspending(addedData.costPerShare * addedData.value);
     }
   }, [addedData.costPerShare, addedData.value, addedData]);
@@ -107,6 +110,26 @@ const Buy = (props) => {
       if (Object.prototype.toString.call(form[key]) === "[object Object]") {
         let object = form[key];
         let objkeys = Object.keys(object);
+        if (choiceOfItem == "REALESTATE") {
+          return (
+            <div key={key}>
+              <h3>{key}</h3>
+              <select onChange={onChange} className={key} required>
+                {objkeys.map((objkey) => {
+                  if (objkey == "APARTMENTCOMPLEX") {
+                    return (
+                      <option key={`${objkey}: ${object[objkey]}`}>
+                        {objkey}: {object[objkey]}
+                      </option>
+                    );
+                  } else {
+                    return <option key={objkey}>{objkey}</option>;
+                  }
+                })}
+              </select>
+            </div>
+          );
+        }
         return (
           <div key={key}>
             <h3>{key}</h3>

@@ -37,7 +37,15 @@ const PayLoan = (props) => {
           type="number"
           value={loanAmount}
           onChange={(event) => {
-            setloanAmount(Math.ceil(event.target.valueAsNumber / 1000) * 1000);
+            if (event.target.valueAsNumber % 5 == 4) {
+              setloanAmount(
+                Math.floor(event.target.valueAsNumber / 1000) * 1000
+              );
+            } else {
+              setloanAmount(
+                Math.ceil(event.target.valueAsNumber / 1000) * 1000
+              );
+            }
           }}
         ></input>
         <label>Will increase income by: {loanAmount / 10}</label>
