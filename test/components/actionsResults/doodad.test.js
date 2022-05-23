@@ -5,6 +5,6 @@ import "@testing-library/jest-dom";
 
 test("doodad is displayed", () => {
   render(<Doodad />);
-  let doodad = screen.getByText("Doodad");
+  let doodad = screen.getByText("DOODAD");
   expect(doodad).toBeDefined();
 });

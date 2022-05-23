@@ -10,6 +10,7 @@ const Pay = (props) => {
   };
   return (
     <div>
+      <h3>PAY</h3>
       <form>
         <label>Amount</label>
         <input

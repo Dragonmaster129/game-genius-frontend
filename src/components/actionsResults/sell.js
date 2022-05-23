@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import decreaseKeyValue from "../../functions/dropKeyValue";
 
 const categoriesToSell = ["NONE", "STOCK", "REALESTATE", "LAND", "BUSINESS"];
 
@@ -14,9 +15,10 @@ const Sell = (props) => {
     props.setcash(props.cash + parseInt(cashback));
     let cData = props.data;
     cData.assets[choiceOfItem].splice(
-      cData.assets[choiceOfItem][currentItem],
+      cData.assets[choiceOfItem].indexOf(currentItem),
       1
     );
+    decreaseKeyValue(cData.assets[choiceOfItem]);
     props.setdata(cData);
     props.submitted("NONE");
   };

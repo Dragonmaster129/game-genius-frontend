@@ -10,6 +10,7 @@ const Collect = (props) => {
   };
   return (
     <div>
+      <h3>COLLECT</h3>
       <form>
         <label>Amount</label>
         <input
