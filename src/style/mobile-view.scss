@@ -1,8 +1,10 @@
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
   html {
-    font-size: 80%;
+    font-size: 62.5%;
   }
+}
 
+@media screen and (max-width: 1060px) {
   .playerCard {
     width: 100%;
   }

@@ -30,6 +30,26 @@ const App = (props) => {
   const [choiceToStay, setchoiceToStay] = useState(true);
   const [currentAction, setcurrentAction] = useState("NONE");
   const [borrowLoan, setborrowLoan] = useState("NONE");
+  const [windowDimenion, detectHW] = useState({
+    winWidth: window.innerWidth,
+    winHeight: window.innerHeight,
+  });
+
+  const shrinkPlayer = () => {
+    if (
+      windowDimenion.winWidth <= 650 &&
+      (currentAction != "NONE" || borrowLoan != "NONE")
+    ) {
+      return true;
+    }
+  };
+
+  const detectSize = () => {
+    detectHW({
+      winWidth: window.innerWidth,
+      winHeight: window.innerHeight,
+    });
+  };
 
   const onChange = (setvalue) => {
     setcurrentAction(setvalue);
@@ -51,32 +71,42 @@ const App = (props) => {
   ]);
 
   useEffect(() => {
+    window.addEventListener("resize", detectSize);
+
+    return () => {
+      window.removeEventListener("resize", detectSize);
+    };
+  }, [windowDimenion]);
+
+  useEffect(() => {
     setcashflow(totalIncome - totalExpenses);
   }, [totalIncome, totalExpenses]);
   if (passive < totalExpenses * 2 || choiceToStay) {
     return (
-      <div className="app hz">
+      <div className={windowDimenion.winWidth <= 1060 ? "app v" : "app hz"}>
         <div className="player">
-          <div className="v playerCard">
+          <div
+            className={shrinkPlayer() ? "v playercardhidden" : "v playercard"}
+          >
             <Heading data={data} />
-            <hr />
+            {shrinkPlayer() ? "" : <hr />}
             <h2>Income Statement</h2>
             <Income
               props={data.assets}
               totalIncome={totalIncome}
               passive={passive}
             />
-            <hr />
+            {shrinkPlayer() ? "" : <hr />}
             <Expenses props={data.expenses} totalExpenses={totalExpenses} />
-            <hr />
+            {shrinkPlayer() ? "" : <hr />}
             <div className="v right">
               <h3 className="cash-flow">Monthly Cash Flow: {cashflow}</h3>
               <h3 className="cash">Cash: {cash}</h3>
             </div>
-            <hr />
+            {shrinkPlayer() ? "" : <hr />}
             <div className="hz">
               <Assets props={data.assets} />
-              <hr />
+              {shrinkPlayer() ? "" : <hr />}
               <Liabilities props={data.expenses} re={data.assets.realestate} />
             </div>
           </div>
