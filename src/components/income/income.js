@@ -16,7 +16,7 @@ const Income = (props) => {
         return (
           <div className="item hz" key={item.key}>
             <div>{item.name}:</div>
-            <div>{item.value}</div>
+            <div>{item.value.toLocaleString("en-US")}</div>
           </div>
         );
       });

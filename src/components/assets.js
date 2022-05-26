@@ -6,8 +6,16 @@ const Assets = (props) => {
       return (
         <div className="hz asset-item" key={item.key}>
           <div>{item.name}</div>
-          <div>{item.amount ? item.amount : item.downpay}</div>
-          <div>{item.costPerShare ? item.costPerShare : item.cost}</div>
+          <div>
+            {item.amount
+              ? item.amount.toLocaleString("en-US")
+              : item.downpay.toLocaleString("en-US")}
+          </div>
+          <div>
+            {item.costPerShare
+              ? item.costPerShare.toLocaleString("en-US")
+              : item.cost.toLocaleString("en-US")}
+          </div>
         </div>
       );
     });

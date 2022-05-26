@@ -93,15 +93,20 @@ const App = (props) => {
             <h2>Income Statement</h2>
             <Income
               props={data.assets}
-              totalIncome={totalIncome}
-              passive={passive}
+              totalIncome={totalIncome.toLocaleString("en-US")}
+              passive={passive.toLocaleString("en-US")}
             />
             {shrinkPlayer() ? "" : <hr />}
-            <Expenses props={data.expenses} totalExpenses={totalExpenses} />
+            <Expenses
+              props={data.expenses}
+              totalExpenses={totalExpenses.toLocaleString("en-US")}
+            />
             {shrinkPlayer() ? "" : <hr />}
             <div className="v right">
-              <h3 className="cash-flow">Monthly Cash Flow: {cashflow}</h3>
-              <h3 className="cash">Cash: {cash}</h3>
+              <h3 className="cash-flow">
+                Monthly Cash Flow: {cashflow.toLocaleString("en-US")}
+              </h3>
+              <h3 className="cash">Cash: {cash.toLocaleString("en-US")}</h3>
             </div>
             {shrinkPlayer() ? "" : <hr />}
             <div className="hz">
@@ -208,6 +213,20 @@ const App = (props) => {
               </button>
             </div>
           </div>
+          {passive >= totalExpenses * 2 ? (
+            <div classname="choice-to-leave">
+              <h3>Click this button when you want to leave the Rat Race</h3>
+              <button
+                onClick={() => {
+                  setchoiceToStay(false);
+                }}
+              >
+                Leave the Rat Race
+              </button>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
         <div className="card">
           {currentAction == "BUY" ? (
@@ -283,7 +302,8 @@ const App = (props) => {
       <div className="ending">
         <h1>You Won! Now go on past the rat race!</h1>
         <h2>Stats below.</h2>
-        <h3>Passive: {passive}</h3>
+        <h3>Passive: {passive.toLocaleString("en-US")}</h3>
+        <h3>New Income: {(passive * 100).toLocaleString("en-US")}</h3>
       </div>
     );
   }
