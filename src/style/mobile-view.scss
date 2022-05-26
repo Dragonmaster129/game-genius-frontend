@@ -1,0 +1,13 @@
+@media screen and (max-width: 600px) {
+  html {
+    font-size: 80%;
+  }
+
+  .playerCard {
+    width: 100%;
+  }
+
+  .app {
+    flex-direction: column;
+  }
+}
