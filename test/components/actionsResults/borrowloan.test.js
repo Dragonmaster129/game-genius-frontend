@@ -3,29 +3,24 @@ import React from "react";
 import "@testing-library/jest-dom";
 import BorrowLoan from "../../../src/components/actionsResults/borrowloan";
 import sampledata from "../../sampledata";
-import endData from "../../endDataBorrow";
 
 let cash = 3950;
 let setcash = (value) => (cash = value);
 let data = sampledata;
-let setdata = (value) => (data = value);
+let setdata = (newdata) => (data = newdata);
 let setborrowLoan = (value) => {};
 
-test("borrowloan renders", () => {
-  render(
-    <BorrowLoan
-      cash={cash}
-      setcash={setcash}
-      data={data}
-      setdata={setdata}
-      setborrowLoan={setborrowLoan}
-    />
-  );
-  let borrow = screen.getByRole("button");
-  expect(borrow).toBeDefined();
+test("When loan isn't rendered there is nothing", () => {
+  let nothing = undefined;
+  try {
+    nothing = screen.getByText("DO IT!");
+  } catch (error) {
+    console.log("another test failed successfully");
+  }
+  expect(nothing).toBeUndefined();
 });
 
-test("Clicking the button will add a loan to you card", () => {
+test("Loan is rendered", () => {
   render(
     <BorrowLoan
       cash={cash}
@@ -35,7 +30,21 @@ test("Clicking the button will add a loan to you card", () => {
       setborrowLoan={setborrowLoan}
     />
   );
-  let borrowButton = screen.getByRole("button");
-  fireEvent.click(borrowButton);
-  expect(data).toEqual(endData);
+  let borrowLoan = screen.getByText("DO IT!");
+  expect(borrowLoan).toBeDefined();
+});
+
+test("Clicking the button will add a loan to the playerdata", () => {
+  render(
+    <BorrowLoan
+      cash={cash}
+      setcash={setcash}
+      data={data}
+      setdata={setdata}
+      setborrowLoan={setborrowLoan}
+    />
+  );
+  let doitbutton = screen.getByRole("button", { name: "DO IT!" });
+  fireEvent.click(doitbutton);
+  expect(data.expenses.loan).toEqual(1000);
 });
