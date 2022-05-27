@@ -187,7 +187,11 @@ const Buy = (props) => {
         <form className="v">
           {createForm()}
           <label>Spending:</label>
-          {spending}
+          {spending.toLocaleString("en-US")}
+          <label>
+            <h3>Cash:</h3>
+          </label>
+          <h3>{props.cash.toLocaleString("en-US")}</h3>
           {needLoan ? <h4>NEED TO TAKE A LOAN OUT</h4> : ""}
           <button onClick={onSubmit}>BUY</button>
         </form>
