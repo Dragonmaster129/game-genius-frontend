@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const Collect = (props) => {
-  const [amount, setamount] = useState(1);
+  const [amount, setamount] = useState(100);
 
   const onSubmit = (event) => {
     event.preventDefault();

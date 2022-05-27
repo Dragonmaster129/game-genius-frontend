@@ -3,7 +3,6 @@ const decreaseKeyValue = (arrToDecrease) => {
   let iteration = 0;
   arrToDecrease.forEach((element) => {
     iteration++;
-    console.log(element);
     element.key = iteration;
     newArr.push(element);
   });
