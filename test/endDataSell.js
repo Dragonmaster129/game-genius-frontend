@@ -21,7 +21,7 @@ const data = {
         mortgage: 48000,
         downpay: 7000,
         value: 400,
-        key: 2,
+        key: 1,
       },
     ],
     businesses: [

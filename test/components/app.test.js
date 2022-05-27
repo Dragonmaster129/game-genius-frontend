@@ -24,7 +24,7 @@ test("clicking the payday button changes cash", () => {
   render(<App />);
   let paydayButton = screen.getByRole("button", { name: "Payday" });
   fireEvent.click(paydayButton);
-  let cash = screen.getByText("Cash: 7500");
+  let cash = screen.getByText("Cash: 7,500");
   expect(cash).toBeDefined();
 });
 

@@ -56,6 +56,14 @@ exports[`buy component is the same 1`] = `
         Spending:
       </label>
       0
+      <label>
+        <h3>
+          Cash:
+        </h3>
+      </label>
+      <h3>
+        3,950
+      </h3>
       
       <button
         onClick={[Function]}
