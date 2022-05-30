@@ -6,7 +6,6 @@ import totalUp from "../../functions/totalUp";
 
 const Income = (props) => {
   const [incomeValues, setincomeValues] = useState(props.props);
-  const [interestIsOpen, setinterestIsOpen] = useState(false);
   const [dividendsIsOpen, setdividendsIsOpen] = useState(false);
   const [realIsOpen, setrealIsOpen] = useState(false);
   const [landIsOpen, setlandIsOpen] = useState(false);
@@ -29,15 +28,6 @@ const Income = (props) => {
       <div className="hz">
         <div className="v income-categories">
           <h3>Salary: {incomeValues.salary}</h3>
-          <Category
-            showData={showData}
-            items={incomeValues.interest}
-            isOpen={interestIsOpen}
-            click={() => setinterestIsOpen(!interestIsOpen)}
-            className="interest"
-            title="Interest"
-            totalValue={totalUp(incomeValues.interest)}
-          />
           <Category
             showData={showData}
             items={incomeValues.dividends}

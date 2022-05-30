@@ -13,23 +13,25 @@ test("income is rendered", () => {
 
 test("clicking the categories will open them", () => {
   render(<Income props={data.assets} totalIncome={12000} passive={4000} />);
-  let interestCategory = screen.getByRole("heading", {
-    name: `Interest: ${totalUp(data.assets.interest)}`,
+  let realestateCategory = screen.getByRole("heading", {
+    name: `Real Estate: ${totalUp(data.assets.realestate)}`,
   });
-  fireEvent.click(interestCategory);
-  let interestItems = screen.getByText(data.assets.interest[0].name + ":");
-  expect(interestItems).toBeDefined();
+  fireEvent.click(realestateCategory);
+  let realestateItems = screen.getAllByText(
+    data.assets.realestate[0].name + ":"
+  );
+  expect(realestateItems).toBeDefined();
 });
 
 test("not clicking the categories will display nothing", () => {
   render(<Income props={data.assets} totalIncome={12000} passive={4000} />);
-  let earlyInterestItems = undefined;
+  let earlyrealestateItems = undefined;
   try {
-    dearlyInterestItems = screen.getByDisplayValue(
-      data.assets.interest[0].name + ":"
+    dearlyrealestateItems = screen.getByDisplayValue(
+      data.assets.realestate[0].name + ":"
     );
   } catch (error) {
     console.log("Task failed successfully");
   }
-  expect(earlyInterestItems).toBeUndefined();
+  expect(earlyrealestateItems).toBeUndefined();
 });

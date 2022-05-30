@@ -5,13 +5,6 @@ const data = {
   savings: 400,
   assets: {
     salary: 13200,
-    interest: [
-      // { name: "thingy", value: 40, key: 1 },
-      // { name: "notherone", value: 50, key: 2 },
-      // { name: "notherone", value: 50, key: 3 },
-      // { name: "notherone", value: 50, key: 4 },
-      // { name: "notherone", value: 50, key: 5 },
-    ],
     dividends: [
       // { name: "2Big", value: 30, key: 1 }
     ],
@@ -42,6 +35,7 @@ const data = {
       //  mortgage: 15000,
       //  downpay: 15000,
       //  cashFlow: -150,
+      //  key: 1
       //}
     ],
     stock: [

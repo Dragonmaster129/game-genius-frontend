@@ -5,13 +5,6 @@ const data = {
   savings: 400,
   assets: {
     salary: 13200,
-    interest: [
-      { name: "thingy", value: 40, key: 1 },
-      { name: "notherone", value: 50, key: 2 },
-      { name: "notherone", value: 50, key: 3 },
-      { name: "notherone", value: 50, key: 4 },
-      { name: "notherone", value: 50, key: 5 },
-    ],
     dividends: [{ name: "2Big", value: 30, key: 1 }],
     realestate: [
       {
@@ -24,22 +17,14 @@ const data = {
         key: 1,
       },
     ],
-    businesses: [
+    land: [
       {
-        type: "autoParts",
-        name: "Auto Parts",
-        cost: 100000,
-        downpay: 100000,
-        value: 1500,
+        size: 20,
+        cost: 30000,
+        mortgage: 15000,
+        downpay: 15000,
+        cashFlow: -150,
         key: 1,
-      },
-      {
-        type: "autoParts",
-        name: "Auto Parts",
-        cost: 120000,
-        downpay: 120000,
-        value: 1700,
-        key: 2,
       },
     ],
     passive: 0,

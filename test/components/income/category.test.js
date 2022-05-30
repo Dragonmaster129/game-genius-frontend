@@ -5,7 +5,7 @@ import Category from "../../../src/components/income/category";
 
 import totalUp from "../../../src/functions/totalUp";
 
-let interestIsOpen = false;
+let realestateIsOpen = false;
 
 const showData = (dataArr, isOpen) => {
   if (isOpen) {
@@ -21,10 +21,10 @@ const showData = (dataArr, isOpen) => {
 };
 
 test("category is rendered", () => {
-  let noInterest = undefined;
+  let norealestate = undefined;
   try {
-    noInterest = screen.getByText(
-      `Interest: ${totalUp(data.assets.interest).toLocaleString("en-US")}`
+    norealestate = screen.getByText(
+      `Real Estate: ${totalUp(data.assets.realestate).toLocaleString("en-US")}`
     );
   } catch (error) {
     console.log("Failed Successfully");
@@ -33,48 +33,50 @@ test("category is rendered", () => {
   render(
     <Category
       showData={showData}
-      items={data.assets.interest}
-      isOpen={interestIsOpen}
-      click={() => (interestIsOpen = !interestIsOpen)}
-      className="interest"
-      title="Interest"
-      totalValue={totalUp(data.assets.interest)}
+      items={data.assets.realestate}
+      isOpen={realestateIsOpen}
+      click={() => (realestateIsOpen = !realestateIsOpen)}
+      className="realestate"
+      title="realestate"
+      totalValue={totalUp(data.assets.realestate)}
     />
   );
-  let interest = screen.getByText(
-    `Interest: ${totalUp(data.assets.interest).toLocaleString("en-US")}`
+  let realestate = screen.getByText(
+    `realestate: ${totalUp(data.assets.realestate).toLocaleString("en-US")}`
   );
-  expect(noInterest).toBeUndefined();
-  expect(interest).toBeDefined();
+  expect(norealestate).toBeUndefined();
+  expect(realestate).toBeDefined();
 });
 
-test("Clicking on the interest will open the section", () => {
+test("Clicking on the realestate will open the section", () => {
   render(
     <Category
       showData={showData}
-      items={data.assets.interest}
-      isOpen={interestIsOpen}
-      click={() => (interestIsOpen = !interestIsOpen)}
-      className="interest"
-      title="Interest"
-      totalValue={totalUp(data.assets.interest)}
+      items={data.assets.realestate}
+      isOpen={realestateIsOpen}
+      click={() => (realestateIsOpen = !realestateIsOpen)}
+      className="realestate"
+      title="realestate"
+      totalValue={totalUp(data.assets.realestate)}
     />
   );
   let button = screen.getByRole("heading", {
-    name: `Interest: ${totalUp(data.assets.interest).toLocaleString("en-US")}`,
+    name: `realestate: ${totalUp(data.assets.realestate).toLocaleString(
+      "en-US"
+    )}`,
   });
   fireEvent.click(button);
   render(
     <Category
       showData={showData}
-      items={data.assets.interest}
-      isOpen={interestIsOpen}
-      click={() => (interestIsOpen = !interestIsOpen)}
-      className="interest"
-      title="Interest"
-      totalValue={totalUp(data.assets.interest)}
+      items={data.assets.realestate}
+      isOpen={realestateIsOpen}
+      click={() => (realestateIsOpen = !realestateIsOpen)}
+      className="realestate"
+      title="realestate"
+      totalValue={totalUp(data.assets.realestate)}
     />
   );
-  let lowerData = screen.getByText("40");
+  let lowerData = screen.getByText("200");
   expect(lowerData).toBeDefined();
 });

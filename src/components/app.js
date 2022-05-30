@@ -62,13 +62,7 @@ const App = (props) => {
   useEffect(() => {
     settotalIncome(totalUp(data.assets));
     setpassive(totalUp(data.assets) - data.assets.salary);
-  }, [
-    data,
-    data.assets.interest,
-    data.assets.dividends,
-    data.assets.realestate,
-    data.assets.businesses,
-  ]);
+  }, [data, data.assets.dividends, data.assets.realestate, data.assets.land]);
 
   useEffect(() => {
     window.addEventListener("resize", detectSize);
@@ -117,7 +111,7 @@ const App = (props) => {
           </div>
           <hr />
           <div className="actions hz">
-            {/* <div className="payday">
+            <div className="payday">
               <button onClick={() => payday(setcash, cash, cashflow, onChange)}>
                 Payday
               </button>
@@ -193,7 +187,7 @@ const App = (props) => {
               >
                 Baby
               </button>
-            </div> */}
+            </div>
             <div className="pay-loan">
               <button
                 onClick={() => {
