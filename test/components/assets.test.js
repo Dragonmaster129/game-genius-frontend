@@ -1,10 +1,10 @@
 import React from "react";
-import renderer from "react-test-renderer";
+import { render, screen, fireEvent } from "@testing-library/react";
 import Assets from "../../src/components/assets";
 import externalData from "../sampledata";
 
 test("assets component is the same as what it was", () => {
-  const component = renderer.create(<Assets props={externalData.assets} />);
-  const tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+  render(<Assets props={externalData.assets} />);
+  let assets = screen.getByRole("heading", { name: "Assets" });
+  expect(assets).toBeDefined();
 });

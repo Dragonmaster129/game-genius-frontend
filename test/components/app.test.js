@@ -1,10 +1,6 @@
 import React from "react";
 import App from "../../src/components/app";
-// import { rest } from "msw";
-// import { setupServer } from "msw/node";
 import { render, fireEvent, screen } from "@testing-library/react";
-// import userEvent from "@testing-library/user-event";
-import "@testing-library/jest-dom";
 
 test("app rendered", () => {
   render(<App />);

@@ -7,6 +7,7 @@
   "scripts": {
     "preinstall": "npm set audit false",
     "start": "webpack-dev-server --config webpack.config.js --watch",
+    "test1": "clear && jest -t 'buy an item'",
     "test": "clear && jest"
   },
   "keywords": [
@@ -43,9 +44,7 @@
     "webpack-merge": "4.2.2"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^12.1.5",
-    "@testing-library/user-event": "^14.2.0",
     "babel-jest": "^21.2.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -54,7 +53,6 @@
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "jest": "^21.2.1",
     "msw": "^0.39.2",
-    "react-test-renderer": "^16.13.0",
     "uglifyjs-webpack-plugin": "^1.2.7"
   }
 }

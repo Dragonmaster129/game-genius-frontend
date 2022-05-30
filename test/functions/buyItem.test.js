@@ -6,8 +6,8 @@ let addedData = {
   type: "STARTERHOUSE",
   name: "STARTERHOUSE",
   cost: 52000,
-  mortgage: 46000,
-  downpay: 6000,
+  mortgage: 50000,
+  downpay: 2000,
   value: 20,
 };
 

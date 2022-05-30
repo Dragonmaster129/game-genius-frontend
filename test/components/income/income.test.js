@@ -1,8 +1,6 @@
 import React from "react";
-import renderer from "react-test-renderer";
 import { render, fireEvent, screen } from "@testing-library/react";
 import Income from "../../../src/components/income/income";
-import "@testing-library/jest-dom";
 import totalUp from "../../../src/functions/totalUp";
 
 import data from "../../sampledata";

@@ -2,7 +2,6 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import React from "react";
 import data from "../../sampledata";
 import Category from "../../../src/components/income/category";
-import "@testing-library/jest-dom";
 
 import totalUp from "../../../src/functions/totalUp";
 

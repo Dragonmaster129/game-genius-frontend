@@ -1,6 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import React from "react";
-import "@testing-library/jest-dom";
 import Expenses from "../../src/components/expenses";
 import sampledata from "../sampledata";
 import totalUp from "../../src/functions/totalUp";

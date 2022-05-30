@@ -73,6 +73,7 @@ const Buy = (props) => {
       setaddedData({});
     }
   };
+
   const onChange = (event) => {
     let klass = event.target.className;
     let value = event.target.value;
@@ -96,12 +97,14 @@ const Buy = (props) => {
     }
     setaddedData(newData);
   };
+
   const onSubmit = (event) => {
     event.preventDefault();
     if (!needLoan) {
       buyItem(props, choiceOfItem, addedData, setaddedData);
     }
   };
+
   // Creates the form which you fill in to get the assets
   const createForm = () => {
     let form = choiceTypes[choiceOfItem];
@@ -110,32 +113,21 @@ const Buy = (props) => {
       if (Object.prototype.toString.call(form[key]) === "[object Object]") {
         let object = form[key];
         let objkeys = Object.keys(object);
-        if (choiceOfItem == "REALESTATE") {
-          return (
-            <div key={key}>
-              <h3>{key}</h3>
-              <select onChange={onChange} className={key} required>
-                {objkeys.map((objkey) => {
-                  if (objkey == "APARTMENTCOMPLEX") {
-                    return (
-                      <option key={`${objkey}: ${object[objkey]}`}>
-                        {objkey}: {object[objkey]}
-                      </option>
-                    );
-                  } else {
-                    return <option key={objkey}>{objkey}</option>;
-                  }
-                })}
-              </select>
-            </div>
-          );
-        }
         return (
           <div key={key}>
             <h3>{key}</h3>
             <select onChange={onChange} className={key} required>
               {objkeys.map((objkey) => {
-                return <option key={objkey}>{objkey}</option>;
+                return (
+                  <option
+                    key={objkey}
+                    data-testid={objkey}
+                    className={key}
+                    onClick={onChange}
+                  >
+                    {objkey}
+                  </option>
+                );
               })}
             </select>
           </div>
@@ -147,7 +139,11 @@ const Buy = (props) => {
             <h3>{key}</h3>
             <select onChange={onChange} className={key} required>
               {arr.map((item) => {
-                return <option key={item}>{item}</option>;
+                return (
+                  <option key={item} onClick={onChange} className={key}>
+                    {item}
+                  </option>
+                );
               })}
             </select>
           </div>
@@ -160,6 +156,7 @@ const Buy = (props) => {
               type="number"
               onChange={onChange}
               className={key}
+              data-testid={key}
               required
             ></input>
           </div>
@@ -167,19 +164,30 @@ const Buy = (props) => {
       }
     });
   };
+
   const createOptions = (values) => {
     let valuesKey = Object.keys(values);
     return valuesKey.map((value) => {
       return (
-        <option onClick={changeChoice} value={value} key={value}>
+        <option
+          onClick={changeChoice}
+          value={value}
+          key={value}
+          data-testid={value}
+        >
           {value}
         </option>
       );
     });
   };
+
   return (
     <div className="buy">
-      <select name="select-item-to-buy" className="buy-choice">
+      <select
+        name="select-item-to-buy"
+        className="buy-choice"
+        data-testid="header-target"
+      >
         {createOptions(choiceTypes)}
       </select>
       <div>
