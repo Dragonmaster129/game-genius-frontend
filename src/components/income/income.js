@@ -9,7 +9,7 @@ const Income = (props) => {
   const [interestIsOpen, setinterestIsOpen] = useState(false);
   const [dividendsIsOpen, setdividendsIsOpen] = useState(false);
   const [realIsOpen, setrealIsOpen] = useState(false);
-  const [businessIsOpen, setbusinessIsOpen] = useState(false);
+  const [landIsOpen, setlandIsOpen] = useState(false);
   const showData = (dataArr, isOpen) => {
     if (isOpen) {
       return dataArr.map((item) => {
@@ -58,12 +58,12 @@ const Income = (props) => {
           />
           <Category
             showData={showData}
-            items={incomeValues.businesses}
-            isOpen={businessIsOpen}
-            click={() => setbusinessIsOpen(!businessIsOpen)}
-            className="businesses"
-            title="Businesses"
-            totalValue={totalUp(incomeValues.businesses)}
+            items={incomeValues.land}
+            isOpen={landIsOpen}
+            click={() => setlandIsOpen(!landIsOpen)}
+            className="land"
+            title="Land"
+            totalValue={totalUp(incomeValues.land)}
           />
         </div>
         <div className="v income-main">

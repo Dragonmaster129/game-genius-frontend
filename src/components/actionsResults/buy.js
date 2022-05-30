@@ -37,7 +37,7 @@ const choiceTypes = {
     },
   },
   LAND: {
-    amount: ["NONE", "20 Acres", "40 Acres"],
+    size: ["NONE", 20, 40],
     cost: "",
     mortgage: "",
     downpay: "",

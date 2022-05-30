@@ -117,7 +117,7 @@ const App = (props) => {
           </div>
           <hr />
           <div className="actions hz">
-            <div className="payday">
+            {/* <div className="payday">
               <button onClick={() => payday(setcash, cash, cashflow, onChange)}>
                 Payday
               </button>
@@ -193,7 +193,7 @@ const App = (props) => {
               >
                 Baby
               </button>
-            </div>
+            </div> */}
             <div className="pay-loan">
               <button
                 onClick={() => {

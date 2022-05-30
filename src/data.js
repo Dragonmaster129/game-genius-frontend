@@ -35,27 +35,9 @@ const data = {
       //   key: 2,
       // },
     ],
-    businesses: [
-      // {
-      //   type: "autoParts",
-      //   name: "Auto Parts",
-      //   cost: 100000,
-      //   downpay: 100000,
-      //   value: 1500,
-      //   key: 1,
-      // },
-      // {
-      //   type: "autoParts",
-      //   name: "Auto Parts",
-      //   cost: 120000,
-      //   downpay: 120000,
-      //   value: 1700,
-      //   key: 2,
-      // },
-    ],
     land: [
       // {
-      //  amount: "20 Acres",
+      //  size: 20,
       //  cost: 30000,
       //  mortgage: 15000,
       //  downpay: 15000,
@@ -63,7 +45,7 @@ const data = {
       //}
     ],
     stock: [
-      // { name: "OK4U", amount: 1000, costPerShare: 1, key: 1 }
+      // { name: "OK4U", type: "PUT", turns: 2, amount: 1000, costPerShare: 1, key: 1 }
     ],
   },
   expenses: {

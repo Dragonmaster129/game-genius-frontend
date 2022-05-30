@@ -40,13 +40,13 @@ const Assets = (props) => {
         </div>
         {showData(props.props.realestate)}
       </div>
-      <div className="business">
-        <div className="hz">
-          <h3>Business</h3>
+      <div className="land">
+        <div className="hz heading">
+          <h3>Land</h3>
           <h3>Down Pay</h3>
           <h3>Cost</h3>
         </div>
-        {showData(props.props.businesses)}
+        {showData(props.props.land)}
       </div>
     </div>
   );
