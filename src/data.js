@@ -34,7 +34,7 @@ const data = {
       //  cost: 30000,
       //  mortgage: 15000,
       //  downpay: 15000,
-      //  cashFlow: -150,
+      //  value: -150,
       //  key: 1
       //}
     ],
