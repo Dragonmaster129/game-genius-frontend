@@ -1,4 +1,9 @@
 const data = {
+  totalIncome: 0,
+  totalExpenses: 0,
+  passive: 0,
+  cashflow: 0,
+  cash: 0,
   player: 3,
   profession: "Doctor",
   auditor: "Sam",
