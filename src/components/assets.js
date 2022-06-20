@@ -5,7 +5,10 @@ const Assets = (props) => {
     return arr.map((item) => {
       return (
         <div className="hz asset-item" key={item.key}>
-          <div>{item.name}</div>
+          <div>
+            {item.name + " "}
+            {item.option ? item.option : ""}
+          </div>
           <div>
             {item.amount
               ? item.amount.toLocaleString("en-US")
@@ -30,7 +33,7 @@ const Assets = (props) => {
           <h3>Number of Shares</h3>
           <h3>Cost/Share</h3>
         </div>
-        {showData(props.props.stock)}
+        {props.props.stock[0] != undefined ? showData(props.props.stock) : ""}
       </div>
       <div className="re">
         <div className="hz heading">
@@ -38,7 +41,9 @@ const Assets = (props) => {
           <h3>Down Pay</h3>
           <h3>Cost</h3>
         </div>
-        {showData(props.props.realestate)}
+        {props.props.realestate[0] != undefined
+          ? showData(props.props.realestate)
+          : ""}
       </div>
       <div className="land">
         <div className="hz heading">
@@ -46,7 +51,7 @@ const Assets = (props) => {
           <h3>Down Pay</h3>
           <h3>Cost</h3>
         </div>
-        {showData(props.props.land)}
+        {props.props.land[0] != undefined ? showData(props.props.land) : ""}
       </div>
     </div>
   );

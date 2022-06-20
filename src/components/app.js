@@ -1,54 +1,34 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 
+import Heading from "./heading";
 import Income from "./income/income";
 import Expenses from "./expenses";
 import Assets from "./assets";
 import Liabilities from "./liabilities";
-
-import totalUp from "../functions/totalUp";
-import Buy from "./actionsResults/buy";
-import Sell from "./actionsResults/sell";
 import externalData from "../data";
-import Heading from "./heading";
-import Doodad from "./actionsResults/doodad";
-import payday from "../functions/payday";
-import BorrowLoan from "./actionsResults/borrowloan";
-import PayLoan from "./actionsResults/payloan";
-import Collect from "./actionsResults/collect";
-import Pay from "./actionsResults/pay";
-
-let socket = new WebSocket("ws://localhost:9999");
 
 const App = (props) => {
   const [data, setdata] = useState(externalData);
 
-  const [totalIncome, settotalIncome] = useState(totalUp(data.assets));
-  const [passive, setpassive] = useState(
-    totalUp(data.assets) - data.assets.salary
-  );
-  const [totalExpenses, settotalExpenses] = useState(totalUp(data.expenses));
-  const [cashflow, setcashflow] = useState(totalIncome - totalExpenses);
-  const [cash, setcash] = useState(cashflow + data.savings);
   const [choiceToStay, setchoiceToStay] = useState(true);
   const [currentAction, setcurrentAction] = useState("NONE");
   const [borrowLoan, setborrowLoan] = useState("NONE");
-  const [event, setevent] = useState({});
   const [windowDimenion, detectHW] = useState({
     winWidth: window.innerWidth,
     winHeight: window.innerHeight,
   });
 
-  socket.onopen = function (e) {
-    socket.send("My name is Josh");
-  };
-
-  socket.onmessage = function (event) {
-    let parsedData = JSON.parse(event.data);
-    if (parsedData.externaldata) {
-      setdata(parsedData.externaldata);
-    } else if (parsedData[0] == "EVENT") {
-      setevent(parsedData[1]);
-    }
+  const getData = () => {
+    axios
+      .get("http://127.0.0.1:8000/data")
+      .then((res) => {
+        let result = JSON.parse(res.data);
+        setdata(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const shrinkPlayer = () => {
@@ -72,13 +52,8 @@ const App = (props) => {
   };
 
   useEffect(() => {
-    settotalExpenses(totalUp(data.expenses));
-  }, [data, data.expenses]);
-
-  useEffect(() => {
-    settotalIncome(totalUp(data.assets));
-    setpassive(totalUp(data.assets) - data.assets.salary);
-  }, [data, data.assets.dividends, data.assets.realestate, data.assets.land]);
+    getData();
+  }, []);
 
   useEffect(() => {
     window.addEventListener("resize", detectSize);
@@ -88,10 +63,7 @@ const App = (props) => {
     };
   }, [windowDimenion]);
 
-  useEffect(() => {
-    setcashflow(totalIncome - totalExpenses);
-  }, [totalIncome, totalExpenses]);
-  if (passive < totalExpenses * 2 || choiceToStay) {
+  if (data.passive < data.totalExpenses * 2 || choiceToStay) {
     return (
       <div className={windowDimenion.winWidth <= 1060 ? "app v" : "app hz"}>
         <div className="player">
@@ -128,13 +100,8 @@ const App = (props) => {
             </div>
           </div>
           <hr />
-          <div className="actions hz">
-            <div className="payday">
-              <button>Payday</button>
-            </div>
-          </div>
-          {passive >= totalExpenses * 2 ? (
-            <div classname="choice-to-leave">
+          {data.passive >= data.totalExpenses * 2 ? (
+            <div className="choice-to-leave">
               <h3>Click this button when you want to leave the Rat Race</h3>
               <button
                 onClick={() => {
@@ -148,73 +115,6 @@ const App = (props) => {
             ""
           )}
         </div>
-        <div className="card">
-          {currentAction == "BUY" ? (
-            <Buy
-              data={data}
-              setdata={setdata}
-              submitted={onChange}
-              cash={data.cash}
-              setcash={setcash}
-            />
-          ) : (
-            ""
-          )}
-          {currentAction == "DOODAD" ? (
-            <Doodad
-              data={data}
-              setdata={setdata}
-              cash={data.cash}
-              setcash={setcash}
-              submitted={onChange}
-            />
-          ) : (
-            ""
-          )}
-          {currentAction == "SELL" ? (
-            <Sell
-              data={data}
-              setdata={setdata}
-              cash={data.cash}
-              setcash={setcash}
-              submitted={onChange}
-            />
-          ) : (
-            ""
-          )}
-          {currentAction == "COLLECT" ? (
-            <Collect cash={data.cash} setcash={setcash} submitted={onChange} />
-          ) : (
-            ""
-          )}
-          {currentAction == "PAY" ? (
-            <Pay cash={data.cash} setcash={setcash} submitted={onChange} />
-          ) : (
-            ""
-          )}
-          <div className="loan">
-            {borrowLoan == "BORROW" ? (
-              <BorrowLoan
-                cash={data.cash}
-                setcash={setcash}
-                data={data}
-                setdata={setdata}
-                setborrowLoan={setborrowLoan}
-              />
-            ) : borrowLoan == "PAYLOAN" ? (
-              <PayLoan
-                cash={data.cash}
-                setcash={setcash}
-                data={data}
-                setdata={setdata}
-                setborrowLoan={setborrowLoan}
-              />
-            ) : (
-              ""
-            )}
-          </div>
-        </div>
-        <div className="spacer"></div>
       </div>
     );
   } else {

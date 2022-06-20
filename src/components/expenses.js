@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const Expenses = (props) => {
   const [expenses, setExpenses] = useState(props.props);
   const showData = (obj) => {
-    return obj.monthly.toLocaleString("en-US");
+    return obj[0].monthly.toLocaleString("en-US");
   };
   return (
     <div className="expenses hz">
@@ -42,7 +42,8 @@ const Expenses = (props) => {
         )}
         {expenses.child.count != 0 ? (
           <h3>
-            Child Expenses: {expenses.child.costPer * expenses.child.count}
+            Child Expenses:{" "}
+            {expenses.child[0].costPer * expenses.child[0].count}
           </h3>
         ) : (
           ""
@@ -54,8 +55,8 @@ const Expenses = (props) => {
         )}
       </div>
       <div className="v">
-        <h3>Number of Children: {expenses.child.count}</h3>
-        <h3>Per Child Expense: {expenses.child.costPer}</h3>
+        <h3>Number of Children: {expenses.child[0].count}</h3>
+        <h3>Per Child Expense: {expenses.child[0].costPer}</h3>
         <h3>Total Expenses: {props.totalExpenses}</h3>
       </div>
     </div>

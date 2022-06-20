@@ -14,17 +14,19 @@ const Liabilities = (props) => {
     <div className="v">
       <h2>Liabilities</h2>
       <h3>
-        Home Mortgage: {props.props.mortgage.totalCost.toLocaleString("en-US")}
+        Home Mortgage:{" "}
+        {props.props.mortgage[0].totalCost.toLocaleString("en-US")}
       </h3>
       <h3>
-        School Loans: {props.props.school.totalCost.toLocaleString("en-US")}
+        School Loans: {props.props.school[0].totalCost.toLocaleString("en-US")}
       </h3>
-      <h3>Car Loans: {props.props.car.totalCost.toLocaleString("en-US")}</h3>
+      <h3>Car Loans: {props.props.car[0].totalCost.toLocaleString("en-US")}</h3>
       <h3>
-        Credit Cards: {props.props.creditCard.totalCost.toLocaleString("en-US")}
+        Credit Cards:{" "}
+        {props.props.creditCard[0].totalCost.toLocaleString("en-US")}
       </h3>
       <h3>
-        Retail Debt: {props.props.retail.totalCost.toLocaleString("en-US")}
+        Retail Debt: {props.props.retail[0].totalCost.toLocaleString("en-US")}
       </h3>
       <h3>RE Mortgage: {showRE(props.re)}</h3>
       <h3>Bank Loan: {props.props.loan.toLocaleString("en-US")}</h3>

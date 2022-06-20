@@ -49,16 +49,18 @@ const data = {
   },
   expenses: {
     taxes: 3420,
-    mortgage: { monthly: 1900, totalCost: 202000 },
-    school: { monthly: 750, totalCost: 150000 },
-    car: { monthly: 380, totalCost: 19000 },
-    creditCard: { monthly: 270, totalCost: 9000 },
-    retail: { monthly: 50, totalCost: 1000 },
+    mortgage: [{ monthly: 1900, totalCost: 202000 }],
+    school: [{ monthly: 750, totalCost: 150000 }],
+    car: [{ monthly: 380, totalCost: 19000 }],
+    creditCard: [{ monthly: 270, totalCost: 9000 }],
+    retail: [{ monthly: 50, totalCost: 1000 }],
     other: 2880,
-    child: {
-      count: 0,
-      costPer: 640,
-    },
+    child: [
+      {
+        count: 0,
+        costPer: 640,
+      },
+    ],
     loan: 0,
     insurance: 0,
   },
