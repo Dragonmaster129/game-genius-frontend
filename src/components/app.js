@@ -21,10 +21,13 @@ const App = (props) => {
 
   const getData = () => {
     axios
-      .get("http://127.0.0.1:8000/data")
+      .get(`http://127.0.0.1:8000/data/${props.credentials}`) //, {params: {token: props.credentials}})
       .then((res) => {
         let result = JSON.parse(res.data);
-        setdata(result);
+        console.log(result);
+        if (result != "invalid token") {
+          setdata(result);
+        }
       })
       .catch((err) => {
         console.log(err);
