@@ -24,7 +24,6 @@ const App = (props) => {
       .get(`http://127.0.0.1:8000/data/${props.credentials}`) //, {params: {token: props.credentials}})
       .then((res) => {
         let result = JSON.parse(res.data);
-        console.log(result);
         if (result != "invalid token") {
           setdata(result);
         }
@@ -52,6 +51,13 @@ const App = (props) => {
 
   const onChange = (setvalue) => {
     setcurrentAction(setvalue);
+  };
+
+  const resetGame = () => {
+    axios
+      .post(`http://127.0.0.1:8000/reset/${props.credentials}`, { reset: true })
+      .then((res) => getData())
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -103,7 +109,7 @@ const App = (props) => {
             </div>
           </div>
           <hr />
-          {data.passive >= data.totalExpenses * 2 ? (
+          {data.passive >= data.totalExpenses * 2 && data.passive >= 1 ? (
             <div className="choice-to-leave">
               <h3>Click this button when you want to leave the Rat Race</h3>
               <button
@@ -117,6 +123,13 @@ const App = (props) => {
           ) : (
             ""
           )}
+        </div>
+        <div>
+          <h3>
+            <button onClick={resetGame} className="">
+              Reset
+            </button>
+          </h3>
         </div>
       </div>
     );

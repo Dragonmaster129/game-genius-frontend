@@ -27,7 +27,6 @@ const Login = (props) => {
       .post("http://127.0.0.1:8000/login", { email: email, password: password })
       .then((res) => {
         let result = JSON.parse(res.data);
-        console.log(result);
         if (result != false) {
           SuccessfulLogin(result);
         } else {
