@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Router from "./router";
+import AppRouter from "./router";
 
 import "./style/main.scss";
 
-ReactDOM.render(<Router />, document.querySelector(".app-wrapper"));
+ReactDOM.render(<AppRouter />, document.querySelector(".app-wrapper"));

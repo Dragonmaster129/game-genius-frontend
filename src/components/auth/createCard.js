@@ -17,7 +17,7 @@ const CreateCard = (props) => {
   function submit(event) {
     event.preventDefault();
     axios
-      .post(`http://localhost:8000/card/add/`, {
+      .post(`http://localhost:8000/card/add/doodad`, {
         cardType: cardType,
         cashflow: cashflow,
         cash: cash,

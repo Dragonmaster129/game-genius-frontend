@@ -25,7 +25,7 @@ const App = (props) => {
       .then((res) => {
         let result = JSON.parse(res.data);
         if (result != "invalid token") {
-          setdata(result);
+          setdata(result.playerData);
         }
       })
       .catch((err) => {

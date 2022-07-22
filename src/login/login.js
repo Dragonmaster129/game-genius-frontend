@@ -12,8 +12,13 @@ const Login = (props) => {
   }, [email, password]);
 
   function SuccessfulLogin(token) {
-    let redirect = document.getElementById("redirect-to-home");
-    props.setcredentials(token);
+    let redirect = document.getElementById("redirect");
+    props.setcredentials(token[0]);
+    if (token[1] == 0) {
+      props.setauth(false);
+    } else {
+      props.setauth(true);
+    }
     redirect.click();
   }
 
@@ -40,7 +45,7 @@ const Login = (props) => {
   return (
     <div>
       <h2>Please login</h2>
-      <Link className="hidden" id="redirect-to-home" to="/play" />
+      <Link className="hidden" id="redirect" to="/choose-game" />
       <form onSubmit={onSubmit} className="v login">
         <label>Email</label>
         <input
