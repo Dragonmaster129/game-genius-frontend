@@ -10,10 +10,20 @@ import Loading from "./loading";
 import { SERVER_HOST } from "./components/constants";
 
 const Router = (props) => {
-  const [credentials, setcredentials] = useState("1");
+  const [credentials, setcredentials] = useState(getToken());
   const [credentialsWork, setcredentialsWork] = useState(false);
   const [auth, setauth] = useState(false);
   const [isLoading, setisLoading] = useState(false);
+
+  function getToken() {
+    let token = "0";
+    let TokenDate = localStorage.getItem("TokenDate") || 0;
+    if (new Date().valueOf() - TokenDate < 2 * 60 * 60 * 1000) {
+      // 2 hours
+      token = localStorage.getItem("Token");
+    }
+    return token;
+  }
 
   useEffect(() => {
     setisLoading(true);
@@ -26,6 +36,8 @@ const Router = (props) => {
           res = JSON.parse(res.data);
           if (typeof res == "object") {
             setcredentialsWork(true);
+            localStorage.setItem("Token", credentials);
+            localStorage.setItem("TokenDate", new Date().valueOf());
           }
         }
         setisLoading(false);

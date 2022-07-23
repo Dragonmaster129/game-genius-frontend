@@ -65,7 +65,6 @@ const App = (props) => {
     socket.onerror = function (error) {
       console.log(`[error] ${error.message}`);
       socketConnection.close();
-      setsocketConnection(establishSocket());
     };
 
     return socket;
