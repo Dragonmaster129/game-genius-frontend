@@ -58,13 +58,11 @@ const App = (props) => {
         // e.g. server process killed or network down
         // event.code is usually 1006 in this case
         console.log("[close] Connection died");
-        setsocketConnection(establishSocket());
       }
     };
 
     socket.onerror = function (error) {
       console.log(`[error] ${error.message}`);
-      socketConnection.close();
     };
 
     return socket;
