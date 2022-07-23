@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
 const Expenses = (props) => {
-  const [expenses, setExpenses] = useState(props.props);
   const showData = (obj) => {
     return obj[0].monthly.toLocaleString("en-US");
   };
@@ -9,54 +8,54 @@ const Expenses = (props) => {
     <div className="expenses hz">
       <div className="v">
         <h2>Expenses</h2>
-        {expenses.taxes != 0 ? <h3>Taxes: {expenses.taxes}</h3> : ""}
-        {expenses.mortgage.monthly != 0 ? (
-          <h3>Home Mortgage: {showData(expenses.mortgage)}</h3>
+        {props.propstaxes != 0 ? <h3>Taxes: {props.props.taxes}</h3> : ""}
+        {props.props.mortgage.monthly != 0 ? (
+          <h3>Home Mortgage: {showData(props.props.mortgage)}</h3>
         ) : (
           ""
         )}
-        {expenses.school.monthly != 0 ? (
-          <h3>School Loan Payment: {showData(expenses.school)}</h3>
+        {props.props.school.monthly != 0 ? (
+          <h3>School Loan Payment: {showData(props.props.school)}</h3>
         ) : (
           ""
         )}
-        {expenses.car.monthly != 0 ? (
-          <h3>Car Payment: {showData(expenses.car)}</h3>
+        {props.props.car.monthly != 0 ? (
+          <h3>Car Payment: {showData(props.props.car)}</h3>
         ) : (
           ""
         )}
-        {expenses.creditCard.monthly != 0 ? (
-          <h3>Credit Card Payment: {showData(expenses.creditCard)}</h3>
+        {props.props.creditCard.monthly != 0 ? (
+          <h3>Credit Card Payment: {showData(props.props.creditCard)}</h3>
         ) : (
           ""
         )}
-        {expenses.retail.monthly != 0 ? (
-          <h3>Retail Payment: {showData(expenses.retail)}</h3>
+        {props.props.retail.monthly != 0 ? (
+          <h3>Retail Payment: {showData(props.props.retail)}</h3>
         ) : (
           ""
         )}
-        {expenses.other != 0 ? (
-          <h3>Other Expenses: {expenses.other.toLocaleString("en-US")}</h3>
+        {props.props.other != 0 ? (
+          <h3>Other Expenses: {props.props.other.toLocaleString("en-US")}</h3>
         ) : (
           ""
         )}
-        {expenses.child.count != 0 ? (
+        {props.props.child.count != 0 ? (
           <h3>
             Child Expenses:{" "}
-            {expenses.child[0].costPer * expenses.child[0].count}
+            {props.props.child[0].costPer * props.props.child[0].count}
           </h3>
         ) : (
           ""
         )}
-        {expenses.loan != 0 ? (
-          <h3>Bank Loan Payment: {expenses.loan / 10}</h3>
+        {props.props.loan != 0 ? (
+          <h3>Bank Loan Payment: {props.props.loan / 10}</h3>
         ) : (
           ""
         )}
       </div>
       <div className="v">
-        <h3>Number of Children: {expenses.child[0].count}</h3>
-        <h3>Per Child Expense: {expenses.child[0].costPer}</h3>
+        <h3>Number of Children: {props.props.child[0].count}</h3>
+        <h3>Per Child Expense: {props.props.child[0].costPer}</h3>
         <h3>Total Expenses: {props.totalExpenses}</h3>
       </div>
     </div>

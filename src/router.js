@@ -10,7 +10,7 @@ import Loading from "./loading";
 import { SERVER_HOST } from "./components/constants";
 
 const Router = (props) => {
-  const [credentials, setcredentials] = useState("0");
+  const [credentials, setcredentials] = useState("1");
   const [credentialsWork, setcredentialsWork] = useState(false);
   const [auth, setauth] = useState(false);
   const [isLoading, setisLoading] = useState(false);

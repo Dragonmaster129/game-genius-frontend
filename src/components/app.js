@@ -15,10 +15,13 @@ const App = (props) => {
   const [choiceToStay, setchoiceToStay] = useState(true);
   const [currentAction, setcurrentAction] = useState("NONE");
   const [borrowLoan, setborrowLoan] = useState("NONE");
+  const [currentEvent, setcurrentEvent] = useState({});
   const [windowDimenion, detectHW] = useState({
     winWidth: window.innerWidth,
     winHeight: window.innerHeight,
   });
+
+  const [socketConnection, setsocketConnection] = useState(establishSocket());
 
   const getData = () => {
     axios
@@ -33,6 +36,40 @@ const App = (props) => {
         console.log(err);
       });
   };
+
+  function establishSocket() {
+    let socket = new WebSocket(WEBSOCKET_URL);
+
+    socket.onopen = function (e) {
+      socket.send([props.credentials, 10]);
+    };
+
+    socket.onmessage = function (event) {
+      // process the event
+      setcurrentEvent(event);
+    };
+
+    socket.onclose = function (event) {
+      if (event.wasClean) {
+        console.log(
+          `[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`
+        );
+      } else {
+        // e.g. server process killed or network down
+        // event.code is usually 1006 in this case
+        console.log("[close] Connection died");
+        setsocketConnection(establishSocket());
+      }
+    };
+
+    socket.onerror = function (error) {
+      console.log(`[error] ${error.message}`);
+      socketConnection.close();
+      setsocketConnection(establishSocket());
+    };
+
+    return socket;
+  }
 
   const shrinkPlayer = () => {
     if (
