@@ -7,9 +7,10 @@ import SelectGame from "./components/selectGame";
 import ErrorPage from "./errorPage";
 import Login from "./login/login";
 import Loading from "./loading";
+import { SERVER_HOST } from "./components/constants";
 
 const Router = (props) => {
-  const [credentials, setcredentials] = useState("1");
+  const [credentials, setcredentials] = useState("0");
   const [credentialsWork, setcredentialsWork] = useState(false);
   const [auth, setauth] = useState(false);
   const [isLoading, setisLoading] = useState(false);
@@ -17,7 +18,7 @@ const Router = (props) => {
   useEffect(() => {
     setisLoading(true);
     axios
-      .get(`http://localhost:8000/data/${credentials}`)
+      .get(`${SERVER_HOST}/data/${credentials}`)
       .then((res) => {
         if (res.data == "invalid token") {
           setcredentialsWork(false);

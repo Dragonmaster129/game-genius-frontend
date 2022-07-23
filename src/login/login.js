@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { SERVER_HOST } from "../components/constants";
 
 const Login = (props) => {
   const [email, setemail] = useState("");
@@ -29,7 +30,7 @@ const Login = (props) => {
   function onSubmit(event) {
     event.preventDefault();
     axios
-      .post("http://127.0.0.1:8000/login", { email: email, password: password })
+      .post(`${SERVER_HOST}/login`, { email: email, password: password })
       .then((res) => {
         let result = JSON.parse(res.data);
         if (result != false) {

@@ -7,6 +7,7 @@ import Expenses from "./expenses";
 import Assets from "./assets";
 import Liabilities from "./liabilities";
 import externalData from "../data";
+import { SERVER_HOST, WEBSOCKET_URL } from "./constants";
 
 const App = (props) => {
   const [data, setdata] = useState(externalData);
@@ -21,7 +22,7 @@ const App = (props) => {
 
   const getData = () => {
     axios
-      .get(`http://127.0.0.1:8000/data/${props.credentials}`) //, {params: {token: props.credentials}})
+      .get(`${SERVER_HOST}/data/${props.credentials}`) //, {params: {token: props.credentials}})
       .then((res) => {
         let result = JSON.parse(res.data);
         if (result != "invalid token") {
@@ -55,7 +56,7 @@ const App = (props) => {
 
   const resetGame = () => {
     axios
-      .post(`http://127.0.0.1:8000/reset/${props.credentials}`, { reset: true })
+      .post(`${SERVER_HOST}/reset/${props.credentials}`, { reset: true })
       .then((res) => getData())
       .catch((err) => console.log(err));
   };

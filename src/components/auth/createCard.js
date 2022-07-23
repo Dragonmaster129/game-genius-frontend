@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { SERVER_HOST } from "../constants";
 
 const CreateCard = (props) => {
   const [cardType, setcardType] = useState("doodad");
@@ -17,7 +18,7 @@ const CreateCard = (props) => {
   function submit(event) {
     event.preventDefault();
     axios
-      .post(`http://localhost:8000/card/add/doodad`, {
+      .post(`${SERVER_HOST}/card/add/doodad`, {
         cardType: cardType,
         cashflow: cashflow,
         cash: cash,
