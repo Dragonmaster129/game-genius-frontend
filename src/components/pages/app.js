@@ -47,7 +47,7 @@ const App = (props) => {
     let socket = new WebSocket(WEBSOCKET_URL);
 
     socket.onopen = function (e) {
-      socket.send(JSON.stringify([props.credentials, 10]));
+      socket.send(JSON.stringify([props.credentials, props.gameID]));
     };
 
     socket.onmessage = function (event) {
@@ -107,6 +107,35 @@ const App = (props) => {
       .then((res) => getData())
       .catch((err) => console.log(err));
   };
+
+  function buttonResults(res) {
+    setcard(res.data);
+    setcurrentEvent({ EVENT: "CAPITALGAIN" });
+    setcurrentAction("CAPITALGAIN");
+  }
+
+  function actionButton(path, name) {
+    return (
+      <button
+        onClick={(event) => {
+          axios
+            .post(`${SERVER_HOST}/${path}`, {
+              ID: props.credentials,
+              gameID: props.gameID,
+            })
+            .then((res) => {
+              console.log(res.data);
+              setcard(res.data);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }}
+      >
+        {name}
+      </button>
+    );
+  }
 
   useEffect(() => {
     setsocketConnection(establishSocket());
@@ -192,7 +221,7 @@ const App = (props) => {
                     <button
                       onClick={() => {
                         if (data.charity == 0 || paycheckCount == 1) {
-                          setcurrentEvent("PAYCHECK");
+                          setcurrentEvent({ EVENT: "PAYCHECK" });
                         }
                         setpaycheckCount(paycheckCount + 1);
                         axios
@@ -206,6 +235,14 @@ const App = (props) => {
                     >
                       Paycheck
                     </button>
+                    {actionButton("capitalGain", "Capital Gain")}
+                    {actionButton("cashflow", "Cashflow")}
+                    {actionButton("doodad", "Doodad")}
+                    {actionButton("makert", "Market")}
+                    {actionButton("charity", "Charity")}
+                    {actionButton("baby", "Baby")}
+                    {actionButton("downsized", "Downsized")}
+                    {actionButton("end-turn", "End Turn")}
                   </div>
                 ) : (
                   ""

@@ -19,11 +19,11 @@ const Router = (props) => {
   const [isLoading, setisLoading] = useState(false);
 
   function getToken() {
-    let token = "0";
+    let token = "1";
     // let TokenDate = localStorage.getItem("TokenDate") || 0;
     // if (new Date().valueOf() - TokenDate < 2 * 60 * 60 * 1000) {
     // 2 hours
-    token = localStorage.getItem("Token");
+    // token = localStorage.getItem("Token");
     // }
     return token;
   }
@@ -51,6 +51,16 @@ const Router = (props) => {
       });
   }, [credentials]);
 
+  // useEffect(() => {
+  //   axios
+  //     .get(`${SERVER_HOST}/game`, { ID: credentials })
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       setgameID(res.data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -60,6 +70,7 @@ const Router = (props) => {
             <Login
               credentials={credentials}
               setcredentials={setcredentials}
+              gameID={gameID}
               setauth={setauth}
             />
           }
