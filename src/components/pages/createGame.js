@@ -19,7 +19,6 @@ const CreateGame = (props) => {
         props.setgameID(data.ID);
         props.setgameCreator(true);
         redirect.click();
-        console.log(res);
       })
       .catch((err) => console.log(err));
   }

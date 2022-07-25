@@ -15,7 +15,7 @@ const App = (props) => {
   const [choiceToStay, setchoiceToStay] = useState(true);
   const [currentAction, setcurrentAction] = useState("NONE");
   const [borrowLoan, setborrowLoan] = useState("NONE");
-  const [currentEvent, setcurrentEvent] = useState({ Name: "STARTGAME" });
+  const [currentEvent, setcurrentEvent] = useState({ EVENT: "STARTGAME" });
   const [windowDimenion, detectHW] = useState({
     winWidth: window.innerWidth,
     winHeight: window.innerHeight,
@@ -46,7 +46,10 @@ const App = (props) => {
 
     socket.onmessage = function (event) {
       // process the event
-      setcurrentEvent(event);
+      let data = JSON.parse(event.data);
+      if (data.EVENT) {
+        setcurrentEvent(data);
+      }
     };
 
     socket.onclose = function (event) {
@@ -108,7 +111,7 @@ const App = (props) => {
     };
   }, [windowDimenion]);
 
-  if (currentEvent.Name == "STARTGAME") {
+  if (currentEvent.EVENT == "STARTGAME") {
     return (
       <div>
         {props.gameCreator ? (
@@ -116,10 +119,7 @@ const App = (props) => {
             onClick={() => {
               axios
                 .post(`${SERVER_HOST}/start-game`, { ID: props.gameID })
-                .then((res) => {
-                  console.log(res);
-                  setcurrentEvent({ Name: "BEGINNING" });
-                })
+                .then((res) => {})
                 .catch((err) => {
                   console.log(err);
                 });
