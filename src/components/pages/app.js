@@ -38,6 +38,10 @@ const App = (props) => {
       });
   };
 
+  // function checkGameState() {
+  //   axios.get()
+  // }
+
   function establishSocket() {
     let socket = new WebSocket(WEBSOCKET_URL);
 
@@ -175,6 +179,30 @@ const App = (props) => {
                 />
               </div>
               <hr />
+              <div className="buttons">
+                {currentEvent.EVENT == "STARTTURN" ? (
+                  <div>
+                    <button
+                      onClick={() => {
+                        if (data.charity == 0) {
+                          setcurrentEvent("PAYCHECK");
+                        }
+                        axios
+                          .post(`${SERVER_HOST}/paycheck`, {
+                            ID: props.credentials,
+                          })
+                          .then((res) => {
+                            getData();
+                          });
+                      }}
+                    >
+                      Paycheck
+                    </button>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
             </div>
             <hr />
             {data.passive >= data.totalExpenses * 2 && data.passive >= 1 ? (
