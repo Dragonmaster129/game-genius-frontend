@@ -18,10 +18,30 @@ const SelectGame = (props) => {
       });
   }, []);
 
+  function ShowGameList() {
+    return gameList.map((game) => {
+      return (
+        <div key={game.ID}>
+          <h3 onClick={joinGame}>
+            <Link to="/play" className="gameLink">
+              {game.name ? game.name : game.ID}
+            </Link>
+          </h3>
+        </div>
+      );
+    });
+  }
+
+  function joinGame(event) {
+    props.setgameID(event.target.key);
+  }
+
   return (
     <div>
-      <h3>I am the SelectGame component!</h3>
-      <Link to="/create-game">Create Game</Link>
+      <Link to="/create-game" className="gameLink create">
+        Create Game
+      </Link>
+      {ShowGameList()}
     </div>
   );
 };
