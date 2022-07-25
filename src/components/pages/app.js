@@ -16,6 +16,7 @@ const App = (props) => {
   const [currentAction, setcurrentAction] = useState("NONE");
   const [borrowLoan, setborrowLoan] = useState("NONE");
   const [currentEvent, setcurrentEvent] = useState({ EVENT: "STARTGAME" });
+  const [card, setcard] = useState({});
   const [windowDimenion, detectHW] = useState({
     winWidth: window.innerWidth,
     winHeight: window.innerHeight,
@@ -49,6 +50,10 @@ const App = (props) => {
       let data = JSON.parse(event.data);
       if (data.EVENT) {
         setcurrentEvent(data);
+      } else if (data.description) {
+        setcard(data);
+      } else {
+        console.log(data);
       }
     };
 
@@ -136,7 +141,7 @@ const App = (props) => {
     if (data.passive < data.totalExpenses * 2 || choiceToStay) {
       return (
         <div className={windowDimenion.winWidth <= 1060 ? "app v" : "app hz"}>
-          <div className="player">
+          <div className="player top">
             <div
               className={shrinkPlayer() ? "v playercardhidden" : "v playercard"}
             >
@@ -145,22 +150,20 @@ const App = (props) => {
               <h2>Income Statement</h2>
               <Income
                 props={data.assets}
-                totalIncome={data.totalIncome.toLocaleString("en-US")}
-                passive={data.passive.toLocaleString("en-US")}
+                totalIncome={data.totalIncome}
+                passive={data.passive}
               />
               {shrinkPlayer() ? "" : <hr />}
               <Expenses
                 props={data.expenses}
-                totalExpenses={data.totalExpenses.toLocaleString("en-US")}
+                totalExpenses={data.totalExpenses}
               />
               {shrinkPlayer() ? "" : <hr />}
               <div className="v right">
                 <h3 className="cash-flow">
-                  Monthly Cash Flow: {data.cashflow.toLocaleString("en-US")}
+                  Monthly Cash Flow: {data.cashflow}
                 </h3>
-                <h3 className="cash">
-                  Cash: {data.cash.toLocaleString("en-US")}
-                </h3>
+                <h3 className="cash">Cash: {data.cash}</h3>
               </div>
               {shrinkPlayer() ? "" : <hr />}
               <div className="hz">
@@ -171,6 +174,7 @@ const App = (props) => {
                   re={data.assets.realestate}
                 />
               </div>
+              <hr />
             </div>
             <hr />
             {data.passive >= data.totalExpenses * 2 && data.passive >= 1 ? (
@@ -182,6 +186,24 @@ const App = (props) => {
                   }}
                 >
                   Leave the Rat Race
+                </button>
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
+          <div className="centered">
+            {card.description ? (
+              <div className="quarter">
+                <h1>{card.title}</h1>
+                <h3>{card.description}</h3>
+                <button
+                  onClick={(event) => {
+                    setcard({});
+                    getData();
+                  }}
+                >
+                  OK
                 </button>
               </div>
             ) : (

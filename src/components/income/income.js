@@ -5,7 +5,6 @@ import Category from "./category";
 import totalUp from "../../functions/totalUp";
 
 const Income = (props) => {
-  const [incomeValues, setincomeValues] = useState(props.props);
   const [dividendsIsOpen, setdividendsIsOpen] = useState(false);
   const [realIsOpen, setrealIsOpen] = useState(false);
   const [landIsOpen, setlandIsOpen] = useState(false);
@@ -27,33 +26,33 @@ const Income = (props) => {
 
       <div className="hz">
         <div className="v income-categories">
-          <h3>Salary: {incomeValues.salary}</h3>
+          <h3>Salary: {props.props.salary}</h3>
           <Category
             showData={showData}
-            items={incomeValues.dividends}
+            items={props.props.dividends}
             isOpen={dividendsIsOpen}
             click={() => setdividendsIsOpen(!dividendsIsOpen)}
             className="dividends"
             title="Dividends"
-            totalValue={totalUp(incomeValues.dividends)}
+            totalValue={totalUp(props.props.dividends)}
           />
           <Category
             showData={showData}
-            items={incomeValues.realestate}
+            items={props.props.realestate}
             isOpen={realIsOpen}
             click={() => setrealIsOpen(!realIsOpen)}
             className="real-estate"
             title="Real Estate"
-            totalValue={totalUp(incomeValues.realestate)}
+            totalValue={totalUp(props.props.realestate)}
           />
           <Category
             showData={showData}
-            items={incomeValues.land}
+            items={props.props.land}
             isOpen={landIsOpen}
             click={() => setlandIsOpen(!landIsOpen)}
             className="land"
             title="Land"
-            totalValue={totalUp(incomeValues.land)}
+            totalValue={totalUp(props.props.land)}
           />
         </div>
         <div className="v income-main">

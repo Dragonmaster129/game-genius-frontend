@@ -26,7 +26,6 @@ const Assets = (props) => {
   return (
     <div className="v">
       <h2>Assets</h2>
-      <h3>Savings</h3>
       <div className="stock">
         <div className="hz">
           <h3>Stocks/Mutual's/CDs</h3>

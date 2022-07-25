@@ -29,6 +29,7 @@ button {
 .v {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .hz {
@@ -36,6 +37,11 @@ button {
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
+}
+
+.top {
+  display: flex;
+  justify-content: baseline;
 }
 
 .actions {
@@ -62,4 +68,9 @@ button {
 
 .link {
   color: skyblue;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
 }
