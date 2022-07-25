@@ -16,6 +16,7 @@ const App = (props) => {
   const [currentAction, setcurrentAction] = useState("NONE");
   const [borrowLoan, setborrowLoan] = useState("NONE");
   const [currentEvent, setcurrentEvent] = useState({ EVENT: "STARTGAME" });
+  const [paycheckCount, setpaycheckCount] = useState(0);
   const [card, setcard] = useState({});
   const [windowDimenion, detectHW] = useState({
     winWidth: window.innerWidth,
@@ -113,6 +114,12 @@ const App = (props) => {
   }, []);
 
   useEffect(() => {
+    if (currentEvent.EVENT == "STARTTURN") {
+      setpaycheckCount(0);
+    }
+  }, [currentEvent]);
+
+  useEffect(() => {
     window.addEventListener("resize", detectSize);
 
     return () => {
@@ -184,9 +191,10 @@ const App = (props) => {
                   <div>
                     <button
                       onClick={() => {
-                        if (data.charity == 0) {
+                        if (data.charity == 0 || paycheckCount == 1) {
                           setcurrentEvent("PAYCHECK");
                         }
+                        setpaycheckCount(paycheckCount + 1);
                         axios
                           .post(`${SERVER_HOST}/paycheck`, {
                             ID: props.credentials,
