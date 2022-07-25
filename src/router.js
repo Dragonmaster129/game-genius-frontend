@@ -13,6 +13,7 @@ import { SERVER_HOST } from "./components/constants";
 const Router = (props) => {
   const [credentials, setcredentials] = useState(getToken());
   const [credentialsWork, setcredentialsWork] = useState(false);
+  const [gameCreator, setgameCreator] = useState(false);
   const [gameID, setgameID] = useState("");
   const [auth, setauth] = useState(false);
   const [isLoading, setisLoading] = useState(false);
@@ -64,7 +65,16 @@ const Router = (props) => {
           }
         />
         {credentialsWork ? (
-          <Route path="/play" element={<App credentials={credentials} />} />
+          <Route
+            path="/play"
+            element={
+              <App
+                credentials={credentials}
+                gameCreator={gameCreator}
+                gameID={gameID}
+              />
+            }
+          />
         ) : (
           ""
         )}
@@ -90,7 +100,11 @@ const Router = (props) => {
           <Route
             path="/create-game"
             element={
-              <CreateGame credentials={credentials} setgameID={setgameID} />
+              <CreateGame
+                credentials={credentials}
+                setgameID={setgameID}
+                setgameCreator={setgameCreator}
+              />
             }
           />
         ) : (

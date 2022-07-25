@@ -109,7 +109,29 @@ const App = (props) => {
   }, [windowDimenion]);
 
   if (currentEvent.Name == "STARTGAME") {
-    return <div>Waiting for game to start</div>;
+    return (
+      <div>
+        {props.gameCreator ? (
+          <button
+            onClick={() => {
+              axios
+                .post(`${SERVER_HOST}/start-game`, { ID: props.gameID })
+                .then((res) => {
+                  console.log(res);
+                  setcurrentEvent({ Name: "BEGINNING" });
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            }}
+          >
+            START GAME!
+          </button>
+        ) : (
+          "waiting for game to start"
+        )}
+      </div>
+    );
   } else {
     if (data.passive < data.totalExpenses * 2 || choiceToStay) {
       return (
