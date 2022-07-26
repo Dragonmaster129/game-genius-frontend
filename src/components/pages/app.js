@@ -17,6 +17,7 @@ const App = (props) => {
   const [borrowLoan, setborrowLoan] = useState("NONE");
   const [currentEvent, setcurrentEvent] = useState({ EVENT: "STARTGAME" });
   const [paycheckCount, setpaycheckCount] = useState(0);
+  const [buySellAmount, setbuySellAmount] = useState(1);
   const [card, setcard] = useState({});
   const [windowDimenion, detectHW] = useState({
     winWidth: window.innerWidth,
@@ -270,14 +271,46 @@ const App = (props) => {
               <div className="quarter">
                 <h1>{card.title}</h1>
                 <h3>{card.description}</h3>
-                <button
-                  onClick={(event) => {
-                    setcard({});
-                    getData();
-                  }}
-                >
-                  OK
-                </button>
+                {card.options.map((option) => {
+                  if (option != "Amount") {
+                    return (
+                      <button
+                        onClick={(event) => {
+                          axios
+                            .post(`${SERVER_HOST}/choice/${option}`, {
+                              ID: props.credentials,
+                              gameID: props.gameID,
+                              amount: buySellAmount,
+                            })
+                            .then((res) => {
+                              if (typeof res.data == "object") {
+                                if (res.data.cash) {
+                                  setdata(res.data);
+                                }
+                              }
+                            })
+                            .catch((err) => {
+                              console.log(err);
+                            });
+                          setcard({});
+                        }}
+                        key={option}
+                      >
+                        {option}
+                      </button>
+                    );
+                  } else {
+                    return (
+                      <input
+                        value={buySellAmount}
+                        onChange={(event) => {
+                          setbuySellAmount(event.target.valueAsNumber);
+                        }}
+                        type="number"
+                      ></input>
+                    );
+                  }
+                })}
               </div>
             ) : (
               ""
