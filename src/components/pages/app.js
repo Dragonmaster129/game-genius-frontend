@@ -174,7 +174,7 @@ const App = (props) => {
             START GAME!
           </button>
         ) : (
-          "waiting for game to start"
+          <h1>waiting for game to start</h1>
         )}
       </div>
     );
@@ -219,32 +219,46 @@ const App = (props) => {
               <div className="buttons">
                 {currentEvent.EVENT == "STARTTURN" ? (
                   <div>
-                    <button
-                      onClick={() => {
-                        if (data.charity == 0 || paycheckCount == 1) {
-                          setcurrentEvent({ EVENT: "PAYCHECK" });
-                        }
-                        setpaycheckCount(paycheckCount + 1);
-                        axios
-                          .post(`${SERVER_HOST}/paycheck`, {
-                            ID: props.credentials,
-                          })
-                          .then((res) => {
-                            getData();
-                          });
-                      }}
-                    >
-                      Paycheck
-                    </button>
+                    {(data.charity != 0 && paycheckCount < 2) ||
+                    paycheckCount == 0 ? (
+                      <button
+                        onClick={() => {
+                          setpaycheckCount(paycheckCount + 1);
+                          axios
+                            .post(`${SERVER_HOST}/paycheck`, {
+                              ID: props.credentials,
+                              gameID: props.gameID,
+                              amount: 0,
+                            })
+                            .then((res) => {
+                              getData();
+                            });
+                        }}
+                      >
+                        Paycheck
+                      </button>
+                    ) : (
+                      ""
+                    )}
                     {actionButton("capitalGain", "Capital Gain")}
                     {actionButton("cashflow", "Cashflow")}
                     {actionButton("doodad", "Doodad")}
-                    {actionButton("makert", "Market")}
+                    {actionButton("market", "Market")}
                     {actionButton("charity", "Charity")}
                     {actionButton("baby", "Baby")}
                     {actionButton("downsized", "Downsized")}
                     {actionButton("end-turn", "End Turn")}
                   </div>
+                ) : (
+                  ""
+                )}
+                {currentEvent.EVENT == "MARKET" ? (
+                  <div>{actionButton("market", "Market")}</div>
+                ) : (
+                  ""
+                )}
+                {currentEvent.EVENT == "ENDTURN" ? (
+                  <div>{actionButton("end-turn", "End Turn")}</div>
                 ) : (
                   ""
                 )}
@@ -280,7 +294,7 @@ const App = (props) => {
                             .post(`${SERVER_HOST}/choice/${option}`, {
                               ID: props.credentials,
                               gameID: props.gameID,
-                              amount: buySellAmount,
+                              amount: buySellAmount || 0,
                             })
                             .then((res) => {
                               if (typeof res.data == "object") {

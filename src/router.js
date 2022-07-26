@@ -15,7 +15,7 @@ const Router = (props) => {
   const [credentialsWork, setcredentialsWork] = useState(false);
   const [gameCreator, setgameCreator] = useState(false);
   const [gameID, setgameID] = useState("");
-  const [auth, setauth] = useState(false);
+  const [auth, setauth] = useState(true);
   const [isLoading, setisLoading] = useState(false);
 
   function getToken() {
