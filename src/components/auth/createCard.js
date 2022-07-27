@@ -11,6 +11,7 @@ const CreateCard = (props) => {
   const [cashflowType, setcashflowType] = useState("other");
   const [description, setdescription] = useState("");
   const [stockOption, setstockOption] = useState("regular");
+  const [d2yOption, setd2yOption] = useState("card1");
 
   const [objectToSend, setobjectToSend] = useState({ title: "" });
   const [typeDropdown, settypeDropdown] = useState("realestate");
@@ -105,11 +106,49 @@ const CreateCard = (props) => {
           if (stockOption === "call" || stockOption === "put") {
             object["card"]["strikePrice"] = 0;
           }
+        } else if (typeDropdown === "d2y") {
+          object["card"]["cost"] = 200;
+          object["card"]["downpay"] = 200;
+        }
+      } else if (cardType === "cashflow") {
+        object["card"] = { type: "", name: "" };
+        if (typeDropdown === "realestate") {
+          object["card"]["size"] = 1;
+          object["card"]["cost"] = 0;
+          object["card"]["mortgage"] = 0;
+          object["card"]["downpay"] = 0;
+          object["card"]["value"] = 0;
+        } else if (typeDropdown === "d2y") {
+          object["card"]["name"] = "card1";
+          object["card"]["cost"] = 200;
+          object["card"]["downpay"] = 200;
         }
       }
       setobjectToSend(object);
     }
   }, [typeDropdown, stockOption]);
+
+  useEffect(() => {
+    if (cardType === "cashflow") {
+      if (typeDropdown === "d2y") {
+        let object = {};
+
+        for (let key in objectToSend) {
+          object[key] = objectToSend[key];
+        }
+        if (d2yOption === "card1") {
+          object["card"]["cost"] = 200;
+          object["card"]["downpay"] = 200;
+          delete object["card"]["value"];
+        } else {
+          object["card"]["value"] = 500;
+          delete object["card"]["cost"];
+          delete object["card"]["downpay"];
+        }
+        setobjectToSend(object);
+      }
+    }
+  }, [d2yOption]);
 
   useEffect(() => {
     axios
@@ -205,6 +244,12 @@ const CreateCard = (props) => {
             return null;
           } else if (field === "option") {
             return null;
+          } else if (
+            typeDropdown === "d2y" &&
+            field === "name" &&
+            cardType === "cashflow"
+          ) {
+            return null;
           }
           return generateInput(
             key + "." + field,
@@ -222,6 +267,11 @@ const CreateCard = (props) => {
           "put",
           "short",
         ])
+      );
+    }
+    if (typeDropdown === "d2y" && cardType === "cashflow") {
+      mapping.unshift(
+        generateDropdown(d2yOption, setd2yOption, ["card1", "card2", "card3"])
       );
     }
     mapping.unshift(generateDropdown(typeDropdown, settypeDropdown, types));
@@ -378,10 +428,10 @@ const CreateCard = (props) => {
           </select>
           {cardType == "beginning" ? ShowCreateCardChoices() : ""}
           {cardType == "capitalgain"
-            ? ShowCreateCardChoices(["stock", "realestate"])
+            ? ShowCreateCardChoices(["stock", "realestate", "d2y"])
             : ""}
           {cardType == "cashflow"
-            ? ShowCreateCardChoices(["stock", "realestate"])
+            ? ShowCreateCardChoices(["stock", "realestate", "d2y"])
             : ""}
           {cardType == "doodad" ? doodad() : ""}
           {cardType == "market"
