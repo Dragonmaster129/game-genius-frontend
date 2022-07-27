@@ -3,27 +3,18 @@ import React, { useState, useEffect } from "react";
 import { SERVER_HOST } from "../constants";
 
 const CreateCard = (props) => {
-  const [cardType, setcardType] = useState("beginning");
+  const [cardType, setcardType] = useState("capitalgain");
   const [cashflow, setcashflow] = useState(0);
   const [cash, setcash] = useState(0);
   const [baby, setbaby] = useState(false);
   const [title, settitle] = useState("");
-  const [cashflowType, setcashflowType] = useState("none");
+  const [cashflowType, setcashflowType] = useState("other");
   const [description, setdescription] = useState("");
-  const [stock, setstock] = useState({
-    name: "",
-    option: "",
-    amount: 0,
-    costPerShare: 0,
-  });
-  const [realestate, setrealestate] = useState({
-    name: "",
-    size: 1,
-    cost: 0,
-    mortgage: 0,
-    downpay: 0,
-    value: 0,
-  });
+  const [stockOption, setstockOption] = useState("regular");
+
+  const [objectToSend, setobjectToSend] = useState({ title: "" });
+  const [typeDropdown, settypeDropdown] = useState("realestate");
+  const [currentMode, setcurrentMode] = useState("create");
 
   const [result, setresult] = useState("");
   const [cardList, setcardList] = useState({
@@ -31,13 +22,94 @@ const CreateCard = (props) => {
     capitalgain: [],
     cashflow: [],
     doodad: [],
-    initialData: [],
     market: [],
+  });
+
+  const [format, setformat] = useState({
+    doodad: {
+      title: "",
+      description: "",
+      cash: 0,
+      cashflow: 0,
+      category: "",
+    },
+
+    market: {
+      title: "",
+      description: "",
+      type: "",
+      name: "",
+      highest: true,
+      price: 0,
+      bankrupt: true,
+      size: 0,
+      value: 0,
+      property: {},
+      forcedSale: true,
+      target: "",
+    },
+
+    capitalgain: {
+      title: "",
+      description: "",
+      card: {
+        type: "",
+        name: "",
+      },
+    },
+
+    cashflow: {
+      title: "",
+      description: "",
+      card: {
+        type: "",
+        name: "",
+      },
+    },
+
+    beginning: {
+      title: "",
+      description: "",
+      cash: 0,
+      stock: {},
+      realestate: {},
+    },
   });
 
   useEffect(() => {
     setresult("");
   }, [cardType, cashflow, cash, baby, cashflowType, description]);
+
+  useEffect(() => {
+    settypeDropdown("realestate");
+    setobjectToSend(format[cardType]);
+  }, [cardType]);
+
+  useEffect(() => {
+    if (currentMode === "create") {
+      let object = {};
+      for (let key in objectToSend) {
+        object[key] = objectToSend[key];
+      }
+      if (cardType === "capitalgain") {
+        object["card"] = { type: "", name: "" };
+        if (typeDropdown === "realestate") {
+          object["card"]["size"] = 1;
+          object["card"]["cost"] = 0;
+          object["card"]["mortgage"] = 0;
+          object["card"]["downpay"] = 0;
+          object["card"]["value"] = 0;
+        } else if (typeDropdown === "stock") {
+          object["card"]["option"] = "";
+          object["card"]["costPerShare"] = 0;
+          if (stockOption === "call" || stockOption === "put") {
+            object["card"]["strikePrice"] = 0;
+          }
+        }
+      }
+      setobjectToSend(object);
+    }
+  }, [typeDropdown, stockOption]);
 
   useEffect(() => {
     axios
@@ -49,7 +121,8 @@ const CreateCard = (props) => {
       .catch((err) => console.log(err));
   }, []);
 
-  function doodadSubmit() {
+  function doodadSubmit(event) {
+    event.preventDefault();
     axios
       .post(`${SERVER_HOST}/card/add/doodad`, {
         cardType: cardType,
@@ -58,6 +131,7 @@ const CreateCard = (props) => {
         baby: baby,
         cashflowType: cashflowType,
         token: props.credentials,
+        title: title,
         description: description,
       })
       .then((res) => {
@@ -68,172 +142,123 @@ const CreateCard = (props) => {
       });
   }
 
-  function beginningSubmit() {}
+  function HandleChange({ target }) {
+    let smallObject = {};
+    let keys = Object.keys(objectToSend);
+    let key = target.name;
+    keys.forEach((element) => {
+      smallObject[element] = objectToSend[element];
+    });
+    if (key.includes(".")) {
+      let keyArr = key.split(".");
+      smallObject[keyArr[0]][keyArr[1]] = target.value;
+    } else {
+      smallObject[key] = target.value;
+    }
+    setobjectToSend(smallObject);
+  }
 
-  function beginning() {
+  function generateInput(key, type, value) {
     return (
-      <div className="v">
-        <label>Title</label>
+      <div key={key} className="v">
+        <label>{key[0].toUpperCase() + key.substring(1)}</label>
         <input
-          type="text"
-          value={title}
-          onChange={(event) => {
-            settitle(event.target.value);
-          }}
+          type={type}
+          name={key}
+          value={value}
+          onChange={HandleChange}
         ></input>
-        <label>Description</label>
-        <textarea
-          value={description}
-          onChange={(event) => {
-            setdescription(event.target.value);
-          }}
-        ></textarea>
-        <label>Cash</label>
-        <input
-          type="number"
-          value={cash}
-          onChange={(event) => {
-            setcash(event.target.value);
-          }}
-        ></input>
-        <label>
-          <h2>Stock</h2>
-        </label>
-        <label>Name</label>
-        <input
-          type="text"
-          value={stock.name}
-          onChange={(event) => {
-            setstock({
-              name: event.target.value,
-              option: stock.option,
-              amount: stock.amount,
-              costPerShare: stock.costPerShare,
-            });
-          }}
-        ></input>
-        <label>Amount</label>
-        <input
-          type="text"
-          value={stock.amount}
-          onChange={(event) => {
-            setstock({
-              name: stock.name,
-              option: stock.option,
-              amount: event.target.value,
-              costPerShare: stock.costPerShare,
-            });
-          }}
-        ></input>
-        <label>Cost Per Share</label>
-        <input
-          type="text"
-          value={stock.costPerShare}
-          onChange={(event) => {
-            setstock({
-              name: stock.name,
-              option: stock.option,
-              amount: stock.amount,
-              costPerShare: event.target.value,
-            });
-          }}
-        ></input>
-        <label>
-          <h2>Real Estate</h2>
-        </label>
-        <label>Name</label>
-        <input
-          type="text"
-          value={realestate.name}
-          onChange={(event) => {
-            setrealestate({
-              name: event.target.value,
-              size: realestate.size,
-              cost: realestate.cost,
-              mortgage: realestate.mortgage,
-              downpay: realestate.downpay,
-              value: realestate.value,
-            });
-          }}
-        ></input>
-        <label>Size/units</label>
-        <input
-          type="number"
-          value={realestate.size}
-          onChange={(event) => {
-            setrealestate({
-              name: realestate.name,
-              size: event.target.value,
-              cost: realestate.cost,
-              mortgage: realestate.mortgage,
-              downpay: realestate.downpay,
-              value: realestate.value,
-            });
-          }}
-        ></input>
-        <label>Cost</label>
-        <input
-          type="number"
-          value={realestate.cost}
-          onChange={(event) => {
-            setrealestate({
-              name: realestate.name,
-              size: realestate.size,
-              cost: event.target.value,
-              mortgage: realestate.mortgage,
-              downpay: realestate.downpay,
-              value: realestate.value,
-            });
-          }}
-        ></input>
-        <label>Mortgage</label>
-        <input
-          type="number"
-          value={realestate.mortgage}
-          onChange={(event) => {
-            setrealestate({
-              name: realestate.name,
-              size: realestate.size,
-              cost: realestate.cost,
-              mortgage: event.target.value,
-              downpay: realestate.downpay,
-              value: realestate.value,
-            });
-          }}
-        ></input>
-        <label>Down Pay</label>
-        <input
-          type="number"
-          value={realestate.downpay}
-          onChange={(event) => {
-            setrealestate({
-              name: realestate.name,
-              size: realestate.size,
-              cost: realestate.cost,
-              mortgage: realestate.mortgage,
-              downpay: event.target.value,
-              value: realestate.value,
-            });
-          }}
-        ></input>
-        <label>Cash Flow</label>
-        <input
-          type="number"
-          value={realestate.value}
-          onChange={(event) => {
-            setrealestate({
-              name: realestate.name,
-              size: realestate.size,
-              cost: realestate.cost,
-              mortgage: realestate.mortgage,
-              downpay: realestate.downpay,
-              value: event.target.value,
-            });
-          }}
-        ></input>
-        <button onClick={beginningSubmit}>Submit</button>
       </div>
     );
+  }
+
+  function generateDropdown(value, setter, options) {
+    return (
+      <select
+        key={value}
+        value={value}
+        onChange={(event) => {
+          setter(event.target.value);
+        }}
+      >
+        {options.map((optionValue) => {
+          return (
+            <option key={optionValue} value={optionValue}>
+              {optionValue}
+            </option>
+          );
+        })}
+      </select>
+    );
+  }
+
+  function ShowCreateCardChoices(types) {
+    let keys = Object.keys(objectToSend);
+    let mapping = keys.map((key) => {
+      if (typeof objectToSend[key] === "string") {
+        return generateInput(key, "text", objectToSend[key]);
+      } else if (typeof objectToSend[key] === "number") {
+        return generateInput(key, "number", objectToSend[key]);
+      } else if (typeof objectToSend[key] === "object") {
+        return Object.keys(objectToSend[key]).map((field) => {
+          if (field === "type") {
+            return null;
+          } else if (field === "option") {
+            return null;
+          }
+          return generateInput(
+            key + "." + field,
+            "text",
+            objectToSend[key][field]
+          );
+        });
+      }
+    });
+    if (typeDropdown === "stock") {
+      mapping.unshift(
+        generateDropdown(stockOption, setstockOption, [
+          "regular",
+          "call",
+          "put",
+          "short",
+        ])
+      );
+    }
+    mapping.unshift(generateDropdown(typeDropdown, settypeDropdown, types));
+    return mapping;
+  }
+
+  function sendCard() {
+    console.log(objectToSend);
+  }
+
+  function ShowCards(collection) {
+    return cardList[collection].map((card) => {
+      return (
+        <div key={card.ID} className="card">
+          <h4>{mapAllValuesAndKeys(card)}</h4>
+          <h3
+            onClick={(event) => {
+              axios
+                .get(`${SERVER_HOST}/getcard`, {
+                  params: {
+                    auth: props.credentials,
+                    ID: event.target.accessKey,
+                    collection: collection,
+                  },
+                })
+                .then((res) => {
+                  console.log(res.data);
+                })
+                .catch((err) => console.log(err));
+            }}
+            accessKey={card["ID"]}
+          >
+            Edit
+          </h3>
+        </div>
+      );
+    });
   }
 
   function doodad() {
@@ -247,87 +272,21 @@ const CreateCard = (props) => {
         ></input>
         {cashflow > 0 ? (
           <div>
-            <select>
-              <option
-                onClick={(event) => {
-                  setcashflowType(event.target.value);
-                }}
-                value="none"
-              >
-                None
-              </option>
-              <option
-                onClick={(event) => {
-                  setcashflowType(event.target.value);
-                }}
-                value="taxes"
-              >
-                Taxes
-              </option>
-              <option
-                onClick={(event) => {
-                  setcashflowType(event.target.value);
-                }}
-                value="mortgage"
-              >
-                Mortgage
-              </option>
-              <option
-                onClick={(event) => {
-                  setcashflowType(event.target.value);
-                }}
-                value="school"
-              >
-                School
-              </option>
-              <option
-                onClick={(event) => {
-                  setcashflowType(event.target.value);
-                }}
-                value="car"
-              >
-                Car
-              </option>
-              <option
-                onClick={(event) => {
-                  setcashflowType(event.target.value);
-                }}
-                value="creditCard"
-              >
-                CreditCard
-              </option>
-              <option
-                onClick={(event) => {
-                  setcashflowType(event.target.value);
-                }}
-                value="retail"
-              >
-                Retail
-              </option>
-              <option
-                onClick={(event) => {
-                  setcashflowType(event.target.value);
-                }}
-                value="other"
-              >
-                Other
-              </option>
-              <option
-                onClick={(event) => {
-                  setcashflowType(event.target.value);
-                }}
-                value="child"
-              >
-                Child
-              </option>
-              <option
-                onClick={(event) => {
-                  setcashflowType(event.target.value);
-                }}
-                value="loan"
-              >
-                Loan
-              </option>
+            <select
+              value={cashflowType}
+              onChange={(event) => {
+                setcashflowType(event.target.value);
+              }}
+            >
+              <option value="taxes">Taxes</option>
+              <option value="mortgage">Mortgage</option>
+              <option value="school">School</option>
+              <option value="car">Car</option>
+              <option value="creditCard">CreditCard</option>
+              <option value="retail">Retail</option>
+              <option value="other">Other</option>
+              <option value="child">Child</option>
+              <option value="loan">Loan</option>
             </select>
           </div>
         ) : (
@@ -360,7 +319,7 @@ const CreateCard = (props) => {
             setdescription(event.target.value);
           }}
         ></textarea>
-        <button onClick={doodadSubmit()}>Submit</button>
+        <button onClick={doodadSubmit}>Submit</button>
       </div>
     );
   }
@@ -378,16 +337,18 @@ const CreateCard = (props) => {
         typeof Object.values(item)[0] == "number"
       ) {
         return (
-          <div>
+          <div key={Object.keys(item)}>
             {Object.keys(item)}: {Object.values(item)}
           </div>
         );
       } else {
         if (Object.values(item)[0][0] == undefined) {
-          return <div>{Object.keys(item)[0]}: []</div>;
+          return (
+            <div key={Object.keys(item)[0]}>{Object.keys(item)[0]}: []</div>
+          );
         } else {
           return (
-            <div className="inner">
+            <div className="inner" key={Object.keys(item)[0]}>
               {Object.keys(item)[0]}:{" {"}
               {mapAllValuesAndKeys(Object.values(item)[0][0])}
               {"}"}
@@ -403,61 +364,29 @@ const CreateCard = (props) => {
       <div className="card-form-wrapper">
         <h1>CreateCard</h1>
         <form>
-          <select>
-            <option
-              value="none"
-              onClick={(event) => {
-                setcardType(event.target.value);
-              }}
-            >
-              None
-            </option>
-            <option
-              value="beginning"
-              onClick={(event) => {
-                setcardType(event.target.value);
-              }}
-            >
-              Beginning Investment Portfolio
-            </option>
-            <option
-              value="capitalgain"
-              onClick={(event) => {
-                setcardType(event.target.value);
-              }}
-            >
-              Capital Gain Deal
-            </option>
-            <option
-              value="cashflow"
-              onClick={(event) => {
-                setcardType(event.target.value);
-              }}
-            >
-              CashFlow Deal
-            </option>
-            <option
-              value="doodad"
-              onClick={(event) => {
-                setcardType(event.target.value);
-              }}
-            >
-              Doodad
-            </option>
-            <option
-              value="market"
-              onClick={(event) => {
-                setcardType(event.target.value);
-              }}
-            >
-              Market
-            </option>
+          <select
+            value={cardType}
+            onChange={(event) => {
+              setcardType(event.target.value);
+            }}
+          >
+            <option value="beginning">Beginning Investment Portfolio</option>
+            <option value="capitalgain">Capital Gain Deal</option>
+            <option value="cashflow">CashFlow Deal</option>
+            <option value="doodad">Doodad</option>
+            <option value="market">Market</option>
           </select>
-          {cardType == "beginning" ? beginning() : ""}
-          {cardType == "capitalgain" ? capitalgain() : ""}
-          {cardType == "cashflow" ? cashflow() : ""}
+          {cardType == "beginning" ? ShowCreateCardChoices() : ""}
+          {cardType == "capitalgain"
+            ? ShowCreateCardChoices(["stock", "realestate"])
+            : ""}
+          {cardType == "cashflow"
+            ? ShowCreateCardChoices(["stock", "realestate"])
+            : ""}
           {cardType == "doodad" ? doodad() : ""}
-          {cardType == "market" ? market() : ""}
+          {cardType == "market"
+            ? ShowCreateCardChoices(["stock", "realestate"])
+            : ""}
         </form>
         {result == "" ? (
           ""
@@ -470,152 +399,27 @@ const CreateCard = (props) => {
       <div className="card-wrapper">
         <div>
           <h1>Beginning Investment Portfolios</h1>
-          {cardList.beginning.map((card) => {
-            return (
-              <div key={card.ID} className="card">
-                <h4>{mapAllValuesAndKeys(card)}</h4>
-                <h3
-                  onClick={(event) => {
-                    axios
-                      .get(`${SERVER_HOST}/getcard`, {
-                        params: {
-                          auth: props.credentials,
-                          ID: event.target.accessKey,
-                          collection: "beginning",
-                        },
-                      })
-                      .then((res) => {
-                        console.log(res.data);
-                      })
-                      .catch((err) => console.log(err));
-                  }}
-                  accessKey={card["ID"]}
-                >
-                  Edit
-                </h3>
-              </div>
-            );
-          })}
+          {ShowCards("beginning")}
         </div>
         <hr />
         <div>
           <h1>Capital Gain</h1>
-          {cardList.capitalgain.map((card) => {
-            return (
-              <div key={card.ID} className="card">
-                <h4>{mapAllValuesAndKeys(card)}</h4>
-                <h3
-                  onClick={(event) => {
-                    axios
-                      .get(`${SERVER_HOST}/getcard`, {
-                        params: {
-                          auth: props.credentials,
-                          ID: event.target.accessKey,
-                          collection: "capitalgain",
-                        },
-                      })
-                      .then((res) => {
-                        console.log(res.data);
-                      })
-                      .catch((err) => console.log(err));
-                  }}
-                  accessKey={card["ID"]}
-                >
-                  Edit
-                </h3>
-              </div>
-            );
-          })}
+          {ShowCards("capitalgain")}
         </div>
         <hr />
         <div>
           <h1>Cash Flow</h1>
-          {cardList.cashflow.map((card) => {
-            return (
-              <div key={card.ID} className="card">
-                <h4>{mapAllValuesAndKeys(card)}</h4>
-                <h3
-                  onClick={(event) => {
-                    axios
-                      .get(`${SERVER_HOST}/getcard`, {
-                        params: {
-                          auth: props.credentials,
-                          ID: event.target.accessKey,
-                          collection: "cashflow",
-                        },
-                      })
-                      .then((res) => {
-                        console.log(res.data);
-                      })
-                      .catch((err) => console.log(err));
-                  }}
-                  accessKey={card["ID"]}
-                >
-                  Edit
-                </h3>
-              </div>
-            );
-          })}
+          {ShowCards("cashflow")}
         </div>
         <hr />
         <div>
           <h1>Doodad</h1>
-          {cardList.doodad.map((card) => {
-            return (
-              <div key={card.ID} className="card">
-                <h4>{mapAllValuesAndKeys(card)}</h4>
-                <h3
-                  onClick={(event) => {
-                    axios
-                      .get(`${SERVER_HOST}/getcard`, {
-                        params: {
-                          auth: props.credentials,
-                          ID: event.target.accessKey,
-                          collection: "doodad",
-                        },
-                      })
-                      .then((res) => {
-                        console.log(res.data);
-                      })
-                      .catch((err) => console.log(err));
-                  }}
-                  accessKey={card["ID"]}
-                >
-                  Edit
-                </h3>
-              </div>
-            );
-          })}
+          {ShowCards("doodad")}
         </div>
         <hr />
         <div>
           <h1>Market</h1>
-          {cardList.market.map((card, key) => {
-            return (
-              <div key={card["ID"]} className="card">
-                <h4>{mapAllValuesAndKeys(card)}</h4>
-                <h3
-                  onClick={(event) => {
-                    axios
-                      .get(`${SERVER_HOST}/getcard`, {
-                        params: {
-                          auth: props.credentials,
-                          ID: event.target.accessKey,
-                          collection: "market",
-                        },
-                      })
-                      .then((res) => {
-                        console.log(res.data);
-                      })
-                      .catch((err) => console.log(err));
-                  }}
-                  accessKey={card["ID"]}
-                >
-                  Edit
-                </h3>
-              </div>
-            );
-          })}
+          {ShowCards("market")}
         </div>
       </div>
     </div>
