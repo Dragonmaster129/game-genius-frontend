@@ -8,6 +8,7 @@ import SelectGame from "./components/pages/selectGame";
 import ErrorPage from "./components/pages/errorPage";
 import Login from "./login/login";
 import Loading from "./components/pages/loading";
+import Auth from "./login/auth";
 import { SERVER_HOST } from "./components/constants";
 
 const Router = (props) => {
@@ -71,6 +72,15 @@ const Router = (props) => {
               credentials={credentials}
               setcredentials={setcredentials}
               gameID={gameID}
+            />
+          }
+        />
+        <Route
+          path="/auth"
+          element={
+            <Auth
+              credentials={credentials}
+              setcredentials={setcredentials}
               setauth={setauth}
             />
           }
@@ -79,11 +89,7 @@ const Router = (props) => {
           <Route
             path="/play"
             element={
-              <App
-                credentials={credentials}
-                gameCreator={gameCreator}
-                gameID={gameID}
-              />
+              <App credentials={credentials} gameCreator={gameCreator} />
             }
           />
         ) : (
