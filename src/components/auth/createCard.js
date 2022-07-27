@@ -8,6 +8,7 @@ const CreateCard = (props) => {
   const [stockOption, setstockOption] = useState("regular");
   const [d2yOption, setd2yOption] = useState("card1");
   const [targetPlayer, settargetPlayer] = useState("player");
+  const [cardName, setcardName] = useState("");
 
   const [objectToSend, setobjectToSend] = useState({ title: "" });
   const [typeDropdown, settypeDropdown] = useState("realestate");
@@ -78,7 +79,6 @@ const CreateCard = (props) => {
         object[key] = objectToSend[key];
       }
       if (cardType === "capitalgain") {
-        console.log(typeDropdown);
         object["card"] = { type: "", name: "" };
         if (typeDropdown === "realestate" || typeDropdown === "land") {
           object["card"]["size"] = 1;
@@ -116,6 +116,10 @@ const CreateCard = (props) => {
           object["card"]["cost"] = 12000;
           object["card"]["downpay"] = 12000;
           object["card"]["value"] = 400;
+        } else if (typeDropdown === "dividend") {
+          object["card"]["cost"] = 25000;
+          object["card"]["downpay"] = 25000;
+          object["card"]["value"] = 380;
         }
       } else if (cardType === "market") {
         object = {};
@@ -266,9 +270,11 @@ const CreateCard = (props) => {
           } else if (field === "option") {
             return null;
           } else if (
-            typeDropdown === "d2y" &&
-            field === "name" &&
-            cardType === "cashflow"
+            (typeDropdown !== "royalty" &&
+              typeDropdown !== "dividend" &&
+              field === "name" &&
+              cardType === "cashflow") ||
+            (typeDropdown === "realestate" && field === "name")
           ) {
             return null;
           } else if (field === "target") {
@@ -302,6 +308,16 @@ const CreateCard = (props) => {
           setstockOption,
           ["regular", "call", "put", "short"],
           "stock type"
+        )
+      );
+    }
+    if (typeDropdown === "realestate" && cardType !== "doodad") {
+      mapping.unshift(
+        generateDropdown(
+          cardName,
+          setcardName,
+          ["starterhouse", "duplex", "4-plex", "8-plex", "apartmentcomplex"],
+          "Realestate Name"
         )
       );
     }
@@ -418,7 +434,12 @@ const CreateCard = (props) => {
             ? ShowCreateCardChoices(["stock", "realestate", "d2y", "land"])
             : ""}
           {cardType == "cashflow"
-            ? ShowCreateCardChoices(["realestate", "d2y", "royalty"])
+            ? ShowCreateCardChoices([
+                "realestate",
+                "d2y",
+                "royalty",
+                "dividend",
+              ])
             : ""}
           {cardType == "doodad" ? ShowCreateCardChoices([]) : ""}
           {cardType == "market"
