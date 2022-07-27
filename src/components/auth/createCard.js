@@ -4,6 +4,7 @@ import { SERVER_HOST } from "../constants";
 
 const CreateCard = (props) => {
   const [cardType, setcardType] = useState("market");
+  const [previousCardType, setpreviousCardType] = useState("");
   const [stockOption, setstockOption] = useState("regular");
   const [d2yOption, setd2yOption] = useState("card1");
   const [targetPlayer, settargetPlayer] = useState("player");
@@ -67,6 +68,7 @@ const CreateCard = (props) => {
   useEffect(() => {
     setobjectToSend(format[cardType]);
     settypeDropdown("realestate");
+    setpreviousCardType(cardType);
   }, [cardType]);
 
   useEffect(() => {
@@ -160,7 +162,7 @@ const CreateCard = (props) => {
       }
       setobjectToSend(object);
     }
-  }, [typeDropdown, stockOption]);
+  }, [typeDropdown, stockOption, previousCardType]);
 
   useEffect(() => {
     if (cardType === "cashflow") {
