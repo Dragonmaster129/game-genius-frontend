@@ -9,6 +9,7 @@ const CreateCard = (props) => {
   const [d2yOption, setd2yOption] = useState("card1");
   const [targetPlayer, settargetPlayer] = useState("player");
   const [cardName, setcardName] = useState("starterhouse");
+  const [doodadCategory, setdoodadCategory] = useState("other");
   const [cardID, setcardID] = useState("");
 
   const [objectToSend, setobjectToSend] = useState({ title: "" });
@@ -27,6 +28,7 @@ const CreateCard = (props) => {
     doodad: {
       title: "",
       description: "",
+      child: false,
       cash: 0,
       cashflow: 0,
       category: "",
@@ -172,6 +174,8 @@ const CreateCard = (props) => {
         object["realestate"]["mortgage"] = 0;
         object["realestate"]["downpay"] = 0;
         object["realestate"]["value"] = 0;
+      } else if (cardType === "doodad") {
+        object["category"] = doodadCategory;
       }
       setobjectToSend(object);
     }
@@ -212,14 +216,18 @@ const CreateCard = (props) => {
     let smallObject = {};
     let keys = Object.keys(objectToSend);
     let key = target.name;
+    let value = target.value;
+    if (target.type === "checkbox") {
+      value = target.checked;
+    }
     keys.forEach((element) => {
       smallObject[element] = objectToSend[element];
     });
     if (key.includes(".")) {
       let keyArr = key.split(".");
-      smallObject[keyArr[0]][keyArr[1]] = target.value;
+      smallObject[keyArr[0]][keyArr[1]] = value;
     } else {
-      smallObject[key] = target.value;
+      smallObject[key] = value;
     }
     setobjectToSend(smallObject);
   }
@@ -252,6 +260,20 @@ const CreateCard = (props) => {
     );
   }
 
+  function generateCheckbox(key, value) {
+    return (
+      <div key={key} className="v">
+        <label>{key[0].toUpperCase() + key.substring(1)}</label>
+        <input
+          type="checkbox"
+          name={key}
+          checked={value}
+          onChange={HandleChange}
+        ></input>
+      </div>
+    );
+  }
+
   function generateDropdown(value, setter, options, label) {
     return (
       <div className="v" key={value}>
@@ -277,7 +299,7 @@ const CreateCard = (props) => {
   function ShowCreateCardChoices(types) {
     let keys = Object.keys(objectToSend);
     let mapping = keys.map((key) => {
-      if (key === "name" || key === "type") {
+      if (key === "name" || key === "type" || key === "category") {
         return null;
       } else if (key === "target") {
         return generateDropdown(
@@ -294,7 +316,7 @@ const CreateCard = (props) => {
       } else if (typeof objectToSend[key] === "number") {
         return generateInput(key, "number", objectToSend[key]);
       } else if (typeof objectToSend[key] === "boolean") {
-        return generateInput(key, "checkbox", objectToSend[key]);
+        return generateCheckbox(key, objectToSend[key]);
       } else if (typeof objectToSend[key] === "object") {
         return Object.keys(objectToSend[key]).map((field) => {
           if (field === "type") {
@@ -340,6 +362,16 @@ const CreateCard = (props) => {
           setstockOption,
           ["regular", "call", "put", "short"],
           "stock type"
+        )
+      );
+    }
+    if (cardType === "doodad") {
+      mapping.push(
+        generateDropdown(
+          doodadCategory,
+          setdoodadCategory,
+          ["other", "home", "school", "car", "creditCard", "retail"],
+          "Doodad Cashflow Category"
         )
       );
     }
@@ -414,6 +446,50 @@ const CreateCard = (props) => {
             accessKey={card["ID"]}
           >
             Edit
+          </h3>
+          <h3
+            onClick={({ target }) => {
+              axios
+                .delete(`${SERVER_HOST}/delete-card`, {
+                  params: {
+                    auth: props.credentials,
+                    ID: target.accessKey,
+                    collection: collection,
+                  },
+                })
+                .then((res) => {
+                  if (res.data) {
+                    let IDs = [];
+                    let newCardList = {};
+                    for (const key in cardList) {
+                      newCardList[key] = [];
+                      for (
+                        let index = 0;
+                        index < cardList[key].length;
+                        index++
+                      ) {
+                        newCardList[key][index] = cardList[key][index];
+                      }
+                    }
+                    cardList[collection].forEach((element) => {
+                      IDs.push(element["ID"]);
+                    });
+                    for (let index = 0; index < IDs.length; index++) {
+                      const element = IDs[index];
+                      if (element === target.accessKey) {
+                        newCardList[collection].splice(index, 1);
+                      }
+                    }
+                    setcardList(newCardList);
+                  }
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            }}
+            accessKey={card["ID"]}
+          >
+            Delete
           </h3>
         </div>
       );
