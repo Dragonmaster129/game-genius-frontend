@@ -73,17 +73,19 @@ const CreateCard = (props) => {
   });
 
   useEffect(() => {
-    setobjectToSend(format[cardType]);
-    settypeDropdown("realestate");
+    if (currentMode === "create") {
+      setobjectToSend(format[cardType]);
+      settypeDropdown("realestate");
+    }
     setpreviousCardType(cardType);
   }, [cardType]);
 
   useEffect(() => {
+    let object = {};
+    for (let key in objectToSend) {
+      object[key] = objectToSend[key];
+    }
     if (currentMode === "create") {
-      let object = {};
-      for (let key in objectToSend) {
-        object[key] = objectToSend[key];
-      }
       if (cardType === "capitalgain") {
         object["card"] = { type: typeDropdown, name: "" };
         if (typeDropdown === "realestate" || typeDropdown === "land") {
@@ -165,32 +167,16 @@ const CreateCard = (props) => {
           object["price"] = objectToSend["price"] || 0;
         }
       } else if (cardType === "beginning") {
-        object["title"] = "Your Beginning Investment Portfolio";
-        object["stock"] = [];
-        for (let index = 0; index < beginningStockCount; index++) {
-          object["stock"][index] = {
-            name: "",
-            option: "regular",
-            amount: 0,
-            costPerShare: 0,
-          };
-        }
-        object["realestate"] = [];
-        for (let index = 0; index < beginningRealestateCount; index++) {
-          object["realestate"][index] = {
-            name: "",
-            size: 1,
-            cost: 0,
-            mortgage: 0,
-            downpay: 0,
-            value: 0,
-          };
-        }
+        beginningSetup(object, beginningStockCount, beginningRealestateCount);
       } else if (cardType === "doodad") {
         object["category"] = doodadCategory;
       }
-      setobjectToSend(object);
+    } else {
+      if (cardType === "beginning") {
+        beginningSetup(object, object.stock.length, object.realestate.length);
+      }
     }
+    setobjectToSend(object);
   }, [
     typeDropdown,
     stockOption,
@@ -200,6 +186,31 @@ const CreateCard = (props) => {
     beginningStockCount,
     beginningRealestateCount,
   ]);
+
+  function beginningSetup(object, stockCount, realestateCount) {
+    object["title"] = "Your Beginning Investment Portfolio";
+    object["stock"] = [];
+    console.log(objectToSend["stock"]);
+    for (let index = 0; index < stockCount; index++) {
+      object["stock"][index] = objectToSend["stock"][index] || {
+        name: "",
+        option: "regular",
+        amount: 0,
+        costPerShare: 0,
+      };
+    }
+    object["realestate"] = [];
+    for (let index = 0; index < realestateCount; index++) {
+      object["realestate"][index] = objectToSend["realestate"][index] || {
+        name: "",
+        size: 1,
+        cost: 0,
+        mortgage: 0,
+        downpay: 0,
+        value: 0,
+      };
+    }
+  }
 
   useEffect(() => {
     if (cardType === "cashflow") {
@@ -346,6 +357,10 @@ const CreateCard = (props) => {
           return objectToSend[key].map((field, littleKey) => {
             return Object.keys(field).map((fieldKey) => {
               if (typeof field[fieldKey] === "string") {
+                console.log(
+                  key + "." + littleKey + "." + fieldKey,
+                  field[fieldKey]
+                );
                 return generateInput(
                   key + "." + littleKey + "." + fieldKey,
                   "text",
@@ -458,11 +473,30 @@ const CreateCard = (props) => {
       );
     }
     if (types.length !== 0) {
-      mapping.unshift(
-        generateDropdown(typeDropdown, settypeDropdown, types, "type of card")
-      );
+      if (currentMode === "create") {
+        mapping.unshift(
+          generateDropdown(typeDropdown, settypeDropdown, types, "Type of Card")
+        );
+      } else {
+        mapping.unshift(
+          <h3 key="h3">
+            <label>Type of Card</label>: {" " + typeDropdown}
+          </h3>
+        );
+      }
     }
     return mapping;
+  }
+
+  function DuplicateCardDataForEditing() {
+    let newCardList = {};
+    for (const key in cardList) {
+      newCardList[key] = [];
+      for (let index = 0; index < cardList[key].length; index++) {
+        newCardList[key][index] = cardList[key][index];
+      }
+    }
+    return newCardList;
   }
 
   function SubmitData() {
@@ -474,7 +508,10 @@ const CreateCard = (props) => {
           cardType: cardType,
         })
         .then((res) => {
-          setobjectToSend({ card: {} });
+          let newCardList = DuplicateCardDataForEditing();
+          newCardList[cardType].push(objectToSend);
+          setcardList(newCardList);
+          setobjectToSend(format[cardType]);
           setresult(res.data);
         })
         .catch((err) => {
@@ -489,6 +526,10 @@ const CreateCard = (props) => {
           cardID: cardID,
         })
         .then((res) => {
+          let newCardList = DuplicateCardDataForEditing();
+          newCardList[cardType] = newCardList[cardType].map((card) =>
+            card["ID"] === cardID ? objectToSend : card
+          );
           setobjectToSend({ card: {} });
           setresult(res.data);
           setcurrentMode("create");
@@ -516,6 +557,7 @@ const CreateCard = (props) => {
                 })
                 .then((res) => {
                   console.log(res.data);
+                  setcurrentMode("edit");
                   setobjectToSend(res.data);
                   setcardType(collection);
                   if (collection === "beginning") {
@@ -541,27 +583,10 @@ const CreateCard = (props) => {
                 })
                 .then((res) => {
                   if (res.data) {
-                    let IDs = [];
-                    let newCardList = {};
-                    for (const key in cardList) {
-                      newCardList[key] = [];
-                      for (
-                        let index = 0;
-                        index < cardList[key].length;
-                        index++
-                      ) {
-                        newCardList[key][index] = cardList[key][index];
-                      }
-                    }
-                    cardList[collection].forEach((element) => {
-                      IDs.push(element["ID"]);
-                    });
-                    for (let index = 0; index < IDs.length; index++) {
-                      const element = IDs[index];
-                      if (element === target.accessKey) {
-                        newCardList[collection].splice(index, 1);
-                      }
-                    }
+                    let newCardList = DuplicateCardDataForEditing();
+                    newCardList[collection] = newCardList[collection].filter(
+                      (card) => card["ID"] !== target.accessKey
+                    );
                     setcardList(newCardList);
                   }
                 })
@@ -595,6 +620,12 @@ const CreateCard = (props) => {
             {Object.keys(item)}: {Object.values(item)}
           </div>
         );
+      } else if (typeof Object.values(item)[0] == "boolean") {
+        return (
+          <div key={Object.keys(item)}>
+            {Object.keys(item)}: {Object.values(item)[0] ? "True" : "False"}
+          </div>
+        );
       } else {
         if (Object.values(item)[0][0] == undefined) {
           return (
@@ -623,18 +654,22 @@ const CreateCard = (props) => {
             SubmitData();
           }}
         >
-          <select
-            value={cardType}
-            onChange={(event) => {
-              setcardType(event.target.value);
-            }}
-          >
-            <option value="beginning">Beginning Investment Portfolio</option>
-            <option value="capitalgain">Capital Gain Deal</option>
-            <option value="cashflow">CashFlow Deal</option>
-            <option value="doodad">Doodad</option>
-            <option value="market">Market</option>
-          </select>
+          {currentMode === "create" ? (
+            <select
+              value={cardType}
+              onChange={(event) => {
+                setcardType(event.target.value);
+              }}
+            >
+              <option value="beginning">Beginning Investment Portfolio</option>
+              <option value="capitalgain">Capital Gain Deal</option>
+              <option value="cashflow">CashFlow Deal</option>
+              <option value="doodad">Doodad</option>
+              <option value="market">Market</option>
+            </select>
+          ) : (
+            <h2>{cardType}</h2>
+          )}
           {cardType == "beginning" ? ShowCreateCardChoices([]) : ""}
           {cardType == "capitalgain"
             ? ShowCreateCardChoices(["stock", "realestate", "d2y", "land"])
