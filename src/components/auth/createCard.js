@@ -113,27 +113,7 @@ const CreateCard = (props) => {
           object["card"]["downpay"] = objectToSend["card"]["downpay"] || 200;
         }
       } else if (cardType === "cashflow") {
-        object["card"] = { type: typeDropdown, name: "" };
-        if (typeDropdown === "realestate") {
-          object["card"]["name"] = cardName;
-          object["card"]["size"] = objectToSend["card"]["size"] || 1;
-          object["card"]["cost"] = objectToSend["card"]["cost"] || 0;
-          object["card"]["mortgage"] = objectToSend["card"]["mortgage"] || 0;
-          object["card"]["downpay"] = objectToSend["card"]["downpay"] || 0;
-          object["card"]["value"] = objectToSend["card"]["value"] || 0;
-        } else if (typeDropdown === "d2y") {
-          object["card"]["name"] = objectToSend["card"]["name"] || "card1";
-          object["card"]["cost"] = objectToSend["card"]["cost"] || 200;
-          object["card"]["downpay"] = objectToSend["card"]["downpay"] || 200;
-        } else if (typeDropdown === "royalty") {
-          object["card"]["cost"] = objectToSend["card"]["name"] || 12000;
-          object["card"]["downpay"] = objectToSend["card"]["downpay"] || 12000;
-          object["card"]["value"] = objectToSend["card"]["value"] || 400;
-        } else if (typeDropdown === "dividend") {
-          object["card"]["cost"] = objectToSend["card"]["cost"] || 25000;
-          object["card"]["downpay"] = objectToSend["card"]["downpay"] || 25000;
-          object["card"]["value"] = objectToSend["card"]["value"] || 380;
-        }
+        cashflowSetup(object);
       } else if (cardType === "market") {
         object = {};
         for (const key in format[cardType]) {
@@ -156,6 +136,8 @@ const CreateCard = (props) => {
         marketSetup(object);
       } else if (cardType === "doodad") {
         object["category"] = doodadCategory;
+      } else if (cardType === "cashflow") {
+        cashflowSetup(object);
       }
     }
     setobjectToSend(object);
@@ -168,7 +150,36 @@ const CreateCard = (props) => {
     beginningStockCount,
     beginningRealestateCount,
     doodadCategory,
+    d2yOption,
   ]);
+
+  function cashflowSetup(object) {
+    object["card"] = { type: typeDropdown, name: "" };
+    if (typeDropdown === "realestate") {
+      object["card"]["name"] = cardName;
+      object["card"]["size"] = objectToSend["card"]["size"] || 1;
+      object["card"]["cost"] = objectToSend["card"]["cost"] || 0;
+      object["card"]["mortgage"] = objectToSend["card"]["mortgage"] || 0;
+      object["card"]["downpay"] = objectToSend["card"]["downpay"] || 0;
+      object["card"]["value"] = objectToSend["card"]["value"] || 0;
+    } else if (typeDropdown === "d2y") {
+      object["card"]["name"] = d2yOption;
+      if (d2yOption === "card1") {
+        object["card"]["cost"] = objectToSend["card"]["cost"] || 200;
+        object["card"]["downpay"] = objectToSend["card"]["downpay"] || 200;
+      } else {
+        object["card"]["value"] = 500;
+      }
+    } else if (typeDropdown === "royalty") {
+      object["card"]["cost"] = objectToSend["card"]["cost"] || 12000;
+      object["card"]["downpay"] = objectToSend["card"]["downpay"] || 12000;
+      object["card"]["value"] = objectToSend["card"]["value"] || 400;
+    } else if (typeDropdown === "dividend") {
+      object["card"]["cost"] = objectToSend["card"]["cost"] || 25000;
+      object["card"]["downpay"] = objectToSend["card"]["downpay"] || 25000;
+      object["card"]["value"] = objectToSend["card"]["value"] || 380;
+    }
+  }
 
   function marketSetup(object) {
     object["type"] = typeDropdown;
@@ -180,14 +191,16 @@ const CreateCard = (props) => {
       object["price"] = objectToSend["price"] || 0;
       object["forcedSale"] = objectToSend["forcedSale"] || false;
     } else if (typeDropdown === "realestate Exchange") {
-      object["newProperty"] = {
-        name: cardName,
-        size: objectToSend["newProperty"]["size"] || 1,
-        cost: objectToSend["newProperty"]["cost"] || 0,
-        mortgage: objectToSend["newProperty"]["mortgage"] || 0,
-        downpay: objectToSend["newProperty"]["downpay"] || 0,
-        value: objectToSend["newProperty"]["value"] || 0,
+      object["title"] = "Real Estate Exchange Deal";
+      object["name"] = cardName;
+      object["newProperty"] = objectToSend["newProperty"] || {
+        size: 1,
+        cost: 0,
+        mortgage: 0,
+        downpay: 0,
+        value: 0,
       };
+      object["newProperty"]["name"] = "";
     } else if (typeDropdown === "stock") {
       object["bankrupt"] = objectToSend["bankrupt"] || false;
       object["price"] = objectToSend["price"] || 0;
@@ -225,27 +238,6 @@ const CreateCard = (props) => {
   }
 
   useEffect(() => {
-    if (cardType === "cashflow") {
-      if (typeDropdown === "d2y") {
-        let object = {};
-        for (let key in objectToSend) {
-          object[key] = objectToSend[key];
-        }
-        if (d2yOption === "card1") {
-          object["card"]["cost"] = 200;
-          object["card"]["downpay"] = 200;
-          delete object["card"]["value"];
-        } else {
-          object["card"]["value"] = 500;
-          delete object["card"]["cost"];
-          delete object["card"]["downpay"];
-        }
-        setobjectToSend(object);
-      }
-    }
-  }, [d2yOption]);
-
-  useEffect(() => {
     axios
       .get(`${SERVER_HOST}/cards`)
       .then((res) => {
@@ -264,6 +256,8 @@ const CreateCard = (props) => {
     } else {
       if (target.type === "number") {
         value = target.valueAsNumber;
+      } else if (target.type === "text" && key !== "title") {
+        value = value.toUpperCase();
       }
     }
     keys.forEach((element) => {
@@ -445,7 +439,10 @@ const CreateCard = (props) => {
         )
       );
     }
-    if (typeDropdown === "realestate" && cardType !== "doodad") {
+    if (
+      typeDropdown === "realestate" ||
+      (typeDropdown === "realestate Exchange" && cardType !== "doodad")
+    ) {
       if (cardType === "market") {
         mapping.unshift(
           generateDropdown(
@@ -595,14 +592,16 @@ const CreateCard = (props) => {
                   setcurrentMode("edit");
                   setobjectToSend(data);
                   setcardType(collection);
+                  settypeDropdown(data.card.type || data.type);
                   if (collection === "beginning") {
                     setbeginningRealestateCount(res.data.realestate.length);
                     setbeginningStockCount(res.data.stock.length);
                   } else if (collection === "market") {
                     setcardName(res.data.name);
                   } else if (collection === "doodad") {
-                    console.log(res.data);
                     setdoodadCategory(res.data.category);
+                  } else if (collection === "cashflow") {
+                    setd2yOption(res.data.card.name);
                   }
                 })
                 .catch((err) => console.log(err));

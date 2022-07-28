@@ -290,11 +290,13 @@ const App = (props) => {
                 <h3>{card.description}</h3>
                 {card.options.map((option) => {
                   if (option != "Amount") {
+                    let optionLink = option;
+                    optionLink.split(" ").join("_");
                     return (
                       <button
                         onClick={(event) => {
                           axios
-                            .post(`${SERVER_HOST}/choice/${option}`, {
+                            .post(`${SERVER_HOST}/choice/${optionLink}`, {
                               ID: props.credentials,
                               gameID: props.gameID,
                               amount: buySellAmount || 0,
