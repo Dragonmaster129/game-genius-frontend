@@ -10,7 +10,10 @@ const CreateCard = (props) => {
   const [targetPlayer, settargetPlayer] = useState("player");
   const [cardName, setcardName] = useState("starterhouse");
   const [doodadCategory, setdoodadCategory] = useState("other");
+  const [beginningStockCount, setbeginningStockCount] = useState(0);
+  const [beginningRealestateCount, setbeginningRealestateCount] = useState(0);
   const [cardID, setcardID] = useState("");
+  const [result, setresult] = useState(false);
 
   const [objectToSend, setobjectToSend] = useState({ title: "" });
   const [typeDropdown, settypeDropdown] = useState("realestate");
@@ -162,24 +165,41 @@ const CreateCard = (props) => {
           object["price"] = objectToSend["price"] || 0;
         }
       } else if (cardType === "beginning") {
-        object["stock"] = {};
-        object["stock"]["name"] = "";
-        object["stock"]["option"] = "";
-        object["stock"]["amount"] = 0;
-        object["stock"]["costPerShare"] = 0;
-        object["realestate"] = {};
-        object["realestate"]["name"] = "";
-        object["realestate"]["size"] = 1;
-        object["realestate"]["cost"] = 0;
-        object["realestate"]["mortgage"] = 0;
-        object["realestate"]["downpay"] = 0;
-        object["realestate"]["value"] = 0;
+        object["title"] = "Your Beginning Investment Portfolio";
+        object["stock"] = [];
+        for (let index = 0; index < beginningStockCount; index++) {
+          object["stock"][index] = {
+            name: "",
+            option: "regular",
+            amount: 0,
+            costPerShare: 0,
+          };
+        }
+        object["realestate"] = [];
+        for (let index = 0; index < beginningRealestateCount; index++) {
+          object["realestate"][index] = {
+            name: "",
+            size: 1,
+            cost: 0,
+            mortgage: 0,
+            downpay: 0,
+            value: 0,
+          };
+        }
       } else if (cardType === "doodad") {
         object["category"] = doodadCategory;
       }
       setobjectToSend(object);
     }
-  }, [typeDropdown, stockOption, previousCardType, cardName, targetPlayer]);
+  }, [
+    typeDropdown,
+    stockOption,
+    previousCardType,
+    cardName,
+    targetPlayer,
+    beginningStockCount,
+    beginningRealestateCount,
+  ]);
 
   useEffect(() => {
     if (cardType === "cashflow") {
@@ -225,7 +245,11 @@ const CreateCard = (props) => {
     });
     if (key.includes(".")) {
       let keyArr = key.split(".");
-      smallObject[keyArr[0]][keyArr[1]] = value;
+      if (keyArr.length === 3) {
+        smallObject[keyArr[0]][keyArr[1]][keyArr[2]] = value;
+      } else {
+        smallObject[keyArr[0]][keyArr[1]] = value;
+      }
     } else {
       smallObject[key] = value;
     }
@@ -276,7 +300,7 @@ const CreateCard = (props) => {
 
   function generateDropdown(value, setter, options, label) {
     return (
-      <div className="v" key={value}>
+      <div className="v" key={value + options}>
         <label>{label}</label>
         <select
           value={value}
@@ -318,41 +342,61 @@ const CreateCard = (props) => {
       } else if (typeof objectToSend[key] === "boolean") {
         return generateCheckbox(key, objectToSend[key]);
       } else if (typeof objectToSend[key] === "object") {
-        return Object.keys(objectToSend[key]).map((field) => {
-          if (field === "type") {
-            return null;
-          } else if (field === "option") {
-            return null;
-          } else if (
-            (typeDropdown !== "royalty" &&
-              typeDropdown !== "dividend" &&
-              field === "name" &&
-              cardType === "cashflow") ||
-            (typeDropdown === "realestate" && field === "name")
-          ) {
-            return null;
-          } else if (field === "target") {
-            return generateDropdown(
-              targetPlayer,
-              settargetPlayer,
-              ["you", "right", "all"],
-              "Target Player"
-            );
-          }
-          if (typeof objectToSend[key][field] === "string") {
-            return generateInput(
-              key + "." + field,
-              "text",
-              objectToSend[key][field]
-            );
-          } else if (typeof objectToSend[key][field] === "number") {
-            return generateInput(
-              key + "." + field,
-              "number",
-              objectToSend[key][field]
-            );
-          }
-        });
+        if (Array.isArray(objectToSend[key])) {
+          return objectToSend[key].map((field, littleKey) => {
+            return Object.keys(field).map((fieldKey) => {
+              if (typeof field[fieldKey] === "string") {
+                return generateInput(
+                  key + "." + littleKey + "." + fieldKey,
+                  "text",
+                  field[fieldKey]
+                );
+              } else if (typeof field[fieldKey] === "number") {
+                return generateInput(
+                  key + "." + littleKey + "." + fieldKey,
+                  "number",
+                  field[fieldKey]
+                );
+              }
+            });
+          });
+        } else {
+          return Object.keys(objectToSend[key]).map((field) => {
+            if (field === "type") {
+              return null;
+            } else if (field === "option") {
+              return null;
+            } else if (
+              (typeDropdown !== "royalty" &&
+                typeDropdown !== "dividend" &&
+                field === "name" &&
+                cardType === "cashflow") ||
+              (typeDropdown === "realestate" && field === "name")
+            ) {
+              return null;
+            } else if (field === "target") {
+              return generateDropdown(
+                targetPlayer,
+                settargetPlayer,
+                ["you", "right", "all"],
+                "Target Player"
+              );
+            }
+            if (typeof objectToSend[key][field] === "string") {
+              return generateInput(
+                key + "." + field,
+                "text",
+                objectToSend[key][field]
+              );
+            } else if (typeof objectToSend[key][field] === "number") {
+              return generateInput(
+                key + "." + field,
+                "number",
+                objectToSend[key][field]
+              );
+            }
+          });
+        }
       }
     });
     if (typeDropdown === "stock" && cardType !== "market") {
@@ -395,6 +439,24 @@ const CreateCard = (props) => {
         )
       );
     }
+    if (cardType === "beginning") {
+      mapping.unshift(
+        generateDropdown(
+          beginningRealestateCount,
+          setbeginningRealestateCount,
+          [0, 1],
+          "Realestate count"
+        )
+      );
+      mapping.unshift(
+        generateDropdown(
+          beginningStockCount,
+          setbeginningStockCount,
+          [0, 1, 2, 3],
+          "Stock count"
+        )
+      );
+    }
     if (types.length !== 0) {
       mapping.unshift(
         generateDropdown(typeDropdown, settypeDropdown, types, "type of card")
@@ -404,8 +466,7 @@ const CreateCard = (props) => {
   }
 
   function SubmitData() {
-    if (cardID === "") {
-      console.log("post");
+    if (currentMode === "create") {
       axios
         .post(`${SERVER_HOST}/card/add`, {
           token: props.credentials,
@@ -413,13 +474,28 @@ const CreateCard = (props) => {
           cardType: cardType,
         })
         .then((res) => {
-          console.log(res.data);
+          setobjectToSend({ card: {} });
+          setresult(res.data);
         })
         .catch((err) => {
           console.log(err);
         });
     } else {
-      console.log("update");
+      axios
+        .patch(`${SERVER_HOST}/card/update`, {
+          token: props.credentials,
+          card: objectToSend,
+          cardType: cardType,
+          cardID: cardID,
+        })
+        .then((res) => {
+          setobjectToSend({ card: {} });
+          setresult(res.data);
+          setcurrentMode("create");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }
 
@@ -440,6 +516,12 @@ const CreateCard = (props) => {
                 })
                 .then((res) => {
                   console.log(res.data);
+                  setobjectToSend(res.data);
+                  setcardType(collection);
+                  if (collection === "beginning") {
+                    setbeginningRealestateCount(res.data.realestate.length);
+                    setbeginningStockCount(res.data.stock.length);
+                  }
                 })
                 .catch((err) => console.log(err));
             }}
