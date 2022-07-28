@@ -156,6 +156,91 @@ const App = (props) => {
     };
   }, [windowDimenion]);
 
+  function sellDropdown(cardType, cardName) {
+    return data.assets[cardType].map((asset, key) => {
+      if (asset.name === cardName) {
+        return (
+          <h2
+            key={key}
+            onClick={() => {
+              axios
+                .post(`${SERVER_HOST}/choice/Sell`, {
+                  ID: props.credentials,
+                  gameID: props.gameID,
+                  amount: buySellAmount,
+                  sellItem: ["assets", cardType, key + 1],
+                })
+                .then((res) => {
+                  setdata(res.data);
+                });
+            }}
+          >
+            {asset.name}
+          </h2>
+        );
+      } else if (
+        cardName === "plex" &&
+        (asset.name === "duplex" ||
+          asset.name === "4-plex" ||
+          asset.name === "8-plex")
+      ) {
+        return (
+          <h2
+            key={key}
+            onClick={() => {
+              axios
+                .post(`${SERVER_HOST}/choice/Sell`, {
+                  ID: props.credentials,
+                  gameID: props.gameID,
+                  amount: buySellAmount,
+                  sellItem: ["assets", cardType, key + 1],
+                })
+                .then((res) => {
+                  setdata(res.data);
+                });
+            }}
+          >
+            {asset.name}
+          </h2>
+        );
+      }
+    });
+  }
+
+  function ShowNegativeValues() {
+    return data.assets.realestate.map((asset, key) => {
+      if (asset.value < 0) {
+        return (
+          <h2
+            key={key}
+            onClick={() => {
+              axios
+                .post(`${SERVER_HOST}/sellNegative`, {
+                  ID: props.credentials,
+                  gameID: props.gameID,
+                  amount: 1,
+                  sellItem: ["assets", "realestate", key + 1],
+                })
+                .then((res) => {
+                  setdata(res.data);
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            }}
+          >
+            <div>
+              {asset.name}: {asset.value}
+            </div>
+            <div>You'll receive: {asset.downpay / 2}</div>
+          </h2>
+        );
+      } else {
+        return null;
+      }
+    });
+  }
+
   if (currentEvent.EVENT == "STARTGAME") {
     return (
       <div>
@@ -285,7 +370,7 @@ const App = (props) => {
                 <h1>{card.title}</h1>
                 <h3>{card.description}</h3>
                 {card.options.map((option) => {
-                  if (option != "Amount") {
+                  if (option != "Amount" && option != "Sell") {
                     let optionLink = option;
                     optionLink.split(" ").join("_");
                     return (
@@ -314,7 +399,7 @@ const App = (props) => {
                         {option}
                       </button>
                     );
-                  } else {
+                  } else if (option == "Amount") {
                     return (
                       <input
                         key={option}
@@ -325,12 +410,15 @@ const App = (props) => {
                         type="number"
                       ></input>
                     );
+                  } else if (option == "Sell") {
+                    return sellDropdown(card["type"], card["name"]);
                   }
                 })}
               </div>
             ) : (
               ""
             )}
+            {ShowNegativeValues()}
           </div>
           <div>
             <h3>

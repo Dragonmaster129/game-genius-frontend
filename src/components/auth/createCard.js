@@ -211,6 +211,7 @@ This Option may be sold to another Player now or at the next real estate card dr
       };
       object["newProperty"]["name"] = "";
     } else if (typeDropdown === "stock") {
+      object["name"] = cardName;
       object["bankrupt"] = objectToSend["bankrupt"] || false;
       object["price"] = objectToSend["price"] || 0;
       object["forcedSale"] = objectToSend["forcedSale"] || false;
@@ -219,6 +220,10 @@ This Option may be sold to another Player now or at the next real estate card dr
     } else if (typeDropdown === "land") {
       object["size"] = objectToSend["size"] || 5;
       object["price"] = objectToSend["price"] || 0;
+    } else if (typeDropdown === "Trade Improves/Recession Strikes") {
+      object["title"] = objectToSend["title"] || "";
+      object["description"] = objectToSend["description"] || "";
+      object["amount"] = objectToSend["amount"] || 0;
     }
   }
 
@@ -436,6 +441,11 @@ This Option may be sold to another Player now or at the next real estate card dr
           ["regular", "call", "put", "short"],
           "stock type"
         )
+      );
+    }
+    if (typeDropdown === "stock" && cardType === "market") {
+      mapping.unshift(
+        generateDropdown(cardName, setcardName, ["OK4U", "MYT4U"], "Stock Name")
       );
     }
     if (cardType === "doodad") {
@@ -739,6 +749,7 @@ This Option may be sold to another Player now or at the next real estate card dr
                 "realestate Exchange",
                 "d2y",
                 "land",
+                "Trade Improves/Recession Strikes",
               ])
             : ""}
           <button type="submit">Submit</button>
