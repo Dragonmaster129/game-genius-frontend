@@ -224,6 +224,10 @@ This Option may be sold to another Player now or at the next real estate card dr
       object["title"] = objectToSend["title"] || "";
       object["description"] = objectToSend["description"] || "";
       object["amount"] = objectToSend["amount"] || 0;
+    } else if (typeDropdown === "Insurance") {
+      object["title"] = objectToSend["title"] || "All Risk Insurance Offered";
+      object["description"] = objectToSend["description"] || "";
+      object["cost"] = objectToSend["cost"] || 200;
     }
   }
 
@@ -750,6 +754,7 @@ This Option may be sold to another Player now or at the next real estate card dr
                 "d2y",
                 "land",
                 "Trade Improves/Recession Strikes",
+                "Insurance",
               ])
             : ""}
           <button type="submit">Submit</button>

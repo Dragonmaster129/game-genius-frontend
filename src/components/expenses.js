@@ -52,6 +52,11 @@ const Expenses = (props) => {
         ) : (
           ""
         )}
+        {props.props.insurance != 0 ? (
+          <h3>Insurance Cost: {props.props.insurance}</h3>
+        ) : (
+          ""
+        )}
       </div>
       <div className="v">
         <h3>Number of Children: {props.props.child[0].count}</h3>
