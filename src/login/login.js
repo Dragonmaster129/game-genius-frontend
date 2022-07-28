@@ -15,11 +15,6 @@ const Login = (props) => {
   function SuccessfulLogin(token) {
     let redirect = document.getElementById("redirect");
     props.setcredentials(token[0]);
-    if (token[1] == 0) {
-      props.setauth(false);
-    } else {
-      props.setauth(true);
-    }
     redirect.click();
   }
 
