@@ -89,7 +89,11 @@ const Router = (props) => {
           <Route
             path="/play"
             element={
-              <App credentials={credentials} gameCreator={gameCreator} />
+              <App
+                credentials={credentials}
+                gameCreator={gameCreator}
+                gameID={gameID}
+              />
             }
           />
         ) : (

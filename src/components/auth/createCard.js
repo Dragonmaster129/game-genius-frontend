@@ -190,7 +190,6 @@ const CreateCard = (props) => {
   function beginningSetup(object, stockCount, realestateCount) {
     object["title"] = "Your Beginning Investment Portfolio";
     object["stock"] = [];
-    console.log(objectToSend["stock"]);
     for (let index = 0; index < stockCount; index++) {
       object["stock"][index] = objectToSend["stock"][index] || {
         name: "",
@@ -237,7 +236,6 @@ const CreateCard = (props) => {
     axios
       .get(`${SERVER_HOST}/cards`)
       .then((res) => {
-        console.log(res);
         setcardList(res.data);
       })
       .catch((err) => console.log(err));
@@ -250,6 +248,12 @@ const CreateCard = (props) => {
     let value = target.value;
     if (target.type === "checkbox") {
       value = target.checked;
+    } else {
+      try {
+        value = target.valueAsNumber;
+      } catch (error) {
+        console.log(error);
+      }
     }
     keys.forEach((element) => {
       smallObject[element] = objectToSend[element];
@@ -272,7 +276,7 @@ const CreateCard = (props) => {
       <div key={key} className="v">
         <label>{key[0].toUpperCase() + key.substring(1)}</label>
         <input
-          type={type}
+          type={`${type}`}
           name={key}
           value={value}
           onChange={HandleChange}
@@ -357,10 +361,6 @@ const CreateCard = (props) => {
           return objectToSend[key].map((field, littleKey) => {
             return Object.keys(field).map((fieldKey) => {
               if (typeof field[fieldKey] === "string") {
-                console.log(
-                  key + "." + littleKey + "." + fieldKey,
-                  field[fieldKey]
-                );
                 return generateInput(
                   key + "." + littleKey + "." + fieldKey,
                   "text",
@@ -512,6 +512,7 @@ const CreateCard = (props) => {
           newCardList[cardType].push(objectToSend);
           setcardList(newCardList);
           setobjectToSend(format[cardType]);
+          setpreviousCardType("none");
           setresult(res.data);
         })
         .catch((err) => {
@@ -527,10 +528,13 @@ const CreateCard = (props) => {
         })
         .then((res) => {
           let newCardList = DuplicateCardDataForEditing();
+          objectToSend["ID"] = cardID;
           newCardList[cardType] = newCardList[cardType].map((card) =>
             card["ID"] === cardID ? objectToSend : card
           );
-          setobjectToSend({ card: {} });
+          setcardList(newCardList);
+          setobjectToSend(format[cardType]);
+          setpreviousCardType("none");
           setresult(res.data);
           setcurrentMode("create");
         })
@@ -556,9 +560,11 @@ const CreateCard = (props) => {
                   },
                 })
                 .then((res) => {
-                  console.log(res.data);
+                  let data = res.data;
+                  setcardID(data.ID);
+                  delete data["ID"];
                   setcurrentMode("edit");
-                  setobjectToSend(res.data);
+                  setobjectToSend(data);
                   setcardType(collection);
                   if (collection === "beginning") {
                     setbeginningRealestateCount(res.data.realestate.length);
@@ -694,6 +700,19 @@ const CreateCard = (props) => {
             : ""}
           <button type="submit">Submit</button>
         </form>
+        {currentMode === "edit" ? (
+          <button
+            onClick={() => {
+              setobjectToSend(format[cardType]);
+              setpreviousCardType("none");
+              setcurrentMode("create");
+            }}
+          >
+            Exit Edit Mode
+          </button>
+        ) : (
+          ""
+        )}
       </div>
       <div className="card-wrapper">
         <div>
