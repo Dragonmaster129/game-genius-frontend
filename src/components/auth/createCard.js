@@ -139,33 +139,7 @@ const CreateCard = (props) => {
         for (const key in format[cardType]) {
           object[key] = objectToSend[key] || "";
         }
-        object["type"] = typeDropdown;
-        object["target"] = targetPlayer;
-        if (typeDropdown === "realestate") {
-          object["name"] = cardName;
-          object["highest"] = objectToSend["highest"] || false;
-          object["size"] = objectToSend["size"] || 1;
-          object["price"] = objectToSend["price"] || 0;
-          object["forcedSale"] = objectToSend["forcedSale"] || false;
-        } else if (typeDropdown === "realestate Exchange") {
-          object["newProperty"] = {
-            name: cardName,
-            size: objectToSend["newProperty"]["size"] || 1,
-            cost: objectToSend["newProperty"]["cost"] || 0,
-            mortgage: objectToSend["newProperty"]["mortgage"] || 0,
-            downpay: objectToSend["newProperty"]["downpay"] || 0,
-            value: objectToSend["newProperty"]["value"] || 0,
-          };
-        } else if (typeDropdown === "stock") {
-          object["bankrupt"] = objectToSend["bankrupt"] || false;
-          object["price"] = objectToSend["price"] || 0;
-          object["forcedSale"] = objectToSend["forcedSale"] || false;
-        } else if (typeDropdown === "d2y") {
-          object["value"] = objectToSend["value"] || 7000;
-        } else if (typeDropdown === "land") {
-          object["size"] = objectToSend["size"] || 5;
-          object["price"] = objectToSend["price"] || 0;
-        }
+        marketSetup(object);
       } else if (cardType === "beginning") {
         beginningSetup(object, beginningStockCount, beginningRealestateCount);
       } else if (cardType === "doodad") {
@@ -174,6 +148,14 @@ const CreateCard = (props) => {
     } else {
       if (cardType === "beginning") {
         beginningSetup(object, object.stock.length, object.realestate.length);
+      } else if (cardType === "market") {
+        object = {};
+        for (const key in format[cardType]) {
+          object[key] = objectToSend[key] || "";
+        }
+        marketSetup(object);
+      } else if (cardType === "doodad") {
+        object["category"] = doodadCategory;
       }
     }
     setobjectToSend(object);
@@ -185,7 +167,38 @@ const CreateCard = (props) => {
     targetPlayer,
     beginningStockCount,
     beginningRealestateCount,
+    doodadCategory,
   ]);
+
+  function marketSetup(object) {
+    object["type"] = typeDropdown;
+    object["target"] = targetPlayer;
+    if (typeDropdown === "realestate") {
+      object["name"] = cardName;
+      object["highest"] = objectToSend["highest"] || false;
+      object["size"] = objectToSend["size"] || 1;
+      object["price"] = objectToSend["price"] || 0;
+      object["forcedSale"] = objectToSend["forcedSale"] || false;
+    } else if (typeDropdown === "realestate Exchange") {
+      object["newProperty"] = {
+        name: cardName,
+        size: objectToSend["newProperty"]["size"] || 1,
+        cost: objectToSend["newProperty"]["cost"] || 0,
+        mortgage: objectToSend["newProperty"]["mortgage"] || 0,
+        downpay: objectToSend["newProperty"]["downpay"] || 0,
+        value: objectToSend["newProperty"]["value"] || 0,
+      };
+    } else if (typeDropdown === "stock") {
+      object["bankrupt"] = objectToSend["bankrupt"] || false;
+      object["price"] = objectToSend["price"] || 0;
+      object["forcedSale"] = objectToSend["forcedSale"] || false;
+    } else if (typeDropdown === "d2y") {
+      object["value"] = objectToSend["value"] || 7000;
+    } else if (typeDropdown === "land") {
+      object["size"] = objectToSend["size"] || 5;
+      object["price"] = objectToSend["price"] || 0;
+    }
+  }
 
   function beginningSetup(object, stockCount, realestateCount) {
     object["title"] = "Your Beginning Investment Portfolio";
@@ -585,6 +598,11 @@ const CreateCard = (props) => {
                   if (collection === "beginning") {
                     setbeginningRealestateCount(res.data.realestate.length);
                     setbeginningStockCount(res.data.stock.length);
+                  } else if (collection === "market") {
+                    setcardName(res.data.name);
+                  } else if (collection === "doodad") {
+                    console.log(res.data);
+                    setdoodadCategory(res.data.category);
                   }
                 })
                 .catch((err) => console.log(err));
