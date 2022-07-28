@@ -127,6 +127,9 @@ const App = (props) => {
             .then((res) => {
               console.log(res.data);
               setcard(res.data);
+              if (name === "Market") {
+                setcurrentEvent({ EVENT: "CARD" });
+              }
             })
             .catch((err) => {
               console.log(err);

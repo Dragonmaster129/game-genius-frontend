@@ -249,10 +249,8 @@ const CreateCard = (props) => {
     if (target.type === "checkbox") {
       value = target.checked;
     } else {
-      try {
+      if (target.type === "number") {
         value = target.valueAsNumber;
-      } catch (error) {
-        console.log(error);
       }
     }
     keys.forEach((element) => {
@@ -435,14 +433,32 @@ const CreateCard = (props) => {
       );
     }
     if (typeDropdown === "realestate" && cardType !== "doodad") {
-      mapping.unshift(
-        generateDropdown(
-          cardName,
-          setcardName,
-          ["starterhouse", "duplex", "4-plex", "8-plex", "apartmentcomplex"],
-          "Realestate Name"
-        )
-      );
+      if (cardType === "market") {
+        mapping.unshift(
+          generateDropdown(
+            cardName,
+            setcardName,
+            [
+              "starterhouse",
+              "plex",
+              "duplex",
+              "4-plex",
+              "8-plex",
+              "apartmentcomplex",
+            ],
+            "Realestate Name"
+          )
+        );
+      } else {
+        mapping.unshift(
+          generateDropdown(
+            cardName,
+            setcardName,
+            ["starterhouse", "duplex", "4-plex", "8-plex", "apartmentcomplex"],
+            "Realestate Name"
+          )
+        );
+      }
     }
     if (typeDropdown === "d2y" && cardType === "cashflow") {
       mapping.unshift(
