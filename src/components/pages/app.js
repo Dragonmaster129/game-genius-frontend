@@ -56,10 +56,8 @@ const App = (props) => {
       let data = JSON.parse(event.data);
       if (data.EVENT) {
         setcurrentEvent(data);
-      } else if (data.description) {
-        setcard(data);
       } else {
-        console.log(data);
+        setcard(data);
       }
     };
 
@@ -125,8 +123,6 @@ const App = (props) => {
               gameID: props.gameID,
             })
             .then((res) => {
-              console.log(res.data);
-              setcard(res.data);
               if (name === "Market") {
                 setcurrentEvent({ EVENT: "CARD" });
               }
@@ -321,6 +317,7 @@ const App = (props) => {
                   } else {
                     return (
                       <input
+                        key={option}
                         value={buySellAmount}
                         onChange={(event) => {
                           setbuySellAmount(event.target.valueAsNumber);

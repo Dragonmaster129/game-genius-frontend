@@ -178,6 +178,15 @@ const CreateCard = (props) => {
       object["card"]["cost"] = objectToSend["card"]["cost"] || 25000;
       object["card"]["downpay"] = objectToSend["card"]["downpay"] || 25000;
       object["card"]["value"] = objectToSend["card"]["value"] || 380;
+    } else if (typeDropdown === "option On Realestate") {
+      delete object["card"];
+      object["title"] = objectToSend["title"] || "Option on Real Estate";
+      object["price"] = objectToSend["price"] || 1000;
+      object["description"] =
+        objectToSend["description"] ||
+        `For $[price] now, you may take the next realestate deal drawn by any other Player and pay the price and terms stated on the card. The $[price] is NOT part of the Down Payment.
+Option expires with next real estate deal drawn. If this Option isn't used or sold then deal goes back to Player who drew it.
+This Option may be sold to another Player now or at the next real estate card drawn. Hold this card until then.`;
     }
   }
 
@@ -719,6 +728,7 @@ const CreateCard = (props) => {
                 "d2y",
                 "royalty",
                 "dividend",
+                "option On Realestate",
               ])
             : ""}
           {cardType == "doodad" ? ShowCreateCardChoices([]) : ""}

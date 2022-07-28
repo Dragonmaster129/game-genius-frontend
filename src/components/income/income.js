@@ -8,13 +8,14 @@ const Income = (props) => {
   const [dividendsIsOpen, setdividendsIsOpen] = useState(false);
   const [realIsOpen, setrealIsOpen] = useState(false);
   const [landIsOpen, setlandIsOpen] = useState(false);
+  const [businessIsOpen, setbusinessIsOpen] = useState(false);
   const showData = (dataArr, isOpen) => {
     if (isOpen) {
       return dataArr.map((item) => {
         return (
           <div className="item hz" key={item.key}>
             <div>{item.name}:</div>
-            <div>{item.value.toLocaleString("en-US")}</div>
+            <div>{item.value ? item.value.toLocaleString("en-US") : ""}</div>
           </div>
         );
       });
@@ -53,6 +54,15 @@ const Income = (props) => {
             className="land"
             title="Land"
             totalValue={totalUp(props.props.land)}
+          />
+          <Category
+            showData={showData}
+            items={props.props.business}
+            isOpen={businessIsOpen}
+            click={() => setbusinessIsOpen(!businessIsOpen)}
+            className="business"
+            title="Business"
+            totalValue={totalUp(props.props.business)}
           />
         </div>
         <div className="v income-main">
