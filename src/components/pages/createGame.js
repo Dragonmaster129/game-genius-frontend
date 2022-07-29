@@ -31,7 +31,7 @@ const CreateGame = (props) => {
           type="text"
           value={gameName}
           onChange={(event) => {
-            setgameName(event.target.valueAsNumber);
+            setgameName(event.target.value);
           }}
         ></input>
         <button type="submit">CREATE GAME!!!</button>

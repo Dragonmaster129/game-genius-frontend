@@ -18,14 +18,14 @@ const SelectGame = (props) => {
   }, []);
 
   function ShowGameList() {
-    return gameList.map((game) => {
+    return gameList.map((game, key) => {
       return (
-        <div key={game.ID}>
-          <h3 onClick={() => joinGame(game.ID)}>
+        <div key={game.ID} className="game-item">
+          <div onClick={() => joinGame(game.ID)}>
             <Link to="/play" key={game.ID} className="gameLink">
-              {game.name ? game.name : game.ID}
+              <h3>{game.name ? game.name : game.ID}</h3>
             </Link>
-          </h3>
+          </div>
         </div>
       );
     });
@@ -36,11 +36,13 @@ const SelectGame = (props) => {
   }
 
   return (
-    <div>
-      <Link to="/create-game" className="gameLink create">
-        Create Game
-      </Link>
-      {ShowGameList()}
+    <div className="select-game-wrapper">
+      <div className="select-game">
+        <Link to="/create-game" className="gameLink create">
+          Create Game
+        </Link>
+        {ShowGameList()}
+      </div>
     </div>
   );
 };

@@ -1,10 +1,41 @@
-.gameLink {
-  color: #cea135;
-  text-decoration: none;
-  font-size: 2rem;
-}
+.select-game-wrapper {
+  display: flex;
+  margin: 20px;
+  justify-content: center;
+  height: 95vh;
 
-.create {
-  color: purple;
-  background-color: #cea135;
+  .select-game {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    align-content: flex-start;
+
+    .game-item {
+      border: 1px solid #cea135;
+      border-radius: 1px;
+      background-color: purple;
+      height: 40px;
+    }
+
+    .gameLink {
+      display: flex;
+      color: #cea135;
+      text-decoration: none;
+      font-size: 2rem;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      width: 175px;
+      padding: 5px;
+    }
+
+    .create {
+      color: purple;
+      height: 30px;
+      background-color: #cea135;
+      border: 1px solid #cea135;
+      font-weight: 700;
+    }
+  }
 }
