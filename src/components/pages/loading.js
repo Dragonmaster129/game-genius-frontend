@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Loading = (props) => {
-  return <h1>Loading</h1>;
+  return (
+    <div className="loading-page-wrapper">
+      <div>
+        <h1>Loading</h1>
+      </div>
+    </div>
+  );
 };
 
 export default Loading;
