@@ -18,6 +18,8 @@ const App = (props) => {
   const [currentEvent, setcurrentEvent] = useState({ EVENT: "STARTGAME" });
   const [paycheckCount, setpaycheckCount] = useState(0);
   const [buySellAmount, setbuySellAmount] = useState(1);
+  const [loanTypes, setloanTypes] = useState({});
+  const [loanAmount, setloanAmount] = useState(1000);
   const [card, setcard] = useState({});
   const [windowDimenion, detectHW] = useState({
     winWidth: window.innerWidth,
@@ -123,6 +125,17 @@ const App = (props) => {
               gameID: props.gameID,
             })
             .then((res) => {
+              let data = res.data;
+              if (
+                data.mortgage ||
+                data.car ||
+                data.loan ||
+                data.creditCard ||
+                data.school ||
+                data.retail
+              ) {
+                setloanTypes(res.data);
+              }
               if (name === "Market") {
                 setcurrentEvent({ EVENT: "CARD" });
               }
@@ -241,6 +254,64 @@ const App = (props) => {
     });
   }
 
+  function sellLiability(loanType) {
+    axios
+      .post(`${SERVER_HOST}/pay-for-loan`, {
+        ID: props.credentials,
+        gameID: props.gameID,
+        loanType: loanType,
+        amount: loanAmount,
+      })
+      .then((res) => {
+        setdata(res.data);
+        setloanTypes({});
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function ShowLiabilities() {
+    return Object.keys(loanTypes).map((loanType) => {
+      if (loanType === "loan") {
+        return (
+          <div key={loanType}>
+            <div
+              onClick={() => {
+                sellLiability(loanType);
+              }}
+            >
+              <h2>{loanType}</h2>
+              <h2>{loanTypes[loanType]}</h2>
+            </div>
+            <input
+              type="number"
+              value={loanAmount}
+              onChange={({ target }) => {
+                if (target.valueAsNumber % 1000 === 999) {
+                  setloanAmount(Math.floor(target.valueAsNumber / 1000) * 1000);
+                } else {
+                  setloanAmount(Math.ceil(target.valueAsNumber / 1000) * 1000);
+                }
+              }}
+            ></input>
+          </div>
+        );
+      }
+      return (
+        <div
+          key={loanType}
+          onClick={() => {
+            sellLiability(loanType);
+          }}
+        >
+          <h2>{loanType}</h2>
+          <h2>{loanTypes[loanType][0]["totalCost"]}</h2>
+        </div>
+      );
+    });
+  }
+
   if (currentEvent.EVENT == "STARTGAME") {
     return (
       <div>
@@ -346,6 +417,11 @@ const App = (props) => {
                 ) : (
                   ""
                 )}
+                {currentEvent.EVENT !== "OTHERPLAYERSTURN" ? (
+                  <div>{actionButton("pay-back-loan", "Pay Back Loan")}</div>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
             <hr />
@@ -418,7 +494,10 @@ const App = (props) => {
             ) : (
               ""
             )}
-            {ShowNegativeValues()}
+            <div className="v sell-values">
+              {ShowNegativeValues()}
+              {ShowLiabilities()}
+            </div>
           </div>
           <div>
             <h3>
