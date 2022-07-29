@@ -1,8 +1,16 @@
-.login {
-  font-size: 20px;
-  width: 200px;
+.login-page-wrapper {
+  display: flex;
+  margin: 20px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-  input {
+  .login-form {
     font-size: 20px;
+    width: 200px;
+
+    input {
+      font-size: 20px;
+    }
   }
 }

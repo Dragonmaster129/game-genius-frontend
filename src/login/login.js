@@ -39,29 +39,35 @@ const Login = (props) => {
       });
   }
   return (
-    <div>
-      <h2>Please login</h2>
-      <Link className="hidden" id="redirect" to="/choose-game" />
-      <form onSubmit={onSubmit} className="v login">
-        <label>Email</label>
-        <input
-          type="email"
-          onChange={(event) => {
-            setemail(event.target.value);
-          }}
-          value={email}
-        ></input>
-        <label>Password</label>
-        <input
-          type="password"
-          onChange={(event) => {
-            setpassword(event.target.value);
-          }}
-          value={password}
-        ></input>
-        {fail == "FAIL" ? <h3>Login Credentials Incorrect</h3> : ""}
-        <button type="submit">LOGIN!</button>
-      </form>
+    <div className="login-page-wrapper">
+      <div className="login-page">
+        <h2>Please login</h2>
+        <Link className="hidden" id="redirect" to="/choose-game" />
+        <form onSubmit={onSubmit} className="v login-form">
+          <label>Email</label>
+          <input
+            type="email"
+            onChange={(event) => {
+              setemail(event.target.value);
+            }}
+            value={email}
+            className="email"
+          ></input>
+          <label>Password</label>
+          <input
+            type="password"
+            onChange={(event) => {
+              setpassword(event.target.value);
+            }}
+            value={password}
+            className="password"
+          ></input>
+          {fail == "FAIL" ? <h3>Login Credentials Incorrect</h3> : ""}
+          <button type="submit" className="login-button">
+            LOGIN!
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
