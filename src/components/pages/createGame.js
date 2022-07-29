@@ -24,18 +24,24 @@ const CreateGame = (props) => {
   }
 
   return (
-    <div>
-      <Link to="/play" className="hidden" id="redirect"></Link>
-      <form onSubmit={createGame} className="v eigth">
-        <input
-          type="text"
-          value={gameName}
-          onChange={(event) => {
-            setgameName(event.target.value);
-          }}
-        ></input>
-        <button type="submit">CREATE GAME!!!</button>
-      </form>
+    <div className="create-game-wrapper">
+      <div className="create-game">
+        <Link to="/play" className="hidden" id="redirect"></Link>
+        <form onSubmit={createGame} className="v eigth">
+          <label className="game-name label">Game Name</label>
+          <input
+            type="text"
+            value={gameName}
+            onChange={(event) => {
+              setgameName(event.target.value);
+            }}
+            className="game-name"
+          ></input>
+          <button type="submit" className="game-button">
+            CREATE GAME!!!
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
