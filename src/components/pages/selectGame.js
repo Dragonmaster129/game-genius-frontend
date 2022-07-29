@@ -10,7 +10,6 @@ const SelectGame = (props) => {
     axios
       .get(`${SERVER_HOST}/games`)
       .then((res) => {
-        console.log(res);
         setgameList(res.data);
       })
       .catch((err) => {
@@ -22,8 +21,8 @@ const SelectGame = (props) => {
     return gameList.map((game) => {
       return (
         <div key={game.ID}>
-          <h3 onClick={joinGame}>
-            <Link to="/play" className="gameLink">
+          <h3 onClick={() => joinGame(game.ID)}>
+            <Link to="/play" key={game.ID} className="gameLink">
               {game.name ? game.name : game.ID}
             </Link>
           </h3>
@@ -32,8 +31,8 @@ const SelectGame = (props) => {
     });
   }
 
-  function joinGame(event) {
-    props.setgameID(event.target.key);
+  function joinGame(ID) {
+    props.setgameID(ID);
   }
 
   return (

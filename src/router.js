@@ -21,11 +21,11 @@ const Router = (props) => {
 
   function getToken() {
     let token = "1";
-    // let TokenDate = localStorage.getItem("TokenDate") || 0;
-    // if (new Date().valueOf() - TokenDate < 2 * 60 * 60 * 1000) {
-    // 2 hours
-    // token = localStorage.getItem("Token");
-    // }
+    let TokenDate = localStorage.getItem("TokenDate") || 0;
+    if (new Date().valueOf() - TokenDate < 2 * 60 * 60 * 1000) {
+      // 2 hours
+      token = localStorage.getItem("Token");
+    }
     return token;
   }
 

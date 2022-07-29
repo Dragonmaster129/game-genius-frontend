@@ -7,7 +7,7 @@ const Heading = (props) => {
       <div className="hz">
         <h2>Profession: {props.data.profession}</h2>
         <h2>Player: {props.data.player}</h2>
-        <h2>Auditor: {props.data.auditor}</h2>
+        <h2>Auditor: CPU</h2>
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ const CreateCard = (props) => {
   const [previousCardType, setpreviousCardType] = useState("");
   const [stockOption, setstockOption] = useState("regular");
   const [d2yOption, setd2yOption] = useState("card1");
-  const [targetPlayer, settargetPlayer] = useState("player");
+  const [targetPlayer, settargetPlayer] = useState("you");
   const [cardName, setcardName] = useState("starterhouse");
   const [doodadCategory, setdoodadCategory] = useState("other");
   const [beginningStockCount, setbeginningStockCount] = useState(0);
@@ -193,7 +193,27 @@ This Option may be sold to another Player now or at the next real estate card dr
   function marketSetup(object) {
     object["type"] = typeDropdown;
     object["target"] = targetPlayer;
-    if (typeDropdown === "realestate") {
+    if (typeDropdown === "realestate deal") {
+      try {
+        object["card"] = {};
+        object["card"]["name"] = cardName;
+        object["card"]["size"] = objectToSend["card"]["size"] || 1;
+        object["card"]["cost"] = objectToSend["card"]["cost"] || 0;
+        object["card"]["mortgage"] = objectToSend["card"]["mortgage"] || 0;
+        object["card"]["downpay"] = objectToSend["card"]["downpay"] || 0;
+        object["card"]["value"] = objectToSend["card"]["value"] || 0;
+      } catch (err) {
+        object["card"] = {
+          type: "realestate",
+          name: cardName,
+          size: 1,
+          cost: 0,
+          mortgage: 0,
+          downpay: 0,
+          value: 0,
+        };
+      }
+    } else if (typeDropdown === "realestate sell") {
       object["name"] = cardName;
       object["highest"] = objectToSend["highest"] || false;
       object["size"] = objectToSend["size"] || 1;
@@ -228,6 +248,13 @@ This Option may be sold to another Player now or at the next real estate card dr
       object["title"] = objectToSend["title"] || "All Risk Insurance Offered";
       object["description"] = objectToSend["description"] || "";
       object["cost"] = objectToSend["cost"] || 200;
+    } else if (typeDropdown === "Natural Disaster") {
+      object["title"] = objectToSend["title"] || "Natural Disaster!";
+      object["description"] = objectToSend["description"] || "";
+    } else if (typeDropdown === "Pollution Found") {
+      object["title"] = objectToSend["title"] || "Pollution Found";
+      object["description"] = objectToSend["description"] || "";
+      object["target"] = targetPlayer;
     }
   }
 
@@ -367,7 +394,7 @@ This Option may be sold to another Player now or at the next real estate card dr
         return generateDropdown(
           targetPlayer,
           settargetPlayer,
-          ["you", "right", "all"],
+          ["you", "right", "all", "playerToRightAll"],
           "Target Player"
         );
       } else if (key === "description") {
@@ -416,7 +443,7 @@ This Option may be sold to another Player now or at the next real estate card dr
               return generateDropdown(
                 targetPlayer,
                 settargetPlayer,
-                ["you", "right", "all"],
+                ["you", "right", "all", "playerToRightAll"],
                 "Target Player"
               );
             }
@@ -463,8 +490,11 @@ This Option may be sold to another Player now or at the next real estate card dr
       );
     }
     if (
-      typeDropdown === "realestate" ||
-      (typeDropdown === "realestate Exchange" && cardType !== "doodad")
+      (typeDropdown === "realestate" ||
+        typeDropdown === "realestate deal" ||
+        typeDropdown === "realestate sell" ||
+        typeDropdown === "realestate Exchange") &&
+      cardType !== "doodad"
     ) {
       if (cardType === "market") {
         mapping.unshift(
@@ -749,12 +779,15 @@ This Option may be sold to another Player now or at the next real estate card dr
           {cardType == "market"
             ? ShowCreateCardChoices([
                 "stock",
-                "realestate",
+                "realestate deal",
+                "realestate sell",
                 "realestate Exchange",
                 "d2y",
                 "land",
                 "Trade Improves/Recession Strikes",
                 "Insurance",
+                "Natural Disaster",
+                "Pollution Found",
               ])
             : ""}
           <button type="submit">Submit</button>
