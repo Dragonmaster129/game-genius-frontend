@@ -314,22 +314,28 @@ const App = (props) => {
 
   if (currentEvent.EVENT == "STARTGAME") {
     return (
-      <div>
+      <div className="start-game-wrapper">
         {props.gameCreator ? (
-          <button
-            onClick={() => {
-              axios
-                .post(`${SERVER_HOST}/start-game`, { ID: props.gameID })
-                .then((res) => {})
-                .catch((err) => {
-                  console.log(err);
-                });
-            }}
-          >
-            START GAME!
-          </button>
+          <div className="start-game">
+            <label className="start-game-label">Click the button to</label>
+            <button
+              className="start-game-button"
+              onClick={() => {
+                axios
+                  .post(`${SERVER_HOST}/start-game`, { ID: props.gameID })
+                  .then((res) => {})
+                  .catch((err) => {
+                    console.log(err);
+                  });
+              }}
+            >
+              START GAME!
+            </button>
+          </div>
         ) : (
-          <h1>waiting for game to start</h1>
+          <div className="start-game-wrapper">
+            <h1>Waiting for game to start</h1>
+          </div>
         )}
       </div>
     );
