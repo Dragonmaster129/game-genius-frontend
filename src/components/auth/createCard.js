@@ -196,6 +196,7 @@ This Option may be sold to another Player now or at the next real estate card dr
     if (typeDropdown === "realestate deal") {
       try {
         object["card"] = {};
+        object["card"]["type"] = typeDropdown;
         object["card"]["name"] = cardName;
         object["card"]["size"] = objectToSend["card"]["size"] || 1;
         object["card"]["cost"] = objectToSend["card"]["cost"] || 0;
