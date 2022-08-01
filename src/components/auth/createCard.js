@@ -302,8 +302,6 @@ This Option may be sold to another Player now or at the next real estate card dr
     } else {
       if (target.type === "number") {
         value = target.valueAsNumber;
-      } else if (target.type === "text" && key !== "title") {
-        value = value.toUpperCase();
       }
     }
     keys.forEach((element) => {
