@@ -63,6 +63,11 @@ const Login = (props) => {
             className="password"
           ></input>
           {fail == "FAIL" ? <h3>Login Credentials Incorrect</h3> : ""}
+          <label>
+            <h4 className="sign-up-link">
+              Don't have an account? <Link to="/signup">Sign up here.</Link>
+            </h4>
+          </label>
           <button type="submit" className="login-button">
             LOGIN!
           </button>

@@ -10,6 +10,7 @@ import Login from "./login/login";
 import Loading from "./components/pages/loading";
 import Auth from "./login/auth";
 import { SERVER_HOST } from "./components/constants";
+import SignUp from "./components/pages/signup";
 
 const Router = (props) => {
   const [credentials, setcredentials] = useState(getToken());
@@ -68,11 +69,13 @@ const Router = (props) => {
         <Route
           path="/login"
           element={
-            <Login
-              credentials={credentials}
-              setcredentials={setcredentials}
-              gameID={gameID}
-            />
+            <Login credentials={credentials} setcredentials={setcredentials} />
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <SignUp credentials={credentials} setcredentials={setcredentials} />
           }
         />
         <Route

@@ -12,5 +12,22 @@
     input {
       font-size: 20px;
     }
+
+    .sign-up-link {
+      margin-bottom: 3px;
+      font-size: 15px;
+
+      a {
+        text-decoration: none;
+        color: lightblue;
+        transition: all 1s linear;
+        border-bottom: 2px transparent blue;
+
+        &:hover {
+          color: blue;
+          border-bottom: 2px solid blue;
+        }
+      }
+    }
   }
 }
