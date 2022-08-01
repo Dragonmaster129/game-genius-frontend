@@ -13,8 +13,6 @@ const App = (props) => {
   const [data, setdata] = useState(externalData);
 
   const [choiceToStay, setchoiceToStay] = useState(true);
-  const [currentAction, setcurrentAction] = useState("NONE");
-  const [borrowLoan, setborrowLoan] = useState("NONE");
   const [currentEvent, setcurrentEvent] = useState({ EVENT: "STARTGAME" });
   const [paycheckCount, setpaycheckCount] = useState(0);
   const [buySellAmount, setbuySellAmount] = useState(1);
@@ -85,7 +83,7 @@ const App = (props) => {
   const shrinkPlayer = () => {
     if (
       windowDimenion.winWidth <= 650 &&
-      (currentAction != "NONE" || borrowLoan != "NONE")
+      (card.description || Object.keys(loanTypes).length != 0)
     ) {
       return true;
     }
@@ -98,22 +96,12 @@ const App = (props) => {
     });
   };
 
-  const onChange = (setvalue) => {
-    setcurrentAction(setvalue);
-  };
-
   const resetGame = () => {
     axios
       .post(`${SERVER_HOST}/reset/${props.credentials}`, { reset: true })
       .then((res) => getData())
       .catch((err) => console.log(err));
   };
-
-  function buttonResults(res) {
-    setcard(res.data);
-    setcurrentEvent({ EVENT: "CAPITALGAIN" });
-    setcurrentAction("CAPITALGAIN");
-  }
 
   function actionButton(path, name) {
     return (
@@ -189,7 +177,7 @@ const App = (props) => {
                 });
             }}
           >
-            {asset.name}
+            {asset.name}: {asset.amount ? asset.amount : ""}
           </h2>
         );
       } else if (
@@ -424,7 +412,8 @@ const App = (props) => {
                 ) : (
                   ""
                 )}
-                {currentEvent.EVENT !== "OTHERPLAYERSTURN" ? (
+                {currentEvent.EVENT === "STARTTURN" ||
+                currentEvent.EVENT == "ENDTURN" ? (
                   <div>{actionButton("pay-back-loan", "Pay Back Loan")}</div>
                 ) : (
                   ""
