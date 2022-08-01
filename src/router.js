@@ -72,12 +72,7 @@ const Router = (props) => {
             <Login credentials={credentials} setcredentials={setcredentials} />
           }
         />
-        <Route
-          path="/signup"
-          element={
-            <SignUp credentials={credentials} setcredentials={setcredentials} />
-          }
-        />
+        <Route path="/signup" element={<SignUp />} />
         <Route
           path="/auth"
           element={

@@ -126,6 +126,7 @@ const App = (props) => {
             })
             .then((res) => {
               let data = res.data;
+              setloanTypes({});
               if (
                 data.mortgage ||
                 data.car ||
@@ -448,9 +449,14 @@ const App = (props) => {
           </div>
           <div className="centered">
             {card.description ? (
-              <div className="quarter">
+              <div className="card">
                 <h1>{card.title}</h1>
-                <h3>{card.description}</h3>
+                <h3>
+                  {card.description.split("\n").map((item, key) => {
+                    console.log(item);
+                    return <div key={key}>{item}</div>;
+                  })}
+                </h3>
                 {card.options.map((option) => {
                   if (option != "Amount" && option != "Sell") {
                     let optionLink = option;
