@@ -19,6 +19,7 @@ const App = (props) => {
   const [loanTypes, setloanTypes] = useState({});
   const [loanAmount, setloanAmount] = useState(1000);
   const [card, setcard] = useState({});
+  const [expensesIsOpen, setexpensesIsOpen] = useState(false);
   const [windowDimenion, detectHW] = useState({
     winWidth: window.innerWidth,
     winHeight: window.innerHeight,
@@ -106,6 +107,7 @@ const App = (props) => {
   function actionButton(path, name) {
     return (
       <button
+        className="action"
         onClick={(event) => {
           axios
             .post(`${SERVER_HOST}/${path}`, {
@@ -343,11 +345,15 @@ const App = (props) => {
                 props={data.assets}
                 totalIncome={data.totalIncome}
                 passive={data.passive}
+                charity={data.charity}
               />
               {shrinkPlayer() ? "" : <hr />}
               <Expenses
                 props={data.expenses}
                 totalExpenses={data.totalExpenses}
+                isOpen={expensesIsOpen}
+                setisOpen={setexpensesIsOpen}
+                windowDimenion={windowDimenion}
               />
               {shrinkPlayer() ? "" : <hr />}
               <div className="v right">
@@ -358,11 +364,12 @@ const App = (props) => {
               </div>
               {shrinkPlayer() ? "" : <hr />}
               <div className="hz">
-                <Assets props={data.assets} />
+                <Assets props={data.assets} windowDimenion={windowDimenion} />
                 {shrinkPlayer() ? "" : <hr />}
                 <Liabilities
                   props={data.expenses}
                   re={data.assets.realestate}
+                  windowDimenion={windowDimenion}
                 />
               </div>
               <hr />
@@ -372,6 +379,7 @@ const App = (props) => {
                     {(data.charity != 0 && paycheckCount < 2) ||
                     paycheckCount == 0 ? (
                       <button
+                        className="action"
                         onClick={() => {
                           setpaycheckCount(paycheckCount + 1);
                           axios
@@ -505,7 +513,7 @@ const App = (props) => {
           </div>
           <div>
             <h3>
-              <button onClick={resetGame} className="">
+              <button onClick={resetGame} className="action">
                 Reset
               </button>
             </h3>

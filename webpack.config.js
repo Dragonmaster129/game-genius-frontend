@@ -44,7 +44,7 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     // Uncomment to allow other connections
-    // host: "0.0.0.0",
+    host: "0.0.0.0",
     contentBase: "./",
   },
 };

@@ -67,6 +67,7 @@ const Income = (props) => {
         </div>
         <div className="v income-main">
           <h3>Passive Income: {props.passive}</h3>
+          <h3>Charity: {props.charity}</h3>
           <h3>Total Income: {props.totalIncome}</h3>
         </div>
       </div>
