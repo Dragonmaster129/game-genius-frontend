@@ -437,67 +437,70 @@ const App = (props) => {
             )}
           </div>
           <div className="centered">
-            {card.description ? (
-              <div className="card">
-                <h1>{card.title}</h1>
-                <h3>
-                  {card.description.split("\n").map((item, key) => {
-                    console.log(item);
-                    return <div key={key}>{item}</div>;
-                  })}
-                </h3>
-                {card.options.map((option) => {
-                  if (option != "Amount" && option != "Sell") {
-                    let optionLink = option;
-                    optionLink.split(" ").join("_");
-                    return (
-                      <button
-                        onClick={(event) => {
-                          axios
-                            .post(`${SERVER_HOST}/choice/${optionLink}`, {
-                              ID: props.credentials,
-                              gameID: props.gameID,
-                              amount: buySellAmount || 0,
-                            })
-                            .then((res) => {
-                              if (typeof res.data == "object") {
-                                if (res.data.cash) {
-                                  setdata(res.data);
+            <div className="v">
+              {card.description ? (
+                <div className="card">
+                  <h1>{card.title}</h1>
+                  <h3>
+                    {card.description.split("\n").map((item, key) => {
+                      console.log(item);
+                      return <div key={key}>{item}</div>;
+                    })}
+                  </h3>
+                  {card.options.map((option) => {
+                    if (option != "Amount" && option != "Sell") {
+                      let optionLink = option;
+                      optionLink.split(" ").join("_");
+                      return (
+                        <button
+                          onClick={(event) => {
+                            axios
+                              .post(`${SERVER_HOST}/choice/${optionLink}`, {
+                                ID: props.credentials,
+                                gameID: props.gameID,
+                                amount: buySellAmount || 0,
+                              })
+                              .then((res) => {
+                                if (typeof res.data == "object") {
+                                  if (res.data.cash) {
+                                    setdata(res.data);
+                                  }
                                 }
-                              }
-                            })
-                            .catch((err) => {
-                              console.log(err);
-                            });
-                          setcard({});
-                        }}
-                        key={option}
-                      >
-                        {option}
-                      </button>
-                    );
-                  } else if (option == "Amount") {
-                    return (
-                      <input
-                        key={option}
-                        value={buySellAmount}
-                        onChange={(event) => {
-                          setbuySellAmount(event.target.valueAsNumber);
-                        }}
-                        type="number"
-                      ></input>
-                    );
-                  } else if (option == "Sell") {
-                    return sellDropdown(card["type"], card["name"]);
-                  }
-                })}
+                              })
+                              .catch((err) => {
+                                console.log(err);
+                              });
+                            setcard({});
+                          }}
+                          key={option}
+                        >
+                          {option}
+                        </button>
+                      );
+                    } else if (option == "Amount") {
+                      return (
+                        <input
+                          key={option}
+                          value={buySellAmount}
+                          onChange={(event) => {
+                            setbuySellAmount(event.target.valueAsNumber);
+                          }}
+                          type="number"
+                        ></input>
+                      );
+                    } else if (option == "Sell") {
+                      return sellDropdown(card["type"], card["name"]);
+                    }
+                  })}
+                </div>
+              ) : (
+                ""
+              )}
+              <div className="v sell-values">
+                {shrinkPlayer() ? <h2>Cash: {data.cash}</h2> : ""}
+                {ShowNegativeValues()}
+                {ShowLiabilities()}
               </div>
-            ) : (
-              ""
-            )}
-            <div className="v sell-values">
-              {ShowNegativeValues()}
-              {ShowLiabilities()}
             </div>
           </div>
           <div>
