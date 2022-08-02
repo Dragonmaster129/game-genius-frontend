@@ -45,6 +45,7 @@ module.exports = {
     historyApiFallback: true,
     // Uncomment to allow other connections
     host: "0.0.0.0",
+    port: process.env.PORT || 8080,
     contentBase: "./",
   },
 };
