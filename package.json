@@ -10,6 +10,9 @@
     "test1": "clear && jest -t 'buy an item'",
     "test": "clear && jest"
   },
+  "engines": {
+    "node": "15.14"
+  },
   "keywords": [
     "sass",
     "css module"
