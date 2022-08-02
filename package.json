@@ -6,9 +6,9 @@
   "repository": "git@github.com:bottega-code-school/js-builder.git",
   "scripts": {
     "preinstall": "npm set audit false",
-    "build": "webpack --config prod.config.js --watch",
+    "build": "webpack --watch",
     "start": "./node_modules/webpack/bin/webpack.js -p --progress && node server.js",
-    "dev": "webpack-dev-server --config webpack.config.js --watch",
+    "dev": "webpack-dev-server --config dev.config.js --watch",
     "test1": "clear && jest -t 'buy an item'",
     "test": "clear && jest"
   },
