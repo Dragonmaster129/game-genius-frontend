@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { SERVER_HOST } from "../constants";
 
 const CreateGame = (props) => {
-  const [gameName, setgameName] = useState("Pellsers");
+  const [gameName, setgameName] = useState("Game");
 
   function createGame(event) {
     event.preventDefault();
