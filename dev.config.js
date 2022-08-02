@@ -1,18 +1,11 @@
 module.exports = {
-  mode: "production",
   entry: ["./src/index.js"],
-
-  plugins: [
-    new HtmlWebpackPlugin({
-      title: "Production",
-    }),
-  ],
-
   output: {
     path: __dirname,
     publicPath: "/",
     filename: "bundle.js",
   },
+  mode: "development",
   module: {
     rules: [
       {
@@ -47,5 +40,11 @@ module.exports = {
   },
   resolveLoader: {
     moduleExtensions: ["-loader"],
+  },
+  devServer: {
+    historyApiFallback: true,
+    // Uncomment to allow other connections
+    host: "0.0.0.0",
+    contentBase: "./",
   },
 };

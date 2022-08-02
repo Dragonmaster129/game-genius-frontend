@@ -5,7 +5,7 @@ module.exports = {
     publicPath: "/",
     filename: "bundle.js",
   },
-  mode: "development",
+  mode: "production",
   module: {
     rules: [
       {
@@ -40,11 +40,5 @@ module.exports = {
   },
   resolveLoader: {
     moduleExtensions: ["-loader"],
-  },
-  devServer: {
-    historyApiFallback: true,
-    // Uncomment to allow other connections
-    host: "0.0.0.0",
-    contentBase: "./",
   },
 };

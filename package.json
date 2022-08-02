@@ -6,7 +6,9 @@
   "repository": "git@github.com:bottega-code-school/js-builder.git",
   "scripts": {
     "preinstall": "npm set audit false",
-    "start": "webpack-dev-server --config webpack.config.js --watch",
+    "build": "webpack --config prod.config.js --watch",
+    "start": "./node_modules/webpack/bin/webpack.js -p --progress && node server.js",
+    "dev": "webpack-dev-server --config webpack.config.js --watch",
     "test1": "clear && jest -t 'buy an item'",
     "test": "clear && jest"
   },
@@ -35,6 +37,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^5.2.7",
+    "express": "^4.18.1",
     "node-sass": "^4.14.0",
     "postcss-loader": "^4.3.0",
     "react": "16.13.1",
