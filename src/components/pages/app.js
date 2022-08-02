@@ -18,6 +18,7 @@ const App = (props) => {
   const [buySellAmount, setbuySellAmount] = useState(1);
   const [loanTypes, setloanTypes] = useState({});
   const [loanAmount, setloanAmount] = useState(1000);
+  const [skipped, setskipped] = useState(false);
   const [card, setcard] = useState({});
   const [expensesIsOpen, setexpensesIsOpen] = useState(false);
   const [windowDimenion, detectHW] = useState({
@@ -57,6 +58,11 @@ const App = (props) => {
       let data = JSON.parse(event.data);
       if (data.EVENT) {
         setcurrentEvent(data);
+        if (data.EVENT === "STARTTURN") {
+          setskipped(false);
+        }
+      } else if (data === "SKIPPED") {
+        setskipped(true);
       } else {
         setcard(data);
       }
@@ -446,6 +452,13 @@ const App = (props) => {
           </div>
           <div className="centered">
             <div className="v">
+              {currentEvent.EVENT === "SKIPPED" ? (
+                <div>
+                  <h1>You were skipped.</h1>
+                </div>
+              ) : (
+                ""
+              )}
               {card.description ? (
                 <div className="card">
                   <h1>{card.title}</h1>

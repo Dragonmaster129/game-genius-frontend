@@ -45,11 +45,11 @@ const Login = (props) => {
       });
   }
   return (
-    <div>
+    <div className="login-page-wrapper">
       <h2>Please login</h2>
       <Link className="hidden" id="auth-redirect" to="/card/add" />
       <Link className="hidden" id="redirect" to="/choose-game" />
-      <form onSubmit={onSubmit} className="v login">
+      <form onSubmit={onSubmit} className="v login-form">
         <label>Email</label>
         <input
           type="email"
