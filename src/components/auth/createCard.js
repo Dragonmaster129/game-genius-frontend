@@ -679,6 +679,8 @@ This Option may be sold to another Player now or at the next real estate card dr
                       (card) => card["ID"] !== target.accessKey
                     );
                     setcardList(newCardList);
+                  } else {
+                    console.log("delete got empty response");
                   }
                 })
                 .catch((err) => {

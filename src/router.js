@@ -45,6 +45,8 @@ const Router = (props) => {
             setcredentialsWork(true);
             localStorage.setItem("Token", credentials);
             localStorage.setItem("TokenDate", new Date().valueOf());
+          } else {
+            console.log("bad data: ", res);
           }
         }
         setisLoading(false);

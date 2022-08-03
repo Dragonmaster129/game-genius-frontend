@@ -35,6 +35,8 @@ const App = (props) => {
         let result = JSON.parse(res.data);
         if (result != "invalid token") {
           setdata(result.playerData);
+        } else {
+          console.log("invalid token");
         }
       })
       .catch((err) => {
@@ -486,6 +488,11 @@ const App = (props) => {
                                   if (res.data.cash) {
                                     setdata(res.data);
                                   }
+                                } else {
+                                  console.log(
+                                    "choice responed with: ",
+                                    res.data
+                                  );
                                 }
                               })
                               .catch((err) => {
