@@ -26,6 +26,8 @@ const Router = (props) => {
     if (new Date().valueOf() - TokenDate < 2 * 60 * 60 * 1000) {
       // 2 hours
       token = localStorage.getItem("Token");
+    } else {
+      console.log("Token expired");
     }
     return token;
   }
